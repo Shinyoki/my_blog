@@ -1,4 +1,4 @@
-package com.senko.common.utils;
+package com.senko.common.utils.string;
 
 import org.springframework.util.AntPathMatcher;
 
