@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.senko.system.mapper.FriendLinkMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.senko.common.core.entity.FriendLinkEntity" id="friendLinkMap">
+        <result property="id" column="id"/>
+        <result property="linkName" column="link_name"/>
+        <result property="linkAvatar" column="link_avatar"/>
+        <result property="linkAddress" column="link_address"/>
+        <result property="linkIntro" column="link_intro"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.senko.system.mapper.OperationLogMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.senko.common.core.entity.OperationLogEntity" id="operationLogMap">
+        <result property="id" column="id"/>
+        <result property="optModule" column="opt_module"/>
+        <result property="optType" column="opt_type"/>
+        <result property="optUrl" column="opt_url"/>
+        <result property="optMethod" column="opt_method"/>
+        <result property="optDesc" column="opt_desc"/>
+        <result property="requestParam" column="request_param"/>
+        <result property="requestMethod" column="request_method"/>
+        <result property="responseData" column="response_data"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="ipAddress" column="ip_address"/>
+        <result property="ipSource" column="ip_source"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+</mapper>
