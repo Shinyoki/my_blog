@@ -61,9 +61,19 @@ public class ServletUtils
     {
         try
         {
+            //状态码
             response.setStatus(200);
-            response.setContentType("application/json");
+            //数据类型
+            response.setContentType("pplication/json;charset=utf-8");
+            //响应编码方式
             response.setCharacterEncoding("utf-8");
+
+            /**
+             * write()和print()方法的区别：
+             *   (1)、write()：仅支持输出字符类型数据，字符、字符数组、字符串等
+             *   (2)、print()：可以将各种类型（包括Object）的数据通过默认编码转换成bytes字节形式，
+             *   这些字节都通过write(int c)方法被输出
+             */
             response.getWriter().print(string);
         }
         catch (IOException e)

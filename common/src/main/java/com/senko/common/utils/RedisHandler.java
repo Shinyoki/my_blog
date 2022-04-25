@@ -129,4 +129,6 @@ public class RedisHandler {
     public Set<String> getKeys(final String pattern) {
         return redisTemplate.keys(pattern);
     }
+
+    //TODO 完善更多函数
 }

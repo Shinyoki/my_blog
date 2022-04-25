@@ -18,6 +18,10 @@ public enum HttpStatus {
      */
     UNAUTHORIZED(401, "用户未登录"),
     /**
+     * AccessDenied
+     */
+    ACCESS_DENIED(403, "没有操作权限"),
+    /**
      * UNAUTHORIZED
      */
     AuthError(402, "用户名或密码错误"),
@@ -32,11 +36,7 @@ public enum HttpStatus {
     /**
      * 404
      */
-    NotFound(404, "资源未找到"),
-    /**
-     * AccessDenied
-     */
-    AccessDenied(502, "用户没有权限访问");
+    NotFound(404, "资源未找到");
 
     int code;
 
