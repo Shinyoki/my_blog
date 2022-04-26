@@ -12,6 +12,6 @@ import java.util.Map;
  * @date 2022-04-24 16:50:47
  */
 public interface IUserAuthService extends IService<UserAuthEntity> {
-
+    void run();
 }
 

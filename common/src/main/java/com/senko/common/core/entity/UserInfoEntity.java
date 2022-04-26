@@ -1,5 +1,7 @@
 package com.senko.common.core.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -8,7 +10,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ * 用户信息（不含密码
  * 
  * @author senko
  * @date 2022-04-24 16:39:55
@@ -44,16 +46,18 @@ public class UserInfoEntity implements Serializable {
 	 */
 	private String webSite;
 	/**
-	 * 是否禁用
+	 * 是否禁用 0:FALSE 1:TRUE
 	 */
 	private Integer isDisable;
 	/**
 	 * 创建时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
 	/**
 	 * 更新时间
 	 */
+	@TableField(fill = FieldFill.UPDATE)
 	private Date updateTime;
 
 }

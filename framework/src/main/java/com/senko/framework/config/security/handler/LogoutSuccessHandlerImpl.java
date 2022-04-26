@@ -1,5 +1,8 @@
 package com.senko.framework.config.security.handler;
 
+import com.alibaba.fastjson.JSON;
+import com.senko.common.core.AjaxResult;
+import com.senko.common.utils.http.ServletUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -27,6 +30,8 @@ import java.io.IOException;
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        //TODO 退出登录成功处理：清除用户缓存、响应退出成功AjaxResult
+        //罢了，这回不整TOKEN验证，用原来的SessionRegistry吧
+        //统统只返回数据，路由交给前端（
+        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.success("退出成功")));
     }
 }

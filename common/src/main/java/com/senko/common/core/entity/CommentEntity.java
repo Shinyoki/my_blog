@@ -1,5 +1,7 @@
 package com.senko.common.core.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -8,7 +10,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ * 评论
  * 
  * @author senko
  * @date 2022-04-24 16:50:58
@@ -58,10 +60,12 @@ public class CommentEntity implements Serializable {
 	/**
 	 * 评论时间
 	 */
+	@TableField(fill = FieldFill.INSERT)
 	private Date createTime;
 	/**
 	 * 更新时间
 	 */
+	@TableField(fill = FieldFill.UPDATE)
 	private Date updateTime;
 
 }

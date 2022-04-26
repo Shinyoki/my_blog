@@ -12,6 +12,18 @@
     <packaging>jar</packaging>
 
     <dependencies>
+<!--        Spring Boot Test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <exclusions>
+<!--                排除junt4-->
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <!--        数据库连接驱动-->
         <dependency>

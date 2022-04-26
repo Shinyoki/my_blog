@@ -10,4 +10,8 @@ import com.senko.system.service.IUserAuthService;
 @Service("userAuthService")
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEntity> implements IUserAuthService {
 
+    @Override
+    public void run() {
+        System.out.println("==================");
+    }
 }

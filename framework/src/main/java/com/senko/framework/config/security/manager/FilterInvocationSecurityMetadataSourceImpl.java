@@ -1,5 +1,7 @@
 package com.senko.framework.config.security.manager;
 
+import com.senko.system.service.IRoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * Api接口拦截
+ * Api接口拦截（动态权限）
  *
  * 它的主要责任就是当访问一个url时返回这个url所需要的访问权限。
  * XXXSecurityMetadataSource  ==> Object instanceof XXX
@@ -18,6 +20,10 @@ import java.util.Collection;
  */
 @Component
 public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocationSecurityMetadataSource {
+
+    //角色service
+    @Autowired
+    private IRoleService roleService;
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {

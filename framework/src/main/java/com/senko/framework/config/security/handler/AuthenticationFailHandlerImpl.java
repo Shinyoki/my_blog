@@ -2,7 +2,7 @@ package com.senko.framework.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.senko.common.core.AjaxResult;
-import com.senko.common.utils.ServletUtils;
+import com.senko.common.utils.http.ServletUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;

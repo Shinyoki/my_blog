@@ -8,7 +8,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 
+ * 角色菜单
  * 
  * @author senko
  * @date 2022-04-24 16:39:55
