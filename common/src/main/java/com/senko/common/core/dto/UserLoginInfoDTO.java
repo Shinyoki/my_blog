@@ -19,7 +19,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserLoginInfoDTO  {
+public class UserLoginInfoDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 用户ID
      */

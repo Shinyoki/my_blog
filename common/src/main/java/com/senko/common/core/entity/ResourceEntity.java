@@ -11,6 +11,7 @@ import lombok.Data;
 
 /**
  * 资源(权限相关)
+ * 具体GET/POST/UPDATE/PUT操作
  * 
  * @author senko
  * @date 2022-04-24 16:50:53
@@ -38,7 +39,7 @@ public class ResourceEntity implements Serializable {
 	 */
 	private String requestMethod;
 	/**
-	 * 父权限id
+	 * 父权限id   所属模块
 	 */
 	private Integer parentId;
 	/**

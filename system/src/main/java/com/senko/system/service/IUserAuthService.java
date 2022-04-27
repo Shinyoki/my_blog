@@ -12,6 +12,13 @@ import java.util.Map;
  * @date 2022-04-24 16:50:47
  */
 public interface IUserAuthService extends IService<UserAuthEntity> {
-    void run();
+
+    /**
+     * 通过用户名得到用户（带密码
+     * id userInfoId username password loginType
+     * @param username
+     * @return
+     */
+    UserAuthEntity getByUsername(String username);
 }
 

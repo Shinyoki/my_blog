@@ -13,5 +13,39 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
+    <resultMap id="ResourceRolesMap" type="com.senko.common.core.dto.ResourceRoleDTO">
+        <id column="id" property="id"/>
+        <result column="url" property="url"/>
+        <result column="request_method" property="requestMethod"/>
+        <collection property="roles" ofType="java.lang.String">
+                <id column="role_label"/>
+        </collection>
+
+    </resultMap>
+    <select id="listOfNonAnonymousResourcesRoles" resultMap="ResourceRolesMap">
+        SELECT
+            re.id,
+            url,
+            request_method,
+            role_label
+        FROM
+            tb_resource re
+                LEFT JOIN tb_role_resource rep on re.id = rep.resource_id
+                LEFT JOIN tb_role r on rep.role_id = r.id
+        WHERE
+            parent_id is NOT NULL
+         AND is_anonymous = 0
+    </select>
+    <select id="listRolesByUserInfoId" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT
+            role_label
+        FROM
+            tb_role r,
+            tb_user_role ur
+        WHERE
+            r.id = ur.role_id
+          AND ur.user_id = #{id}
+    </select>
+
 
 </mapper>

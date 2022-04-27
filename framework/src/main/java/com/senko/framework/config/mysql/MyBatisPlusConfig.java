@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 public class MyBatisPlusConfig {
 
-    /** 新版启用 分页 方式 */
+    /** 添加分页插件，Mybatis的插件就是Interceptor */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         //MP拦截器，加入 分页拦截器

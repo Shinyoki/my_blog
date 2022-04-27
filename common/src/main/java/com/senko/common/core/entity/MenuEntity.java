@@ -10,8 +10,9 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * 可访菜单
- * 
+ * 可访菜单，不包含完整路径，只对菜单做分类划分
+ *
+ * 具体GET/POST/UPDATE/PUT操作归类于ResourceEntity
  * @author senko
  * @date 2022-04-24 16:50:53
  */

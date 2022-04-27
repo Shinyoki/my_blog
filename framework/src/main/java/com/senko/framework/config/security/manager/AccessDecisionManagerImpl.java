@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * 访问权限管理器
  *
  *
- * 权限相关，过滤连的最后一环，抛出异常就是拒绝，否则单纯return即可
+ * 权限相关，访问认证链的最后一环，抛出异常就是拒绝，否则单纯return即可
  * 最终的访问授权是否通过是由AccessDecisionManager进行决策
  * @author senko
  * @date 2022/4/25 21:50

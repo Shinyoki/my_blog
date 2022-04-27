@@ -9,10 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 登录用户账号信息（含密码
@@ -24,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @TableName("tb_user_auth")
 public class UserAuthEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
