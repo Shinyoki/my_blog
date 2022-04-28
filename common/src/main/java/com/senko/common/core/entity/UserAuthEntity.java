@@ -11,6 +11,8 @@ import java.util.Date;
 
 import lombok.*;
 
+import javax.validation.constraints.Email;
+
 /**
  * 登录用户账号信息（含密码
  * 
@@ -27,7 +29,7 @@ public class UserAuthEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * id
+	 * id：与UserDetails保持一致
 	 */
 	@TableId
 	private Integer id;
@@ -36,8 +38,9 @@ public class UserAuthEntity implements Serializable {
 	 */
 	private Integer userInfoId;
 	/**
-	 * 用户名
+	 * 用户名：邮箱
 	 */
+	@Email
 	private String username;
 	/**
 	 * 密码
@@ -45,6 +48,7 @@ public class UserAuthEntity implements Serializable {
 	private String password;
 	/**
 	 * 登录类型
+	 * 1邮箱 2qq 3微博
 	 */
 	private Integer loginType;
 	/**

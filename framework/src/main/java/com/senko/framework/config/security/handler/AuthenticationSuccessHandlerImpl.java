@@ -38,7 +38,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
                                         HttpServletResponse response,
                                         Authentication authentication
     ) throws IOException, ServletException {
-        //TODO 登录成功处理器：响应前端UserDTO，更新数据库用户信息、向用户邮箱发送登录提示等
         //shift，你知道吗，tnnd 原来没通过认证的Authentication没有Principal用户，他是null的
         //所以整了个强制非NULL的复制
         UserDetailsDTO loginUser = SecurityUtils.getLoginUser();

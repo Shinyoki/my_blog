@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -35,7 +36,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
  */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-    //TODO Security配置类
 
     /**
      * Handlers
@@ -74,6 +74,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     /**
      * Beans
      */
@@ -108,7 +111,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //TODO userDetailsService
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -195,6 +199,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     /**
      * Web静态资源过滤
      * 貌似完全不会被SpringSecurity拦截受理，比httpSecurity的ExpressionUrlXXXConfigurer更纯粹
+     * 所以不要把/login /lougout /register放在这里ignore了，否则Spring Security相当于看不到该资源请求，
+     * 因此就不会对/login做任何处理了。
      * @param web
      * @throws Exception
      */
@@ -202,8 +208,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 //ant匹配，也可以用来忽略非静态资源
-                .antMatchers("/login",
-                        "/logout",
+                .antMatchers(
                         "/css/**",
                         "/js/**",
                         "/index.html",

@@ -18,6 +18,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
 
     /**
      * 通过用户名得到用户（只有部分信息，用于UserDetailsService
+     * id userInfoId username password loginType
      * @param username
      * @return
      */

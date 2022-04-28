@@ -40,7 +40,7 @@ public class HttpUtils {
         BufferedReader reader = null;
         String requestUrl = "";
         try {
-            requestUrl = StringUtils.isNotBlank(paramStr) ? url + paramStr : url;
+            requestUrl = StringUtils.isNotBlank(paramStr) ? url + "?" + paramStr : url;
 
             LOGGER.info("发送Get请求：{}", requestUrl);
 

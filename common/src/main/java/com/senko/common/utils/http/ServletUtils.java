@@ -1,5 +1,7 @@
 package com.senko.common.utils.http;
 
+import cn.hutool.http.useragent.UserAgent;
+import cn.hutool.http.useragent.UserAgentUtil;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.utils.string.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
@@ -16,6 +18,14 @@ import java.io.IOException;
  */
 public class ServletUtils
 {
+
+    /**
+     * 提取请求头中的User-Agent来获取用户请求环境
+     * @return
+     */
+    public static UserAgent getUserAgent() {
+        return UserAgentUtil.parse(getRequest().getHeader("User-Agent"));
+    }
 
     /**
      * 获取request
