@@ -19,7 +19,7 @@ public class BeanCopyUtils {
     /**
      * 复制对象，返回一个非空Target.class的实例
      *
-     * 可以不同源，但是两个对象的属性名要一致
+     * 可以不同源，但是两个类的属性名要一致
      * @param source
      * @param target
      * @param <T>

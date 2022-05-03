@@ -21,7 +21,7 @@ public enum StatusCodeConstants {
     /**
      * 没有操作权限
      */
-    AUTHORIZED(40300, "没有操作权限"),
+    UNAUTHORIZED(40300, "没有操作权限"),
     /**
      * 系统异常
      */

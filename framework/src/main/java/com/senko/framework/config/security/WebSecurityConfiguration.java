@@ -146,6 +146,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        //测试api
+        http.authorizeRequests()
+                .antMatchers("/test/**")
+                .anonymous();
+
         //登录
         http.formLogin()
                 //默认就是 /login

@@ -1,6 +1,7 @@
 package com.senko.framework.config.security.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.senko.common.constants.HttpStatus;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.utils.http.ServletUtils;
 import org.springframework.security.core.AuthenticationException;
@@ -24,6 +25,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         String message = MessageFormat.format("请求访问：{0}，用户未登录，无法访问系统资源", request.getRequestURI());
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(message)));
+        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(HttpStatus.UNAUTHORIZED.getCode(), message)));
     }
 }

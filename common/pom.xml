@@ -12,7 +12,17 @@
     <artifactId>common</artifactId>
     <dependencies>
 
-<!--        httpClient工具类-->
+<!--
+        突然发现swagger2时代的swagger-bootstrap-ui停止维护了，xiaoymin大佬换了新的knife4j，微服务和spring boot都有
+        于是就拿来用了，内部引用了springfox-boot-starter 3.0.0，因此不需要像以前那样额外声明swagger依赖
+-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
+        <!--        httpClient工具类-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>

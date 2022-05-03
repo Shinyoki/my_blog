@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * 可访菜单，不包含完整路径，只对菜单做分类划分
@@ -18,6 +19,7 @@ import lombok.Data;
  */
 @Data
 @TableName("tb_menu")
+@ToString
 public class MenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
