@@ -37,7 +37,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public AjaxResult handlerAll(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        LOGGER.error("请求地址：\"{}\"，发生异常:\"\n{}\"", requestURI, e.getMessage());
+        LOGGER.error("请求地址：\"{}\"，发生异常:\"{}\"", requestURI, e.getMessage());
+        e.printStackTrace();
         return AjaxResult.error(StatusCodeConstants.SYSTEM_ERROR.getCode(), e.getMessage());
     }
 

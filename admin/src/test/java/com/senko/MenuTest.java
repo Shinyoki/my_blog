@@ -2,8 +2,10 @@ package com.senko;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.entity.MenuEntity;
 import com.senko.system.mapper.MenuMapper;
+import com.senko.system.service.IMenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,15 @@ import java.util.List;
 public class MenuTest {
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private IMenuService menuService;
+
+    @Test
+    void listMenusForUser() {
+        List<MenuForUserDTO> menuForUserDTOS = menuService.listMenusForUser(1);
+        menuForUserDTOS.forEach(System.out::println);
+    }
 
     @Test
     void t3() {

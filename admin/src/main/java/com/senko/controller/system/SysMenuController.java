@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -24,7 +25,8 @@ import java.util.List;
  * @date 2022/5/2 22:29
  */
 @Api("菜单模块")
-@RestController("/menus")
+@RestController
+@RequestMapping("/menus")
 public class SysMenuController {
     //TODO 用户可访菜单
     @Autowired
@@ -40,7 +42,12 @@ public class SysMenuController {
     @ApiOperation("查询用户的可选菜单")
     @GetMapping("/user/list")
     public AjaxResult<List<MenuForUserDTO>> listMenus() {
-        return AjaxResult.success(menuService.listMenusForUser());
+        List<MenuForUserDTO> result = menuService.listMenusForUser();
+        System.out.println("返回数据:");
+        for (MenuForUserDTO menuForUserDTO : result) {
+            System.out.println(menuForUserDTO);
+        }
+        return AjaxResult.success(result);
     }
 
 

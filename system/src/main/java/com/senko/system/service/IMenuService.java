@@ -17,10 +17,20 @@ import java.util.Map;
  */
 public interface IMenuService extends IService<MenuEntity> {
 
+
     /**
-     * 根据前端传来的条件去筛选符合的菜单
-     * @return              menus集合
+     * 获取登录用户的可访菜单
+     * 第一层元素都是目录，children都是菜单
+     * @return
      */
     List<MenuForUserDTO> listMenusForUser();
+
+    /**
+     * 获取相应User的可访菜单
+     * 第一层元素都是目录，children都是菜单
+     * @return              menus集合
+     */
+    List<MenuForUserDTO> listMenusForUser(Integer userInfoId);
+
 }
 

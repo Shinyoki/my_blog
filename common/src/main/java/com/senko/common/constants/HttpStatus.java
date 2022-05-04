@@ -8,7 +8,7 @@ public enum HttpStatus {
     /**
      * OK
      */
-    OK(200, "成功"),
+    OK(200, "操作成功"),
     /**
      * AccessTokenError
      */

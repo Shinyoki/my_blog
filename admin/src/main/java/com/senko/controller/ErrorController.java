@@ -1,12 +1,9 @@
 package com.senko.controller;
 
-import com.senko.common.constants.CommonConstants;
-import com.senko.common.constants.StatusCodeConstants;
 import com.senko.common.core.AjaxResult;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +45,7 @@ public class ErrorController extends BasicErrorController {
     @Override
     @RequestMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
-        AjaxResult<Object> result = AjaxResult.error(StatusCodeConstants.FAIL.getCode(), "资源不存在404");
+        AjaxResult<Object> result = AjaxResult.error(com.senko.common.constants.HttpStatus.NotFound.getCode(), "资源不存在404");
         return new ResponseEntity(result, HttpStatus.NOT_FOUND);
     }
 

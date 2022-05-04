@@ -1,17 +1,13 @@
 package com.senko.common.core;
 
-import com.alibaba.fastjson.JSON;
-import com.senko.common.utils.string.StringUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 
 //以静态形式引入StatusCodeConstants类的所有属性
-import static com.senko.common.constants.StatusCodeConstants.*;
+import static com.senko.common.constants.HttpStatus.OK;
+import static com.senko.common.constants.HttpStatus.InnerError;
 
 /**
  * 前后端交互对象
@@ -32,7 +28,7 @@ import static com.senko.common.constants.StatusCodeConstants.*;
 @NoArgsConstructor
 public class AjaxResult<T> extends HashMap<Object, Object> implements Serializable {
 
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 成功与否
@@ -91,7 +87,7 @@ public class AjaxResult<T> extends HashMap<Object, Object> implements Serializab
      * @return Successful result with null data
      */
     public static AjaxResult success() {
-        return AjaxResult.success(SUCCESS.getDesc(), null);
+        return AjaxResult.success(OK.getMessage(), null);
     }
 
     /**
@@ -110,17 +106,17 @@ public class AjaxResult<T> extends HashMap<Object, Object> implements Serializab
      * @return
      */
     public static <T> AjaxResult<T> success(T data) {
-        return AjaxResult.success(SUCCESS.getDesc(), data);
+        return AjaxResult.success(OK.getMessage(), data);
     }
 
     /**
-     * 成功：true、{@link com.senko.common.constants.StatusCodeConstants#SUCCESS}、message、data
+     * 成功：true、{@link com.senko.common.constants.HttpStatus}、message、data
      * @param message   携带消息
      * @param data      相应数据
      * @return
      */
     public static <T> AjaxResult<T> success(String message, final T data) {
-        return new AjaxResult<T>(true, SUCCESS.getCode(), message, data);
+        return new AjaxResult<T>(true, OK.getCode(), message, data);
     }
 
     /**
@@ -134,7 +130,7 @@ public class AjaxResult<T> extends HashMap<Object, Object> implements Serializab
      * @return
      */
     public static <T> AjaxResult<T> error(String message) {
-        return AjaxResult.error(FAIL.getCode(), message);
+        return AjaxResult.error(InnerError.getCode(), message);
     }
 
     /**

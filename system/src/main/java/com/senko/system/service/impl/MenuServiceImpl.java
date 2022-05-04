@@ -25,19 +25,30 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
     private MenuMapper menuMapper;
 
 
+    /**
+     * 获取登录用户的 可选菜单
+     * 第一层元素都是目录，children都是菜单
+     * @return
+     */
+    @Override
+    public List<MenuForUserDTO> listMenusForUser() {
+        //获取当前用户
+        Integer userInfoId = SecurityUtils.getLoginUser().getUserInfoId();
+        return listMenusForUser(userInfoId);
+    }
 
     /**
-     * 获取相应用户可以访问的菜单
+     * 获取 相应用户 可以访问的菜单
+     * 第一层元素都是目录，children都是菜单
      *
      * 又到了喜闻乐见的CRUD环节，可我还是会忘记方法的参数有啥用，这里放个教程备用
      * <a href="https://www.cnblogs.com/huanshilang/p/11985526.html">MP QueryWrapper教程</a>
      */
     @Override
-    public List<MenuForUserDTO> listMenusForUser() {
-        //获取当前用户
-        Integer userId = SecurityUtils.getLoginUser().getUserInfoId();
+    public List<MenuForUserDTO> listMenusForUser(Integer userInfoId) {
+
         //查询可访菜单
-        List<MenuEntity> poMenus = menuMapper.listMenusByUserInfoId(userId);
+        List<MenuEntity> poMenus = menuMapper.listMenusByUserInfoId(userInfoId);
 
 
         /**
@@ -144,6 +155,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
 
                         //得到同父id的菜单集合
                         List<MenuEntity> childrenMenus = menus.get(curCatalog.getId());
+
+                        //检查当前目录有没有子菜单
                         if (CollectionUtils.isNotEmpty(childrenMenus)) {
                             /** 该目录下有menus 多级菜单处理 */
                             //拷贝迭代MenuEntity对象的属性到MenuForDTO中:能跨类复制同名字段真是流批，没想到反射还能这样用
@@ -164,14 +177,35 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
                                     })
                                     .collect(Collectors.toList());
                         } else {
-                            //理论上应该不会进入这个if分支
-                            /** 该目录下没有menus 一菜单处理 */
-
+                            /** 该目录下没有menus 单集菜单处理 */
+                            /**
+                             * 部分目录不存在子菜单，于是将自己作为子菜单赋值....
+                             * 以后可能会重写这块逻辑
+                             *
+                             * {
+                             *             "name": null,
+                             *             "path": "/setting",
+                             *             "component": "/setting/Setting.vue",
+                             *             "icon": null,
+                             *             "hidden": false,
+                             *             "children": [
+                             *                 {
+                             *                     "name": "个人中心",
+                             *                     "path": "",
+                             *                     "component": "/setting/Setting.vue",
+                             *                     "icon": "el-icon-myuser",
+                             *                     "hidden": null,
+                             *                     "children": null
+                             *                 }
+                             *             ]
+                             * }
+                             */
                             //stream()操作中的流是不可逆的，迭代期间阵对流对象的修改都会引发错误，
                             //所以这里弄了个result副本，而不是直接使用curCatalog
 
                             //路径
                             result.setPath(curCatalog.getPath());
+                            //不设置目录的名是为了防止和children重名，导致vue router duplicate
                             //目录所属组件
                             result.setComponent(curCatalog.getComponent());
                             resultChildren.add(MenuForUserDTO.builder()
