@@ -28,7 +28,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/menus")
 public class SysMenuController {
-    //TODO 用户可访菜单
     @Autowired
     private IMenuService menuService;
 
@@ -49,6 +48,5 @@ public class SysMenuController {
         }
         return AjaxResult.success(result);
     }
-
 
 }
