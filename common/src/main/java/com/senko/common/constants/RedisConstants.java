@@ -41,6 +41,10 @@ public class RedisConstants {
      */
     public static final String COMMENT_LIKE_COUNT_TAG = "comment_like_count";
 
+    /**
+     * 未知
+     */
+    public static final String UNKNOWN = "未知";
 
     //=================前缀=============//
     //一般存储为 前缀+userInfo#id  ==> article_user_lke:userInfo#id

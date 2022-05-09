@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class BaseException extends RuntimeException implements Serializable {
-    private static final long serialVersionUID = 1l;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 所属模块

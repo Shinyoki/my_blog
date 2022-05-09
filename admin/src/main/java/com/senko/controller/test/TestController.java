@@ -3,6 +3,7 @@ package com.senko.controller.test;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.test.TestUser;
+import com.senko.common.utils.uuid.UUID;
 import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
 import io.swagger.annotations.ApiOperation;
@@ -55,6 +56,7 @@ public class TestController {
     public AjaxResult ping() {
         return AjaxResult.success("pong!");
     }
+
 
 }
 

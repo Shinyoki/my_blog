@@ -10,6 +10,12 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <select id="listOfCategoryDTO" resultType="com.senko.common.core.dto.CategoryDTO">
+        SELECT c.id, c.category_name, COUNT(a.id) articlesCount
+        FROM tb_category c
+                 LEFT JOIN tb_article a ON a.category_id = c.id AND a.is_delete = 0
+        GROUP BY c.id;
+    </select>
 
 
 </mapper>

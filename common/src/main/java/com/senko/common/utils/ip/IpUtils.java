@@ -49,7 +49,7 @@ public class IpUtils {
                 }
             }
         }
-        location = StringUtils.isBlank(location) ? "内部IP" : location;
+        location = StringUtils.isBlank(location) ? "未知" : location;
         LOGGER.info("得到IP解析地址：{}", location);
         return location;
     }

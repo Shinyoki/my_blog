@@ -62,6 +62,11 @@ public class BlogCountsInfoDTO implements Serializable {
 
 
     /**
+     * 某日阅览数量 集合
+     */
+    private List<UniqueViewDTO> uniqueViewDTOList;
+
+    /**
      * 文章浏览量 排行：倒序
      */
     private List<ArticleViewsRankDTO> articleViewsRankList;

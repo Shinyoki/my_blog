@@ -1,9 +1,6 @@
 package com.senko.common.core.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -17,6 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class CategoryDTO implements Serializable {
     private static final long serialVersionUID  = 1L;
 

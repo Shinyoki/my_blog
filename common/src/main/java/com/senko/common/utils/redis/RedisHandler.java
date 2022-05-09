@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * sprng redisTemplate的再次封装
- * 
+ *
  * redis工具类，非方法大于对象原则，需要从Spring IOC获取实例后在调用
  * @author senko
  * @date 2022/4/24 21:42
@@ -34,7 +34,7 @@ public class RedisHandler {
     private RedisTemplate redisTemplate;
 
     /** ===========================Key===================== */
-    
+
     /**
      * 存储-1 ttl 的键值对
      * @param key       缓存键
@@ -435,6 +435,10 @@ public class RedisHandler {
      */
     public <T> Boolean sIsMember(final String key, final T value) {
         return redisTemplate.opsForSet().isMember(key, value);
+    }
+
+    public <T> Boolean sIsNotMember(final String key, final T value) {
+        return !sIsMember(key, value);
     }
 
     /**
