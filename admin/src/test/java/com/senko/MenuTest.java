@@ -1,20 +1,23 @@
 package com.senko;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.senko.common.core.dto.ArticleViewsRankDTO;
 import com.senko.common.core.dto.ArticlesOnOneDayDTO;
 import com.senko.common.core.dto.CategoryDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
+import com.senko.common.core.entity.ArticleEntity;
 import com.senko.common.core.entity.MenuEntity;
-import com.senko.system.mapper.ArticleMapper;
-import com.senko.system.mapper.CategoryMapper;
-import com.senko.system.mapper.MenuMapper;
+import com.senko.system.mapper.*;
 import com.senko.system.service.IMenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author senko
@@ -33,6 +36,57 @@ public class MenuTest {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private UniqueViewMapper uniqueViewMapper;
+
+    @Autowired
+    private ChatRecordMapper chatRecordMapper;
+
+    @Test
+    void testCount() {
+        System.out.println(chatRecordMapper.selectCount(null));
+    }
+
+    @Test
+    void testScore() {
+        LinkedList<Integer> ids = new LinkedList<>(Arrays.asList(54, 55, 56));
+        LinkedList<Integer> scores = new LinkedList<>(Arrays.asList(1,2,3));
+        Map<Object, Double> map = new HashMap<>();
+
+        LambdaQueryWrapper<ArticleEntity> queryWrapper = new LambdaQueryWrapper<ArticleEntity>()
+                .select(ArticleEntity::getId, ArticleEntity::getArticleTitle)
+                .in(ArticleEntity::getId, ids);
+
+        List<ArticleEntity> articles = articleMapper.selectList(queryWrapper);
+
+        map.put(articles.get(0).getId(), scores.get(0).doubleValue());
+        map.put(articles.get(1).getId(), scores.get(1).doubleValue());
+        map.put(articles.get(2).getId(), scores.get(2).doubleValue());
+
+        List<ArticleViewsRankDTO> result = articles.stream()
+                .map(articleEntity -> {
+                            return ArticleViewsRankDTO.builder()
+                                    .articleTitle(articleEntity.getArticleTitle())
+                                    .viewsCount(map.get(articleEntity.getId()).intValue())
+                                    .build();
+                        }
+                )
+                .sorted(
+                        Comparator.comparingInt(ArticleViewsRankDTO::getViewsCount)
+                                .reversed()
+                )
+                .collect(Collectors.toList());
+
+        result.forEach(System.out::println);
+    }
+
+    @Test
+    void testUniq() {
+        DateTime start = DateUtil.beginOfDay(DateUtil.offsetDay(new Date(), -7));
+        Date endOfToday = new Date();
+        uniqueViewMapper.listOfUniqueViewDTO(start, endOfToday);
+    }
 
     @Test
     void testarticle() {

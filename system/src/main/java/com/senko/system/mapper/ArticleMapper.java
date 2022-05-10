@@ -1,5 +1,6 @@
 package com.senko.system.mapper;
 
+import com.senko.common.core.dto.ArticleViewsRankDTO;
 import com.senko.common.core.dto.ArticlesOnOneDayDTO;
 import com.senko.common.core.entity.ArticleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -18,7 +19,8 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
 
     /**
      * 得到某一天里的文章数量
-     * @return
      */
     List<ArticlesOnOneDayDTO> listOfArticlesOnOneDay();
+
+
 }

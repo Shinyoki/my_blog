@@ -1,5 +1,7 @@
 package com.senko.common.core.dto;
 
+import lombok.*;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +12,11 @@ import java.io.Serializable;
  * @author senko
  * @date 2022/5/6 21:18
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class ArticleViewsRankDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 

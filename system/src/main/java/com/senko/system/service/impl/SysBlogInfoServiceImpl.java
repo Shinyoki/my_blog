@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.senko.common.constants.RedisConstants.*;
 /**
@@ -95,11 +95,14 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
                     redisHandler.hIncrement(RedisConstants.VISITOR_AREA, ipSource, 1L);
                 }
             }
+
+            //2.访问数量
+            redisHandler.increment(RedisConstants.BLOG_VIEWS_COUNT_TAG, 1L);
+
+            //3.来访者 记录
+            redisHandler.sAdd(RedisConstants.UNIQUE_VISITOR, md5);
         }
-        //2.访问数量
-        redisHandler.increment(RedisConstants.BLOG_VIEWS_COUNT_TAG, 1L);
-        //3.来访者 记录
-        redisHandler.sAdd(RedisConstants.UNIQUE_VISITOR, md5);
+
     }
 
     /**
@@ -107,10 +110,11 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
      */
     @Override
     public BlogCountsInfoDTO getBasicAdminInfo() {
-        //访问量
+        //=============Counts==========
+        //访问量：redis获取到的值有NULL的情况，不会自动设置为0
         Integer views = (Integer) redisHandler.get(BLOG_VIEWS_COUNT_TAG);
-        Integer integer = Optional.ofNullable(views).orElse(0);
-        //留言数量
+        Integer viewsCount = Optional.ofNullable(views).orElse(0);
+        //留言数量：表内没有字段，就返回0，不会返回NULL
         Long messageCount = messageMapper.selectCount(null);
         //用户数量
         Long usersCount = userInfoMapper.selectCount(null);
@@ -123,10 +127,69 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
         //标签集合（不是单纯的获取数量，因此用的是select list 而非select count
         List<TagDTO> tagDTOS = BeanCopyUtils.copyList(tagMapper.selectList(null), TagDTO.class);
         //文章集合
-        List<ArticlesOnOneDayDTO> articles = articleMapper.listOfArticlesOnOneDay();
+        List<ArticlesOnOneDayDTO> articlesOnOneDayDTOS = articleMapper.listOfArticlesOnOneDay();
         //浏览量
         List<UniqueViewDTO> uniqueViewDTOS = uniqueViewService.listOfUniqueViewDTO();
-        //TODO 还有待完善
-        return null;
+
+        //从缓存中找出访问量前5的文章 high to low score
+        Map<Object, Double> reverseRangeWithScore = redisHandler.zReverseRangeWithScore(ARTICLE_VIEWS_COUNT_TAG, 0, 4);
+        //文章排行
+        List<ArticleViewsRankDTO> articleViewsRankDTOS = scoreMapBuild2RankDTO(reverseRangeWithScore);
+
+        return BlogCountsInfoDTO.builder()
+                //counts
+                .viewsCount(viewsCount)
+                .messagesCount(messageCount.intValue())
+                .usersCount(usersCount.intValue())
+                .articlesCount(articleCount.intValue())
+                //list
+                .categoryList(categoryDTOS)
+                .tagList(tagDTOS)
+                .articlesOnOneDayList(articlesOnOneDayDTOS)
+                .uniqueViewDTOList(uniqueViewDTOS)
+                .articleViewsRankList(articleViewsRankDTOS)
+                .build();
+
+    }
+
+    /**
+     * 将从缓存中得到的{KEY:ArticleId, Value:Score} map改为List<ArticleViewsRankDTO>
+     * @param articleScoreMap       缓存中的文章id和对应zset score
+     * @return
+     */
+    private List<ArticleViewsRankDTO> scoreMapBuild2RankDTO(Map<Object, Double> articleScoreMap) {
+        if (StringUtils.isNull(articleScoreMap)) {
+            return null;
+        }
+        //map遍历，将articleId传入数组中
+        LinkedList<Integer> ids = new LinkedList<>();
+        articleScoreMap.forEach((key, val) -> ids.add((Integer) key));
+
+        //查询条件：in ids，得到信息:ArticleEntity{Id,Title}
+        LambdaQueryWrapper<ArticleEntity> queryWrapper = new LambdaQueryWrapper<ArticleEntity>()
+                //提取id和title即可
+                .select(ArticleEntity::getId, ArticleEntity::getArticleTitle)
+                .in(ArticleEntity::getId, ids);
+        List<ArticleEntity> articles = articleMapper.selectList(queryWrapper);
+
+        //转换
+        return articles.stream()
+                //ArticleEntity 2 ArticleViewsRankDTO
+                .map(articleEntity ->
+                        ArticleViewsRankDTO.builder()
+                                .articleTitle(articleEntity.getArticleTitle())
+                                //根据当前实体类的id去寻找map中的score
+                                .viewsCount(articleScoreMap.get(articleEntity.getId()).intValue())
+                                .build()
+                )
+                //sorted by ArticleViewsRankDTO#views
+                .sorted(
+                        Comparator.comparingInt(ArticleViewsRankDTO::getViewsCount)
+                                //翻转
+                                .reversed()
+                )
+                .collect(Collectors.toList());
+
+
     }
 }

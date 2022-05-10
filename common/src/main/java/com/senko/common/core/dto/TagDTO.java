@@ -1,5 +1,7 @@
 package com.senko.common.core.dto;
 
+import lombok.*;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,11 @@ import java.io.Serializable;
  * @author senko
  * @date 2022/5/6 19:58
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 public class TagDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
