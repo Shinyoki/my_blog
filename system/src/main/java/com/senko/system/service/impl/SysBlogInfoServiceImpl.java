@@ -3,10 +3,14 @@ package com.senko.system.service.impl;
 import cn.hutool.http.useragent.Browser;
 import cn.hutool.http.useragent.OS;
 import cn.hutool.http.useragent.UserAgent;
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.dto.*;
 import com.senko.common.core.entity.ArticleEntity;
+import com.senko.common.core.entity.UserAuthEntity;
+import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.enums.UserTypeEnum;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.http.ServletUtils;
 import com.senko.common.utils.ip.IpUtils;
@@ -16,6 +20,7 @@ import com.senko.system.mapper.*;
 import com.senko.system.service.ISysBlogInfoService;
 import com.senko.system.service.IUniqueViewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
@@ -153,12 +158,52 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
     }
 
     /**
+     * 查询所有用户相关区域分布
+     * @param condition     前端传输的条件
+     */
+    @Override
+    public List<UserAreaDTO> listOfUserAreas(ConditionVO condition) {
+        List<UserAreaDTO> result = new LinkedList<>();
+        Integer userType = condition.getType();
+        if (StringUtils.isNull(userType)) {
+            return null;
+        }
+
+        switch (Objects.requireNonNull(UserTypeEnum.getUserByType(userType), "未知的用户类型")) {
+            case USER:
+                //查询以注册用户的区域分布
+                Object userArea = redisHandler.get(USER_AREA);
+                if (StringUtils.isNotNull(userArea)) {
+                     result = JSON.parseObject(((String) userArea), List.class);
+                }
+                return result;
+            case VISITOR:
+                //查询游客的区域分布
+                Map<String, Object> map = redisHandler.hGetAll(VISITOR_AREA);
+                if (StringUtils.isNotNull(map)) {
+                    result = map.entrySet().stream()
+                            .map(entry -> {
+                                return UserAreaDTO.builder()
+                                        .name(entry.getKey())
+                                        .value(Long.valueOf(entry.getValue().toString()))
+                                        .build();
+                            })
+                            .collect(Collectors.toList());
+                }
+                return result;
+        }
+        return result;
+    }
+
+
+
+    /**
      * 将从缓存中得到的{KEY:ArticleId, Value:Score} map改为List<ArticleViewsRankDTO>
      * @param articleScoreMap       缓存中的文章id和对应zset score
      * @return
      */
     private List<ArticleViewsRankDTO> scoreMapBuild2RankDTO(Map<Object, Double> articleScoreMap) {
-        if (StringUtils.isNull(articleScoreMap)) {
+        if (StringUtils.isNull(articleScoreMap) || articleScoreMap.isEmpty()) {
             return null;
         }
         //map遍历，将articleId传入数组中
