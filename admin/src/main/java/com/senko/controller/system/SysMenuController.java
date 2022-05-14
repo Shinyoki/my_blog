@@ -42,7 +42,6 @@ public class SysMenuController {
     @GetMapping("/user/list")
     public AjaxResult<List<MenuForUserDTO>> listMenus() {
         List<MenuForUserDTO> result = menuService.listMenusForUser();
-        System.out.println("返回数据:");
         for (MenuForUserDTO menuForUserDTO : result) {
             System.out.println(menuForUserDTO);
         }

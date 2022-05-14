@@ -179,12 +179,12 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
                 return result;
             case VISITOR:
                 //查询游客的区域分布
-                Map<String, Object> map = redisHandler.hGetAll(VISITOR_AREA);
+                Map<String , Object> map = redisHandler.hGetAll(VISITOR_AREA);
                 if (StringUtils.isNotNull(map)) {
                     result = map.entrySet().stream()
                             .map(entry -> {
                                 return UserAreaDTO.builder()
-                                        .name(entry.getKey())
+                                        .name(entry.getKey().toString())
                                         .value(Long.valueOf(entry.getValue().toString()))
                                         .build();
                             })

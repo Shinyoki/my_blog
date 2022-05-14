@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class SysBlogInfoController {
 
     @ApiOperation("查询所有用户相关区域分布")
     @GetMapping("/admin/users/area")
-    public AjaxResult<List<UserAreaDTO>> listOfUserAreas(@RequestBody ConditionVO condition) {
+    public AjaxResult<List<UserAreaDTO>> listOfUserAreas(ConditionVO condition) {
         return AjaxResult.success(blogInfoService.listOfUserAreas(condition));
     }
 }

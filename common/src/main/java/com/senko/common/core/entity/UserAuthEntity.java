@@ -15,7 +15,7 @@ import javax.validation.constraints.Email;
 
 /**
  * 登录用户账号信息（含密码
- * 
+ *
  * @author senko
  * @date 2022-04-24 16:39:55
  */
@@ -63,12 +63,12 @@ public class UserAuthEntity implements Serializable {
 	 * 创建时间
 	 */
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 	/**
 	 * 更新时间
 	 */
 	@TableField(fill = FieldFill.UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 	/**
 	 * 上次登录时间
 	 */

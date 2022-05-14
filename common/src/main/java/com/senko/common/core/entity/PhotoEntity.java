@@ -6,12 +6,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
 /**
  * 照片
- * 
+ *
  * @author senko
  * @date 2022-04-24 16:50:53
  */
@@ -49,11 +50,11 @@ public class PhotoEntity implements Serializable {
 	 * 创建时间
 	 */
 	@TableField(fill = FieldFill.INSERT)
-	private Date createTime;
+	private LocalDateTime createTime;
 	/**
 	 * 更新时间
 	 */
 	@TableField(fill = FieldFill.UPDATE)
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
 }

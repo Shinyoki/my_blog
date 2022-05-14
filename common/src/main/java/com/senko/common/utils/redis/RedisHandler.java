@@ -249,9 +249,8 @@ public class RedisHandler {
      * @param key   键
      * @return      hashMap
      */
-    public <T> Map<String, T> hGetAll(final String key) {
-        HashOperations<String ,String , T> ops = redisTemplate.opsForHash();
-        return ops.entries(key);
+    public Map<String , Object> hGetAll(String key) {
+        return redisTemplate.opsForHash().entries(key);
     }
 
     /**
@@ -304,8 +303,7 @@ public class RedisHandler {
      * @param increment 自增量
      */
     public Long hIncrement(final String key, final String hahsKey, long increment) {
-        HashOperations<String, Object, Object> ops = redisTemplate.opsForHash();
-        return ops.increment(key, hahsKey, increment);
+        return redisTemplate.opsForHash().increment(key, hahsKey, increment);
     }
 
     /**

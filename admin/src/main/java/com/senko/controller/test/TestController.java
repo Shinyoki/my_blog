@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +52,13 @@ public class TestController {
         return user;
     }
 
-
+    @GetMapping("/get1")
+    public AjaxResult get(HttpServletRequest request) {
+        System.out.println("收到请求");
+        request.getParameterMap().entrySet().stream().forEach(e->{
+            System.out.println(e.getKey() + " " + Arrays.toString(e.getValue()));
+        });
+        return AjaxResult.success();}
 
     @GetMapping("/ping")
     public AjaxResult ping() {
