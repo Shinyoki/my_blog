@@ -8,7 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  * 角儿色
@@ -17,6 +18,10 @@ import lombok.Data;
  * @date 2022-04-24 16:39:55
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
 @TableName("tb_role")
 public class RoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

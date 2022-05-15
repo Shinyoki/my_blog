@@ -40,7 +40,7 @@ public class CommonConstants {
     /**
      * 默认size
      */
-    public static final long DEFAULT_SIZE = 18L;
+    public static final String DEFAULT_SIZE = "10";
 
     /**
      * 默认博主id：用于防null

@@ -19,11 +19,89 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+
+    <resultMap id="articleBack" type="com.senko.common.core.dto.ArticleBackDTO">
+        <id column="id" property="id"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="type" property="type" />
+        <result column="is_top" property="isTop"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="category_name" property="categoryName"/>
+
+        <collection property="tagDTOList" ofType="com.senko.common.core.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
     <select id="listOfArticlesOnOneDay" resultType="com.senko.common.core.dto.ArticlesOnOneDayDTO">
         SELECT DATE_FORMAT(create_time,"%Y-%m-%d") date, COUNT(1) count
         FROM tb_article a
         GROUP BY date
         ORDER BY count DESC
+    </select>
+
+    <select id="countArticleBacks" resultType="java.lang.Integer"
+            parameterType="com.senko.common.core.vo.ConditionVO">
+        SELECT COUNT(a.id)
+        FROM tb_article a
+        LEFT JOIN tb_article_tag AS tat ON a.id = tat.article_id
+        <where>
+            is_delete = 0
+            <if test="condition.keywords != null">
+                AND a.article_title LIKE CONCAT('%',#{condition.keywords},'%')
+            </if>
+            <if test="condition.status != null">
+                AND a.status = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                AND a.category_id = #{conditon.categoryId}
+            </if>
+            <if test="condition.type != null">
+                AND a.type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                AND tat.tag_id = #{condition.tagId}
+            </if>
+        </where>
+    </select>
+    <select id="listArticleBacks" resultMap="articleBack">
+        SELECT a.id, a.article_cover, a.article_title, a.type, a.is_top, a.is_delete, a.status, a.create_time, c.category_name, t.id tag_id, t.tag_name
+        FROM (
+                 SELECT id, article_title, article_cover, type, is_top, is_delete, status,create_time,category_id
+                 FROM tb_article
+                 <where>
+                     is_delete = 0
+                    <if test="condition.keywords != null">
+                        AND article_title LIKE CONCAT('%', #{condition.keywords}, '%')
+                    </if>
+                    <if test="condition.status != null">
+                        AND status = #{condition.status}
+                    </if>
+                    <if test="condition.categoryId != null">
+                        AND category_id = #{condition.categoryId}
+                    </if>
+                    <if test="condition.type != null">
+                        AND type = #{condition.type}
+                    </if>
+                    <if test="condition.tagId != null">
+                        AND id IN
+                            (
+                                SELECT article_id FROM tb_article_tag WHERE tag_id = #{condition.tagId}
+                            )
+                    </if>
+                 </where>
+                 ORDER BY is_top DESC, id DESC
+                 LIMIT #{current}, #{size}
+             ) AS a
+                 LEFT JOIN tb_category c ON c.id = a.category_id
+                 LEFT JOIN tb_article_tag tat ON tat.article_id = a.id
+                 LEFT JOIN tb_tag t ON t.id = tat.tag_id
+        ORDER BY is_top DESC, a.id DESC
+
     </select>
 
 

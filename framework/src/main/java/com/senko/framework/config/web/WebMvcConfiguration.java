@@ -1,5 +1,10 @@
 package com.senko.framework.config.web;
 
+import com.senko.common.utils.redis.RedisHandler;
+import com.senko.framework.config.web.interceptor.AccessLimitHandlerInterceptor;
+import com.senko.framework.config.web.interceptor.PageableHandlerInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,6 +17,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
+
+    @Autowired
+    private RedisHandler redisHandler;
+
+    @Bean
+    public AccessLimitHandlerInterceptor accessLimitHandlerInterceptor() {
+        return new AccessLimitHandlerInterceptor(redisHandler);
+    }
 
     /**
      * 后端 跨域支持
@@ -33,7 +46,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //TODO 限流拦截器 & 分页请求拦截器
+        registry.addInterceptor(new PageableHandlerInterceptor());
+        registry.addInterceptor(accessLimitHandlerInterceptor());
     }
 
 

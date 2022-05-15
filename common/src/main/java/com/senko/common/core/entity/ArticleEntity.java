@@ -8,7 +8,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 文章
@@ -17,6 +21,9 @@ import lombok.Data;
  * @date 2022-04-24 16:50:58
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @TableName("tb_article")
 public class ArticleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -10,12 +10,16 @@ import com.senko.common.core.dto.CategoryDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.entity.ArticleEntity;
 import com.senko.common.core.entity.MenuEntity;
+import com.senko.common.core.entity.RoleEntity;
 import com.senko.system.mapper.*;
 import com.senko.system.service.IMenuService;
+import com.senko.system.service.IRoleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,6 +46,25 @@ public class MenuTest {
 
     @Autowired
     private ChatRecordMapper chatRecordMapper;
+
+    @Autowired
+    private IRoleService roleService;
+
+    @Test
+    void  testMPSave() {
+        LambdaQueryWrapper<RoleEntity> query = new LambdaQueryWrapper<RoleEntity>()
+                .select(RoleEntity::getRoleLabel, RoleEntity::getRoleName, RoleEntity::getCreateTime,RoleEntity::getUpdateTime,RoleEntity::getIsDisable)
+                .eq(RoleEntity::getRoleName, "测试2")
+                .eq(RoleEntity::getRoleLabel, "test");
+        List<RoleEntity> roles = roleService.list(query);
+        RoleEntity role = roles.get(0);
+        System.out.println("更新前"+role);
+        role.setRoleLabel("test");
+        role.setRoleName("测试");
+        roleService.save(role);
+        System.out.println("更新后"+role);
+
+    }
 
     @Test
     void testCount() {

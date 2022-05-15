@@ -10,6 +10,13 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <select id="listTagNameByArticleId" resultType="java.lang.String" parameterType="java.lang.Integer">
+        SELECT
+            tag_name
+        FROM tb_tag t
+            LEFT JOIN tb_article_tag tat ON tat.tag_id = t.id
+        WHERE tat.article_id = #{articleId}
+    </select>
 
 
 </mapper>
