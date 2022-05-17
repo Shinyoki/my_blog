@@ -24,6 +24,8 @@ public class UploadStrategyContext {
 
     /**
      * 策略桶
+     * 由于@Service的存在，被@Autowire标注的map会自动搜索
+     * 符合的UploadStrategy Bean，并以bean name作为map的key
      * map : {
      *     key: strategy name
      *     value: strategyImpl

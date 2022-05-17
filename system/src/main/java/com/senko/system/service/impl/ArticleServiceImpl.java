@@ -213,8 +213,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
             List<ArticleTagEntity> resultArticleTagList = tagIds.stream()
                     .map(id -> {
                         return ArticleTagEntity.builder()
-                                .id(id)
                                 .articleId(articleId)
+                                .tagId(id)
                                 .build();
                     })
                     .collect(Collectors.toList());

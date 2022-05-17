@@ -10,6 +10,33 @@ import java.util.Objects;
 /**
  * 本地上传策略
  *
+ * 需要防火墙开放对应端口，并使用nginx转发
+ * 比如本机的公网ip为225.6.6.6，nginx监听转发端口为83
+ * <pre>
+ *     application.yml 配置：
+ *     #上传模式
+ *      upload:
+ *        #上传模式 [local | oss]
+ *        mode: local
+ *        #本地模式
+ *        local:
+ *          #服务器地址
+ *             url: http://localhost:83/
+ *          #文件路径
+ *             path: /usr/local/upload/
+ *
+ *     nginx配置：
+ *     server {
+ *       #监听83端口
+ *       listen 83;
+ *       #主机ip
+ *       server_name 225.6.6.6;
+ *       location / {
+ *              #文件存放处
+ *               root mouwenjianjia;
+ *             }
+ *     }
+ * </pre>
  * @author senko
  * @date 2022/5/16 14:19
  */
