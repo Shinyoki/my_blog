@@ -24,6 +24,7 @@ public class IpUtils {
 
     private static final String baseUrl = "http://opendata.baidu.com/api.php";
 
+
     /**
      * 得到IP地址所对应的 地理信息 和 网络运营商
      * @param ipAddress  127.0.0.1
@@ -101,7 +102,7 @@ public class IpUtils {
      * @param request
      * @return
      */
-    public String getIpSource(HttpServletRequest request) {
+    public static String getIpSource(HttpServletRequest request) {
         return getIpSource(getIpAddressFromRequest(request));
     }
 

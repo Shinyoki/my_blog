@@ -7,6 +7,8 @@ import com.senko.common.core.dto.ArticleBackDTO;
 import com.senko.common.core.entity.ArticleTagEntity;
 import com.senko.common.core.entity.CategoryEntity;
 import com.senko.common.core.entity.TagEntity;
+import com.senko.common.core.vo.ArticleDeleteVO;
+import com.senko.common.core.vo.ArticleTopVO;
 import com.senko.common.core.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.ArticleStatusEnum;
@@ -160,6 +162,54 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
         articleVO.setTagNameList(tagNameList);
 
         return articleVO;
+    }
+
+    /**
+     * 修改文章置顶状态
+     *
+     * 针对修改操作记得加@Transactional注解
+     * @param articleTopVO 文章置顶VO
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateArticleTop(ArticleTopVO articleTopVO) {
+        ArticleEntity article = ArticleEntity.builder()
+                .id(articleTopVO.getId())
+                .isTop(articleTopVO.getIsTop())
+                .build();
+        articleMapper.updateById(article);
+    }
+
+    /**
+     * 更新文章id集合的逻辑删除码
+     * @param articleDeleteVO 查询VO : idList、isDelete
+     */
+    @Override
+    public void updateArticleDelete(ArticleDeleteVO articleDeleteVO) {
+        List<ArticleEntity> articles = articleDeleteVO.getIdList().stream()
+                .map(id -> {
+                    return ArticleEntity.builder()
+                            .id(id)
+                            .isDelete(articleDeleteVO.getIsDelete())
+                            .build();
+                })
+                .collect(Collectors.toList());
+        this.updateBatchById(articles);
+    }
+
+    /**
+     * 完全删除文章id集合对应的数据
+     * @param articleIdList 文章id 集合
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteArticles(List<Integer> articleIdList) {
+        //删除与 文章 标签双向绑定的 tb_article_tag 表字段
+        articleTagMapper.delete(new LambdaQueryWrapper<ArticleTagEntity>()
+                .in(ArticleTagEntity::getArticleId, articleIdList));
+        //删除文章
+        articleMapper.deleteBatchIds(articleIdList);
+
     }
 
     /**

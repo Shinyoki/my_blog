@@ -50,7 +50,7 @@
         FROM tb_article a
         LEFT JOIN tb_article_tag AS tat ON a.id = tat.article_id
         <where>
-            is_delete = 0
+            is_delete = #{condition.isDelete}
             <if test="condition.keywords != null">
                 AND a.article_title LIKE CONCAT('%',#{condition.keywords},'%')
             </if>
@@ -74,7 +74,7 @@
                  SELECT id, article_title, article_cover, type, is_top, is_delete, status,create_time,category_id
                  FROM tb_article
                  <where>
-                     is_delete = 0
+                    is_delete = #{condition.isDelete}
                     <if test="condition.keywords != null">
                         AND article_title LIKE CONCAT('%', #{condition.keywords}, '%')
                     </if>

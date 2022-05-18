@@ -51,7 +51,7 @@ public class UserDetailsDTO implements UserDetails {
      */
     private List<String> roles;
 
-    /** ===============博客相关(应该封装成一个实体类，草率了)================ */
+    /** ===============博客相关================ */
 
     /**
      * 用户Info id

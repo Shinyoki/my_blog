@@ -1,9 +1,12 @@
 package com.senko.controller.common;
 
+import com.senko.common.annotation.LogOperation;
 import com.senko.common.constants.FilePathConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.ArticleBackDTO;
+import com.senko.common.core.vo.ArticleDeleteVO;
+import com.senko.common.core.vo.ArticleTopVO;
 import com.senko.common.core.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.framework.strategy.context.UploadStrategyContext;
@@ -17,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+
+import static com.senko.common.constants.OperationTypeConstants.*;
 
 /**
  * 文章
@@ -63,6 +68,7 @@ public class ArticleController {
     /**
      * 添加/修改文章
      */
+    @LogOperation(optType = SAVE_OR_UPDATE)
     @ApiOperation("添加/修改文章")
     @PostMapping("/admin/articles")
     public AjaxResult saveOrUpdateArticle(@Valid @RequestBody ArticleVO articleVo) {
@@ -78,4 +84,31 @@ public class ArticleController {
         return AjaxResult.success("上传成功", filePath);
     }
 
+    @LogOperation(optType = UPDATE)
+    @ApiOperation("修改文章置顶状态")
+    @PutMapping("/admin/articles/top")
+    public AjaxResult updateArticleTop(@Valid @RequestBody ArticleTopVO articleTopVO) {
+        articleService.updateArticleTop(articleTopVO);
+        return AjaxResult.success();
+    }
+
+    @LogOperation(optType = UPDATE)
+    @ApiOperation("恢复/删除文章")
+    @PutMapping("/admin/articles")
+    public AjaxResult updateArticleDelete(@Valid @RequestBody ArticleDeleteVO articleDeleteVO) {
+        articleService.updateArticleDelete(articleDeleteVO);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 完全删除文章id集合对应的数据
+     * @param articleIdList 文章id 集合
+     */
+    @LogOperation(optType = REMOVE)
+    @ApiOperation("完全删除文章")
+    @DeleteMapping("/admin/articles")
+    public AjaxResult deleteArticles(@RequestBody List<Integer> articleIdList) {
+        articleService.deleteArticles(articleIdList);
+        return AjaxResult.success();
+    }
 }

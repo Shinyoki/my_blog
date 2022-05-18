@@ -21,7 +21,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 @TableName("tb_role")
 public class RoleEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
-import lombok.Data;
-import lombok.ToString;
+
+import lombok.*;
 
 /**
  * 可访菜单，不包含完整路径，只对菜单做分类划分
@@ -19,8 +19,10 @@ import lombok.ToString;
  * @date 2022-04-24 16:50:53
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @TableName("tb_menu")
-@ToString
 public class MenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

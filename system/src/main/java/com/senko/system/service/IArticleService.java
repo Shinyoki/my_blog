@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.ArticleBackDTO;
 import com.senko.common.core.entity.ArticleEntity;
+import com.senko.common.core.vo.ArticleDeleteVO;
+import com.senko.common.core.vo.ArticleTopVO;
 import com.senko.common.core.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
+
+import java.util.List;
 
 /**
  * 文章服务
@@ -34,5 +38,24 @@ public interface IArticleService extends IService<ArticleEntity> {
      * @return              前端需要的文章
      */
     ArticleVO getArticleBackByArticleId(Integer articleId);
+
+    /**
+     * 修改文章置顶状态
+     * @param articleTopVO 文章置顶VO
+     */
+    void updateArticleTop(ArticleTopVO articleTopVO);
+
+    /**
+     * 更新文章id集合的逻辑删除码
+     * @param articleDeleteVO 查询VO : idList、isDelete
+     */
+    void updateArticleDelete(ArticleDeleteVO articleDeleteVO);
+
+
+    /**
+     * 完全删除文章id集合对应的数据
+     * @param articleIdList 文章id 集合
+     */
+    void deleteArticles(List<Integer> articleIdList);
 }
 

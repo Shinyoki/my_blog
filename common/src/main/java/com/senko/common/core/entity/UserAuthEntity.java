@@ -23,7 +23,6 @@ import javax.validation.constraints.Email;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @TableName("tb_user_auth")
 public class UserAuthEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

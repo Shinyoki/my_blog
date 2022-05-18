@@ -8,7 +8,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户信息（不含密码
@@ -17,6 +21,9 @@ import lombok.Data;
  * @date 2022-04-24 16:39:55
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @TableName("tb_user_info")
 public class UserInfoEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
