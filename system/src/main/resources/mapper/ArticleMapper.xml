@@ -46,7 +46,7 @@
 
     <select id="countArticleBacks" resultType="java.lang.Integer"
             parameterType="com.senko.common.core.vo.ConditionVO">
-        SELECT COUNT(a.id)
+        SELECT COUNT(DISTINCT a.id)
         FROM tb_article a
         LEFT JOIN tb_article_tag AS tat ON a.id = tat.article_id
         <where>
@@ -58,7 +58,7 @@
                 AND a.status = #{condition.status}
             </if>
             <if test="condition.categoryId != null">
-                AND a.category_id = #{conditon.categoryId}
+                AND a.category_id = #{condition.categoryId}
             </if>
             <if test="condition.type != null">
                 AND a.type = #{condition.type}

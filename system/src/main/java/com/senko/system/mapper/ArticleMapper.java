@@ -28,10 +28,10 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
 
     /**
      * 统计符合条件的后台文章数量
-     * @param conditionVO   参数VO
+     * @param condition   参数VO
      * @return              符合条件的文章数量
      */
-    Integer countArticleBacks(@Param("condition") ConditionVO conditionVO);
+    Integer countArticleBacks(@Param("condition") ConditionVO condition);
 
     List<ArticleBackDTO> listArticleBacks(@Param("current") Long limitCurrent,@Param("size") Long size,@Param("condition") ConditionVO conditionVO);
 }

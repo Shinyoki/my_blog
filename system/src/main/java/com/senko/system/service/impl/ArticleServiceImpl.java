@@ -106,12 +106,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
      */
     @Override
     public PageResult<ArticleBackDTO> listArticleBacks(ConditionVO conditionVO) {
-        // 查询文章总量
+        // 快速查询文章总量，判断总数是0就退出
         Integer counts = articleMapper.countArticleBacks(conditionVO);
         if (counts == 0) {
             return new PageResult<>();
         }
 
+        //总量非0，开始查询符合条件的字段，并封装成实体类
         List<ArticleBackDTO> articleBackDTOList = articleMapper.listArticleBacks(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
 
         //缓存查询
@@ -134,7 +135,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
             }
         });
 
-        return new PageResult<ArticleBackDTO>(articleBackDTOList.size(), articleBackDTOList);
+        return new PageResult<ArticleBackDTO>(counts, articleBackDTOList);
     }
 
     /**
