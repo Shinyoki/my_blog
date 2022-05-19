@@ -5,7 +5,7 @@
     <parent>
         <artifactId>my_blog</artifactId>
         <groupId>com.senko</groupId>
-        <version>0.0.1</version>
+        <version>0.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>admin</artifactId>
@@ -38,7 +38,7 @@
         <dependency>
             <groupId>com.senko</groupId>
             <artifactId>framework</artifactId>
-            <version>0.0.1</version>
+            <version>0.2.0</version>
         </dependency>
     </dependencies>
     <build>

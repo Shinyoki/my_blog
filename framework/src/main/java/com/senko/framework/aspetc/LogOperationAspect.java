@@ -63,7 +63,7 @@ public class LogOperationAspect {
 
         OperationLogEntity operationLogEntity = OperationLogEntity.builder()
                 //所属Api模块
-                .optModule(Optional.ofNullable(apiAnno).map(api -> api.tags()[0]).orElse("未知模块"))
+                .optModule(Optional.ofNullable(apiAnno).map(api -> api.value()).orElse("未知模块"))
                 //操作描述
                 .optDesc(Optional.ofNullable(apiOperationAnno).map(apiOperation -> apiOperation.value()).orElse("未知操作"))
                 //操作类型
