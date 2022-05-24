@@ -16,6 +16,19 @@
                  LEFT JOIN tb_article a ON a.category_id = c.id AND a.is_delete = 0
         GROUP BY c.id;
     </select>
+    <select id="listCategoryBackDTO" resultType="com.senko.common.core.dto.CategoryBackDTO">
+        SELECT c.id, c.category_name, COUNT(a.id) article_count, c.create_time
+        FROM tb_category c
+            LEFT JOIN tb_article a ON a.category_id = c.id
+        <where>
+            <if test="condition.keywords != null">
+                c.category_name LIKE CONCAT('%',#{condition.keywords}, '%')
+            </if>
+        </where>
+        GROUP BY c.id
+        ORDER BY c.id DESC
+        LIMIT #{current}, #{size}
+    </select>
 
 
 </mapper>

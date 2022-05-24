@@ -1,8 +1,12 @@
 package com.senko.common.utils.spring;
 
 import com.senko.common.core.dto.UserDetailsDTO;
+import com.senko.common.exceptions.user.UserAnonymousException;
+import com.senko.common.exceptions.user.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,10 +43,11 @@ public class SecurityUtils {
      * @return Principal ==> UserDetails实现类
      */
     public static UserDetailsDTO getLoginUser() {
-        Object principal = getAuthentication().getPrincipal();
-        LOGGER.info("principal的类为：{}", principal.getClass().getName());
-        LOGGER.info("principal#toString: {}",principal.toString());
-        return (UserDetailsDTO) principal;
+        Authentication authentication = getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken) {
+            throw new UserAnonymousException("用户未登录!");
+        }
+        return (UserDetailsDTO) authentication.getPrincipal();
     }
 
 }

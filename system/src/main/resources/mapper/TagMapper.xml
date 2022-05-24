@@ -17,6 +17,19 @@
             LEFT JOIN tb_article_tag tat ON tat.tag_id = t.id
         WHERE tat.article_id = #{articleId}
     </select>
+    <select id="listTagBackDTO" resultType="com.senko.common.core.dto.TagBackDTO">
+        SELECT t.id, t.tag_name, COUNT(tat.article_id) article_count, t.create_time
+        FROM tb_tag t
+            LEFT JOIN tb_article_tag tat ON tat.tag_id = t.id
+        <where>
+            <if test="condition.keywords != null">
+                t.tag_name LIKE CONCAT('%', #{condition.keywords}, '%')
+            </if>
+        </where>
+        GROUP BY t.id
+        ORDER BY t.id DESC
+        LIMIT #{current}, #{size}
+    </select>
 
 
 </mapper>

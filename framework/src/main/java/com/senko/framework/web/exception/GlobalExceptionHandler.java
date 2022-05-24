@@ -3,8 +3,10 @@ package com.senko.framework.web.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.senko.common.constants.HttpStatus;
 import com.senko.common.constants.StatusCodeConstants;
 import com.senko.common.core.AjaxResult;
+import com.senko.common.exceptions.user.UserAnonymousException;
 import com.senko.common.exceptions.user.UserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public AjaxResult handlerAll(Exception e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        LOGGER.error("请求地址：\"{}\"，发生异常:\"{}\"", requestURI, e.getMessage());
+        LOGGER.error("请求地址：\"{}\"，请求方式：\"{}\"\n，发生异常:\"{}\"", requestURI, request.getMethod(),e.getMessage());
         e.printStackTrace();
         return AjaxResult.error(StatusCodeConstants.SYSTEM_ERROR.getCode(), e.getMessage());
     }
@@ -52,7 +54,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserException.class)
     public AjaxResult userExceptionHandler(UserException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        LOGGER.error("请求地址：\"{}\"，发生异常:\"\n{}\"", requestURI, e.getMessage());
+        LOGGER.error("请求地址：\"{}\"，请求方式：\"{}\"\n，发生异常:\"\n{}\"", requestURI,request.getMethod(), e.getMessage());
         return AjaxResult.error(e.getMessage());
     }
 
@@ -67,7 +69,13 @@ public class GlobalExceptionHandler {
                     .append("：")
                     .append(fieldError.getDefaultMessage());
         }
-        LOGGER.error("请求地址：\"{}\"，发生异常:\"\n{}\"", requestURI,sb.toString());
+        LOGGER.error("请求地址：\"{}\"，请求方式：\"{}\"，\n发生异常:\"\n{}\"", requestURI,request.getMethod(),sb.toString());
         return AjaxResult.error(StatusCodeConstants.VALID_ERROR.getCode(), Objects.requireNonNull(sb.toString()));
+    }
+
+    @ExceptionHandler(UserAnonymousException.class)
+    public AjaxResult userAnonymousExceptionHandler(UserAnonymousException e, HttpServletRequest request) {
+        LOGGER.error("请求地址：\"{}\"，请求方式：\"{}\"\n异常：\"{}\"",request.getRequestURI(),request.getMethod(),e.getMessage());
+        return AjaxResult.error(HttpStatus.UNAUTHORIZED.getCode(), e.getMessage());
     }
 }
