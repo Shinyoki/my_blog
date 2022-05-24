@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.system.mapper.TagMapper;
 import com.senko.common.core.entity.TagEntity;
 import com.senko.system.service.ITagService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -76,6 +77,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, TagEntity> implements
      * 添加或修改标签
      * @param tagVO 标签（标签名不能为空）
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateTag(TagVO tagVO) {
         TagEntity tagEntity = tagMapper.selectOne(new LambdaQueryWrapper<TagEntity>()
@@ -98,6 +100,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, TagEntity> implements
      *
      * @param tagIdList 标签id 集合
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteTag(List<Integer> tagIdList) {
         Long count = articleTagMapper.selectCount(new LambdaQueryWrapper<ArticleTagEntity>()

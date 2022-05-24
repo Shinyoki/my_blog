@@ -17,6 +17,52 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <select id="selectCountByConditionVO" resultType="java.lang.Long"
+            parameterType="com.senko.common.core.vo.ConditionVO">
+        SELECT COUNT(1)
+        FROM tb_comment c
+            LEFT JOIN tb_user_info u ON c.user_id = u.id
+        <where>
+            <if test="condition.type != null">
+                c.type = #{condition.type}
+            </if>
+            <if test="condition.isReview != null">
+                AND c.is_review = #{condition.isReview}
+            </if>
+            <if test="condition.keywords != null">
+                AND u.nickname LIKE CONCAT('%', #{condition.keywords}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="listCommentBack" resultType="com.senko.common.core.dto.CommentBackDTO">
+        SELECT
+            c.id,
+            c.type,
+            c.comment_content,
+            c.is_review,
+            c.create_time,
+            u.avatar,
+            u.nickname,
+            r.nickname reply_nickname,
+            a.article_title
+        FROM tb_comment c
+            LEFT JOIN tb_article a ON a.id = c.topic_id
+            LEFT JOIN tb_user_info u ON u.id = c.user_id
+            LEFT JOIN tb_user_info r ON c.reply_user_id = r.id
+        <where>
+            <if test="condition.type != null">
+                c.type = #{condition.type}
+            </if>
+            <if test="condition.isReview != null">
+                AND c.is_review = #{condition.isReview}
+            </if>
+            <if test="condition.keywords != null">
+                AND u.nickname LIKE CONCAT('%', #{condition.keywords}, '%')
+            </if>
+        </where>
+        ORDER BY id DESC
+        LIMIT #{current}, #{size}
+    </select>
 
 
 </mapper>
