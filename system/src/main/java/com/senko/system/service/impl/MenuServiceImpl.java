@@ -1,12 +1,14 @@
 package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.entity.RoleEntity;
 import com.senko.common.core.entity.RoleMenuEntity;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.MenuVO;
 import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.spring.SecurityUtils;
@@ -120,6 +122,28 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
         //连同menuID和它的孩子，一起删除
         childMenusIdList.add(menuId);
         this.removeBatchByIds(childMenusIdList);
+    }
+
+    /**
+     * 获取菜单图标集合
+     * @return      图标名 集合
+     */
+    @Override
+    public List<String> listMenuIcons() {
+        return menuMapper.selectList(new QueryWrapper<MenuEntity>().select("DISTINCT icon")).stream()
+                        .map(MenuEntity::getIcon)
+                        .collect(Collectors.toList());
+    }
+
+    /**
+     * 更新或新增菜单
+     * @param menuVO    菜单表单
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveOrUpdateMenu(MenuVO menuVO) {
+        MenuEntity menuEntity = BeanCopyUtils.copyObject(menuVO, MenuEntity.class);
+        this.saveOrUpdate(menuEntity);
     }
 
 

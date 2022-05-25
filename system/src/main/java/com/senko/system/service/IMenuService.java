@@ -5,6 +5,7 @@ import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.entity.MenuEntity;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.MenuVO;
 
 import java.util.List;
 import java.util.Map;
@@ -44,5 +45,17 @@ public interface IMenuService extends IService<MenuEntity> {
      * @param menuId        菜单ID
      */
     void deleteMenuByMenuId(Integer menuId);
+
+    /**
+     * 获取菜单图标集合
+     * @return      图标名 集合
+     */
+    List<String> listMenuIcons();
+
+    /**
+     * 更新或新增菜单
+     * @param menuVO    菜单表单
+     */
+    void saveOrUpdateMenu(MenuVO menuVO);
 }
 

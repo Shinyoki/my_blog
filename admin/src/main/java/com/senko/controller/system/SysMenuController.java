@@ -6,6 +6,7 @@ import com.senko.common.core.AjaxResult;
 import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.MenuVO;
 import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +62,17 @@ public class SysMenuController {
     }
 
     /**
+     * 获取菜单图标集合
+     * @return      图标名 集合
+     */
+    @ApiOperation("获取菜单图标集合")
+    @GetMapping("/admin/menus/icons")
+    public AjaxResult<List<String>> getMenuIcons() {
+        List<String> icons = menuService.listMenuIcons();
+        return AjaxResult.success("成功获取图标资源", icons);
+    }
+
+    /**
      * 根据菜单ID 删除其还有子菜单
      * @param id        菜单ID
      */
@@ -68,6 +81,18 @@ public class SysMenuController {
     @DeleteMapping("/admin/menus/{id}")
     public AjaxResult<?> deleteMenu(@PathVariable("id") Integer id) {
         menuService.deleteMenuByMenuId(id);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 更新或新增菜单
+     * @param menuVO    菜单表单
+     */
+    @LogOperation(optType = OperationTypeConstants.SAVE_OR_UPDATE)
+    @ApiOperation("更新或新增菜单")
+    @PostMapping("/admin/menus")
+    public AjaxResult<?> saveOrUpdateMenu(@Valid @RequestBody MenuVO menuVO) {
+        menuService.saveOrUpdateMenu(menuVO);
         return AjaxResult.success();
     }
 }
