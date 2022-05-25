@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.MessageBackDTO;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.MessageIsReviewVO;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.string.StringUtils;
@@ -14,9 +15,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.system.mapper.MessageMapper;
 import com.senko.common.core.entity.MessageEntity;
 import com.senko.system.service.IMessageService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 @Service("messageService")
@@ -43,5 +46,22 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, MessageEntity
         List<MessageBackDTO> messageBackDTOS = BeanCopyUtils.copyList(messagePage.getRecords(), MessageBackDTO.class);
 
         return new PageResult<MessageBackDTO>((int) messagePage.getTotal(), messageBackDTOS);
+    }
+
+    /**
+     * 更新留言审核状态
+     * @param messageIsReviewVO id集合、希望改为的审核状态
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateMessagesReview(MessageIsReviewVO messageIsReviewVO) {
+        List<MessageEntity> messages = messageIsReviewVO.getIdList().stream().map(id -> {
+                    return MessageEntity.builder()
+                            .id(id)
+                            .isReview(messageIsReviewVO.getIsReview())
+                            .build();
+                })
+                .collect(Collectors.toList());
+        this.updateBatchById(messages);
     }
 }

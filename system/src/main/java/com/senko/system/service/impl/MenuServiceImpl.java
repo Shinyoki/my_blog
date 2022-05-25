@@ -1,15 +1,24 @@
 package com.senko.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
+import com.senko.common.core.entity.RoleEntity;
+import com.senko.common.core.entity.RoleMenuEntity;
+import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.spring.SecurityUtils;
+import com.senko.common.utils.string.StringUtils;
+import com.senko.system.mapper.RoleMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.system.mapper.MenuMapper;
 import com.senko.common.core.entity.MenuEntity;
 import com.senko.system.service.IMenuService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.function.Function;
@@ -23,6 +32,9 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> implements IMenuService {
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private RoleMenuMapper roleMenuMapper;
 
 
     /**
@@ -64,6 +76,51 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
         return convertMenuPO2MenuForUserDTO(catalogs, menus);
     }
 
+    /**
+     * 查询菜单后台
+     * @param conditionVO   条件 菜单名
+     * @return              菜单后台DTO 集合
+     */
+    @Override
+    public List<MenuDTO> listMenusBack(ConditionVO conditionVO) {
+        //查询菜单
+        List<MenuEntity> menuEntities = menuMapper.selectList(new LambdaQueryWrapper<MenuEntity>()
+                .like(StringUtils.isNotBlank(conditionVO.getKeywords()), MenuEntity::getName, conditionVO.getKeywords()));
+        //目录
+        List<MenuEntity> catalogList = listOfCatalog(menuEntities);
+        //子菜单
+        Map<Integer, List<MenuEntity>> menusMap = mapOfMenus(menuEntities);
+
+        //转换为MenuDTO
+        return convertMenuPO2MenuDTO(catalogList, menusMap);
+    }
+
+    /**
+     * 根据菜单ID 删除其还有子菜单
+     * @param menuId        菜单ID
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteMenuByMenuId(Integer menuId) {
+        //查看菜单是否与 角色 进行了绑定
+        Long count = roleMenuMapper.selectCount(new LambdaQueryWrapper<RoleMenuEntity>()
+                .eq(RoleMenuEntity::getMenuId, menuId));
+        if (count > 0) {
+            throw new ServiceException("该菜单存在角色与之绑定，无法删除");
+        }
+
+        //查询子菜单
+        List<MenuEntity> childrenMenus = menuMapper.selectList(new LambdaQueryWrapper<MenuEntity>()
+                .select(MenuEntity::getId)
+                .eq(MenuEntity::getParentId, menuId));
+        List<Integer> childMenusIdList = childrenMenus.stream()
+                .map(MenuEntity::getId)
+                .collect(Collectors.toList());
+
+        //连同menuID和它的孩子，一起删除
+        childMenusIdList.add(menuId);
+        this.removeBatchByIds(childMenusIdList);
+    }
 
 
     /**
@@ -222,5 +279,30 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
                         return result;
                     }
                 }).collect(Collectors.toList());
+    }
+
+
+    /**
+     * 将目录和菜单转换成 MenuForUserDTO
+     * @param catalogList      目录
+     * @param menusMap         不带目录的菜单
+     * @return                 {@link MenuDTO} 后台菜单
+     */
+    private List<MenuDTO> convertMenuPO2MenuDTO(List<MenuEntity> catalogList, Map<Integer, List<MenuEntity>> menusMap) {
+        return catalogList.stream()
+                .map(catalog -> {
+                    //目录
+                    MenuDTO catalogMenuDTO = BeanCopyUtils.copyObject(catalog, MenuDTO.class);
+                    //子菜单
+                    List<MenuDTO> menuDTOList = BeanCopyUtils.copyList(menusMap.get(catalog.getId()), MenuDTO.class).stream()
+                            .sorted(Comparator.comparing(MenuDTO::getOrderNum))
+                            .collect(Collectors.toList());
+                    //绑定
+                    catalogMenuDTO.setChildren(menuDTOList);
+                    return catalogMenuDTO;
+                })
+                //排序
+                .sorted(Comparator.comparing(MenuDTO::getOrderNum))
+                .collect(Collectors.toList());
     }
 }

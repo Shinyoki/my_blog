@@ -185,6 +185,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
      * 更新文章id集合的逻辑删除码
      * @param articleDeleteVO 查询VO : idList、isDelete
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateArticleDelete(ArticleDeleteVO articleDeleteVO) {
         List<ArticleEntity> articles = articleDeleteVO.getIdList().stream()

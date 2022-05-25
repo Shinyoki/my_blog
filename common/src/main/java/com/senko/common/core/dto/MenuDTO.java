@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 菜单DTO
+ * 后台菜单DTO
  *
  * @author senko
  * @date 2022/5/3 14:21
@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel("菜单DTO")
+@ApiModel("后台菜单DTO")
 public class MenuDTO implements Serializable {
     private static final long serialVersionUID = -8176859017765230171L;
 
@@ -67,7 +67,7 @@ public class MenuDTO implements Serializable {
      * 是否被隐藏
      */
     @ApiModelProperty("是否隐藏")
-    private Boolean isHidden;
+    private Integer isHidden;
 
     /**
      * 创建时间

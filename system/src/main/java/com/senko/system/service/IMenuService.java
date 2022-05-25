@@ -32,5 +32,17 @@ public interface IMenuService extends IService<MenuEntity> {
      */
     List<MenuForUserDTO> listMenusForUser(Integer userInfoId);
 
+    /**
+     * 查询菜单后台
+     * @param conditionVO   条件 菜单名
+     * @return              菜单后台DTO 集合
+     */
+    List<MenuDTO> listMenusBack(ConditionVO conditionVO);
+
+    /**
+     * 根据菜单ID 删除其还有子菜单
+     * @param menuId        菜单ID
+     */
+    void deleteMenuByMenuId(Integer menuId);
 }
 
