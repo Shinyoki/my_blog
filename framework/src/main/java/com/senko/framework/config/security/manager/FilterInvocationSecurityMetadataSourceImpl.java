@@ -47,7 +47,7 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
      * 清空资源：
      * 在ResourceService中对数据库进行修改操作后，要及时清空缓存
      */
-    private void clearResourcesCache() {
+    public void clearResourcesCache() {
         resourcesRoles = null;
     }
 

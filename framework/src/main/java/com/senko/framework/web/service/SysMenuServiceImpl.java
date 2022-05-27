@@ -1,11 +1,11 @@
-package com.senko.system.service.impl;
+package com.senko.framework.web.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
-import com.senko.common.core.entity.RoleEntity;
 import com.senko.common.core.entity.RoleMenuEntity;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.MenuVO;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * 菜单服务实现类
  */
 @Service("menuService")
-public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> implements IMenuService {
+public class SysMenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> implements IMenuService {
     @Autowired
     private MenuMapper menuMapper;
 
@@ -144,6 +144,51 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, MenuEntity> impleme
     public void saveOrUpdateMenu(MenuVO menuVO) {
         MenuEntity menuEntity = BeanCopyUtils.copyObject(menuVO, MenuEntity.class);
         this.saveOrUpdate(menuEntity);
+    }
+
+    /**
+     * 查询 角色-菜单 集合，并返回符合ElementUI Tree所需data结构的数据
+     */
+    @Override
+    public List<ElementTreeLabelOptionDTO> listRoleMenuOption() {
+        //查询所有 菜单 id、parentId、orderNum
+        List<MenuEntity> menus = menuMapper.selectList(new LambdaQueryWrapper<MenuEntity>()
+                .select(MenuEntity::getId,MenuEntity::getName, MenuEntity::getParentId, MenuEntity::getOrderNum));
+
+        // 目录
+        List<MenuEntity> catalogs = listOfCatalog(menus);
+        // 子菜单
+        Map<Integer, List<MenuEntity>> childrenMap = mapOfMenus(menus);
+
+        //PO转DTO
+        return catalogs.stream()
+                .map(curCatalog -> {
+                    List<ElementTreeLabelOptionDTO> labelChildrenList = new LinkedList<>();
+                    List<MenuEntity> childrenMenus = childrenMap.get(curCatalog.getId());
+
+                    //当前目录有孩子
+                    if (CollectionUtils.isNotEmpty(childrenMenus)) {
+                        //构筑labelOptionDTO的孩子
+                        labelChildrenList = childrenMenus.stream()
+                                .sorted(Comparator.comparing(MenuEntity::getOrderNum))
+                                .map(curMenu -> {
+                                    //塑形DTO
+                                    return ElementTreeLabelOptionDTO.builder()
+                                            .id(curMenu.getId())
+                                            .label(curMenu.getName())
+                                            .build();
+                                })
+                                .collect(Collectors.toList());
+                    }
+
+                    //完成DTO
+                    return ElementTreeLabelOptionDTO.builder()
+                            .id(curCatalog.getId())
+                            .label(curCatalog.getName())
+                            .children(labelChildrenList)
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 
 

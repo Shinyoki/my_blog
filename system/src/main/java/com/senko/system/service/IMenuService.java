@@ -1,6 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.entity.MenuEntity;
@@ -8,7 +9,6 @@ import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.MenuVO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *  菜单服务
@@ -57,5 +57,10 @@ public interface IMenuService extends IService<MenuEntity> {
      * @param menuVO    菜单表单
      */
     void saveOrUpdateMenu(MenuVO menuVO);
+
+    /**
+     * 查询 角色-菜单 集合，并返回符合ElementUI Tree所需data结构的数据
+     */
+    List<ElementTreeLabelOptionDTO> listRoleMenuOption();
 }
 

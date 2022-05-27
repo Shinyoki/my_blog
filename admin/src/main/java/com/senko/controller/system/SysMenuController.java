@@ -3,6 +3,7 @@ package com.senko.controller.system;
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
+import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.MenuDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.vo.ConditionVO;
@@ -15,8 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -94,5 +93,15 @@ public class SysMenuController {
     public AjaxResult<?> saveOrUpdateMenu(@Valid @RequestBody MenuVO menuVO) {
         menuService.saveOrUpdateMenu(menuVO);
         return AjaxResult.success();
+    }
+
+    /**
+     * 查询 角色-菜单 集合，并返回符合ElementUI Tree所需data结构的数据
+     */
+    @ApiOperation("查询 角色菜单 集合")
+    @GetMapping("/admin/role/menus")
+    public AjaxResult<List<ElementTreeLabelOptionDTO>> listRoleMenuOption() {
+        List<ElementTreeLabelOptionDTO> menuLabelList = menuService.listRoleMenuOption();
+        return AjaxResult.success(menuLabelList);
     }
 }
