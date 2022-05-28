@@ -1,9 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.senko.common.core.entity.PhotoEntity;
-
-import java.util.Map;
+import com.senko.common.common.entity.PhotoEntity;
 
 /**
  * 照片

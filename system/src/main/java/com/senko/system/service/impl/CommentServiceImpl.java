@@ -1,15 +1,15 @@
 package com.senko.system.service.impl;
 
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.CommentBackDTO;
-import com.senko.common.core.vo.CommentIsReviewVO;
+import com.senko.common.common.dto.CommentBackDTO;
+import com.senko.common.common.vo.CommentIsReviewVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.utils.page.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.system.mapper.CommentMapper;
-import com.senko.common.core.entity.CommentEntity;
+import com.senko.common.common.entity.CommentEntity;
 import com.senko.system.service.ICommentService;
 import org.springframework.transaction.annotation.Transactional;
 

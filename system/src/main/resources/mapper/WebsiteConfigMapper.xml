@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.WebsiteConfigMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.WebsiteConfigEntity" id="websiteConfigMap">
+    <resultMap type="com.senko.common.common.entity.WebsiteConfigEntity" id="websiteConfigMap">
         <result property="id" column="id"/>
         <result property="config" column="config"/>
         <result property="createTime" column="create_time"/>

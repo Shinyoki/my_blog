@@ -2,7 +2,7 @@ package com.senko.framework.web.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
+import com.senko.common.common.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.ResourceDTO;
 import com.senko.common.core.entity.RoleResourceEntity;
 import com.senko.common.core.vo.ConditionVO;

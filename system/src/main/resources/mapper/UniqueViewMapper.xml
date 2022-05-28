@@ -4,13 +4,13 @@
 <mapper namespace="com.senko.system.mapper.UniqueViewMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.UniqueViewEntity" id="uniqueViewMap">
+    <resultMap type="com.senko.common.common.entity.UniqueViewEntity" id="uniqueViewMap">
         <result property="id" column="id"/>
         <result property="viewsCount" column="views_count"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-    <select id="listOfUniqueViewDTO"  resultType="com.senko.common.core.dto.UniqueViewDTO">
+    <select id="listOfUniqueViewDTO"  resultType="com.senko.common.common.dto.UniqueViewDTO">
         SELECT
         DATE_FORMAT( create_time, "%Y-%m-%d") as `day`, views_count
         FROM `tb_unique_view`

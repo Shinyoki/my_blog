@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.TagMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.TagEntity" id="tagMap">
+    <resultMap type="com.senko.common.common.entity.TagEntity" id="tagMap">
         <result property="id" column="id"/>
         <result property="tagName" column="tag_name"/>
         <result property="createTime" column="create_time"/>
@@ -17,7 +17,7 @@
             LEFT JOIN tb_article_tag tat ON tat.tag_id = t.id
         WHERE tat.article_id = #{articleId}
     </select>
-    <select id="listTagBackDTO" resultType="com.senko.common.core.dto.TagBackDTO">
+    <select id="listTagBackDTO" resultType="com.senko.common.common.dto.TagBackDTO">
         SELECT t.id, t.tag_name, COUNT(tat.article_id) article_count, t.create_time
         FROM tb_tag t
             LEFT JOIN tb_article_tag tat ON tat.tag_id = t.id

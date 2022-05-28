@@ -1,21 +1,17 @@
 package com.senko.controller.system;
 
 import com.senko.common.core.AjaxResult;
-import com.senko.common.core.dto.BlogCountsInfoDTO;
-import com.senko.common.core.dto.UserAreaDTO;
+import com.senko.common.common.dto.BlogCountsInfoDTO;
+import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.utils.ip.IpUtils;
-import com.senko.common.utils.uuid.UUID;
 import com.senko.system.service.ISysBlogInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

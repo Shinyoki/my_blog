@@ -4,11 +4,11 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.senko.common.core.dto.ArticleViewsRankDTO;
-import com.senko.common.core.dto.ArticlesOnOneDayDTO;
-import com.senko.common.core.dto.CategoryDTO;
+import com.senko.common.common.dto.ArticleViewsRankDTO;
+import com.senko.common.common.dto.ArticlesOnOneDayDTO;
+import com.senko.common.common.dto.CategoryDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
-import com.senko.common.core.entity.ArticleEntity;
+import com.senko.common.common.entity.ArticleEntity;
 import com.senko.common.core.entity.MenuEntity;
 import com.senko.common.core.entity.RoleEntity;
 import com.senko.system.mapper.*;
@@ -18,8 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 

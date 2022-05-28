@@ -27,7 +27,7 @@ public class AccessDecisionManagerImpl implements AccessDecisionManager {
      * 根据得到的authentication用户，判定该用户是否具有 collection权限集合的所需权限之一
      * @param authentication        用户信息：Authorities权限roles，Credentials密码，Details用户Details、Principal用户主体
      * @param object
-     * @param configAttributes      权限名XXX
+     * @param configAttributes      访问资源所需要的权限 集合
      * @throws AccessDeniedException                访问拒绝
      * @throws InsufficientAuthenticationException
      */

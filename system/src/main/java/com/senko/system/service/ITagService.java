@@ -2,14 +2,13 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.TagBackDTO;
-import com.senko.common.core.dto.TagDTO;
-import com.senko.common.core.entity.TagEntity;
+import com.senko.common.common.dto.TagBackDTO;
+import com.senko.common.common.dto.TagDTO;
+import com.senko.common.common.entity.TagEntity;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.TagVO;
+import com.senko.common.common.vo.TagVO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 标签服务

@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.CommentMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.CommentEntity" id="commentMap">
+    <resultMap type="com.senko.common.common.entity.CommentEntity" id="commentMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="topicId" column="topic_id"/>
@@ -34,7 +34,7 @@
             </if>
         </where>
     </select>
-    <select id="listCommentBack" resultType="com.senko.common.core.dto.CommentBackDTO">
+    <select id="listCommentBack" resultType="com.senko.common.common.dto.CommentBackDTO">
         SELECT
             c.id,
             c.type,

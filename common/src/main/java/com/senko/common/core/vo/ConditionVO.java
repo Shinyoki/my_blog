@@ -1,5 +1,6 @@
 package com.senko.common.core.vo;
 
+import com.senko.common.common.entity.MessageEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -86,7 +87,7 @@ public class ConditionVO {
 
     /**
      * 是否审核过该Message：0-未审核，1-已审核
-     * {@link com.senko.common.core.entity.MessageEntity#isReview}
+     * {@link MessageEntity#isReview}
      */
     @ApiModelProperty("是否审核过该Message：0-未审核，1-已审核")
     private Integer isReview;

@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.TalkMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.TalkEntity" id="talkMap">
+    <resultMap type="com.senko.common.common.entity.TalkEntity" id="talkMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="content" column="content"/>

@@ -1,7 +1,7 @@
 package com.senko.system.mapper;
 
-import com.senko.common.core.dto.CommentBackDTO;
-import com.senko.common.core.entity.CommentEntity;
+import com.senko.common.common.dto.CommentBackDTO;
+import com.senko.common.common.entity.CommentEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.senko.common.core.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;

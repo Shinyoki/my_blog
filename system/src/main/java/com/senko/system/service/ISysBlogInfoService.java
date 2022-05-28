@@ -1,7 +1,7 @@
 package com.senko.system.service;
 
-import com.senko.common.core.dto.BlogCountsInfoDTO;
-import com.senko.common.core.dto.UserAreaDTO;
+import com.senko.common.common.dto.BlogCountsInfoDTO;
+import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.core.vo.ConditionVO;
 
 import java.util.List;

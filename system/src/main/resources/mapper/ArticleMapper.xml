@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.ArticleMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.ArticleEntity" id="articleMap">
+    <resultMap type="com.senko.common.common.entity.ArticleEntity" id="articleMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="categoryId" column="category_id"/>
@@ -20,7 +20,7 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <resultMap id="articleBack" type="com.senko.common.core.dto.ArticleBackDTO">
+    <resultMap id="articleBack" type="com.senko.common.common.dto.ArticleBackDTO">
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
@@ -31,13 +31,13 @@
         <result column="create_time" property="createTime"/>
         <result column="category_name" property="categoryName"/>
 
-        <collection property="tagDTOList" ofType="com.senko.common.core.dto.TagDTO">
+        <collection property="tagDTOList" ofType="com.senko.common.common.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
         </collection>
     </resultMap>
 
-    <select id="listOfArticlesOnOneDay" resultType="com.senko.common.core.dto.ArticlesOnOneDayDTO">
+    <select id="listOfArticlesOnOneDay" resultType="com.senko.common.common.dto.ArticlesOnOneDayDTO">
         SELECT DATE_FORMAT(create_time,"%Y-%m-%d") date, COUNT(1) count
         FROM tb_article a
         GROUP BY date

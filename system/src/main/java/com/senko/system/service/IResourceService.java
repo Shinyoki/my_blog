@@ -1,14 +1,13 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
+import com.senko.common.common.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.ResourceDTO;
 import com.senko.common.core.entity.ResourceEntity;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.ResourceVO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 资源Service

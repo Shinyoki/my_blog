@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.FriendLinkMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.FriendLinkEntity" id="friendLinkMap">
+    <resultMap type="com.senko.common.common.entity.FriendLinkEntity" id="friendLinkMap">
         <result property="id" column="id"/>
         <result property="linkName" column="link_name"/>
         <result property="linkAvatar" column="link_avatar"/>

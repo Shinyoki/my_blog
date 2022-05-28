@@ -1,9 +1,8 @@
 package com.senko.system.mapper;
 
-import com.senko.common.core.dto.ArticleBackDTO;
-import com.senko.common.core.dto.ArticleViewsRankDTO;
-import com.senko.common.core.dto.ArticlesOnOneDayDTO;
-import com.senko.common.core.entity.ArticleEntity;
+import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.dto.ArticlesOnOneDayDTO;
+import com.senko.common.common.entity.ArticleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.senko.common.core.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;

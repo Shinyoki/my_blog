@@ -1,11 +1,10 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.senko.common.core.dto.UniqueViewDTO;
-import com.senko.common.core.entity.UniqueViewEntity;
+import com.senko.common.common.dto.UniqueViewDTO;
+import com.senko.common.common.entity.UniqueViewEntity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  *

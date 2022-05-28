@@ -3,7 +3,7 @@ package com.senko.controller.system;
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
-import com.senko.common.core.dto.ElementTreeLabelOptionDTO;
+import com.senko.common.common.dto.ElementTreeLabelOptionDTO;
 import com.senko.common.core.dto.ResourceDTO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.ResourceVO;

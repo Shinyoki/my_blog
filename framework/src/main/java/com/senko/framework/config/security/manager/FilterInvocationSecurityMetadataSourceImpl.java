@@ -93,7 +93,7 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
                 }
             }
         }
-        //没有匹配到uri&method对应的roles，当作是匿名访问，于是返回null,Empty Collection
+        //没有匹配到uri&method对应的roles，当作是匿名访问，于是返回null，此时匿名用户不具备 roles
         return null;
     }
 

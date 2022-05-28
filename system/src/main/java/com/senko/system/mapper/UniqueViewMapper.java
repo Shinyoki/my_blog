@@ -1,8 +1,8 @@
 package com.senko.system.mapper;
 
 
-import com.senko.common.core.dto.UniqueViewDTO;
-import com.senko.common.core.entity.UniqueViewEntity;
+import com.senko.common.common.dto.UniqueViewDTO;
+import com.senko.common.common.entity.UniqueViewEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

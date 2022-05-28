@@ -2,13 +2,10 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.CommentBackDTO;
-import com.senko.common.core.entity.CommentEntity;
-import com.senko.common.core.vo.CommentIsReviewVO;
+import com.senko.common.common.dto.CommentBackDTO;
+import com.senko.common.common.entity.CommentEntity;
+import com.senko.common.common.vo.CommentIsReviewVO;
 import com.senko.common.core.vo.ConditionVO;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 评论Service

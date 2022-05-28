@@ -2,11 +2,10 @@ package com.senko.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.UserAreaDTO;
+import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.core.dto.UserBackDTO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.utils.page.PageUtils;

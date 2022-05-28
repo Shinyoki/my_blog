@@ -2,12 +2,10 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.MessageBackDTO;
-import com.senko.common.core.entity.MessageEntity;
+import com.senko.common.common.dto.MessageBackDTO;
+import com.senko.common.common.entity.MessageEntity;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.MessageIsReviewVO;
-
-import java.util.Map;
+import com.senko.common.common.vo.MessageIsReviewVO;
 
 /**
  * 留言Service

@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.ArticleTagMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.ArticleTagEntity" id="articleTagMap">
+    <resultMap type="com.senko.common.common.entity.ArticleTagEntity" id="articleTagMap">
         <result property="id" column="id"/>
         <result property="articleId" column="article_id"/>
         <result property="tagId" column="tag_id"/>

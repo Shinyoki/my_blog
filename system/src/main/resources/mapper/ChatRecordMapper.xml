@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.ChatRecordMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.ChatRecordEntity" id="chatRecordMap">
+    <resultMap type="com.senko.common.common.entity.ChatRecordEntity" id="chatRecordMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
         <result property="nickname" column="nickname"/>

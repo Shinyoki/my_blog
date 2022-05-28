@@ -1,8 +1,10 @@
 package com.senko;
 
 import cn.hutool.core.util.RandomUtil;
+import com.alibaba.fastjson.JSON;
 import com.senko.common.core.dto.ResourceRoleDTO;
 import com.senko.common.core.entity.UserAuthEntity;
+import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.system.mapper.RoleMapper;
 import com.senko.system.service.IRoleService;
@@ -14,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -40,6 +43,13 @@ public class TestApplication {
 
     @Autowired
     private RedisHandler redisHandler;
+
+    @Test
+    void test3() {
+//        LocalDateTime localDateTime = BeanCopyUtils.copyObject(LocalDateTime.now(), LocalDateTime.class);
+        LocalDateTime localDateTime = JSON.parseObject(JSON.toJSONString(LocalDateTime.now()), LocalDateTime.class);
+        System.out.println("当前时间"+localDateTime);
+    }
 
     @Test
     void bitmap3() {

@@ -1,25 +1,22 @@
 package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.TagBackDTO;
-import com.senko.common.core.dto.TagDTO;
-import com.senko.common.core.entity.ArticleEntity;
-import com.senko.common.core.entity.ArticleTagEntity;
+import com.senko.common.common.dto.TagBackDTO;
+import com.senko.common.common.dto.TagDTO;
+import com.senko.common.common.entity.ArticleTagEntity;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.TagVO;
+import com.senko.common.common.vo.TagVO;
 import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.string.StringUtils;
-import com.senko.system.mapper.ArticleMapper;
 import com.senko.system.mapper.ArticleTagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.system.mapper.TagMapper;
-import com.senko.common.core.entity.TagEntity;
+import com.senko.common.common.entity.TagEntity;
 import com.senko.system.service.ITagService;
 import org.springframework.transaction.annotation.Transactional;
 

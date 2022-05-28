@@ -1,7 +1,7 @@
 package com.senko.system.mapper;
 
-import com.senko.common.core.dto.TagBackDTO;
-import com.senko.common.core.entity.TagEntity;
+import com.senko.common.common.dto.TagBackDTO;
+import com.senko.common.common.entity.TagEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.senko.common.core.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;

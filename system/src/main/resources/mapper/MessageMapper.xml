@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.MessageMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.MessageEntity" id="messageMap">
+    <resultMap type="com.senko.common.common.entity.MessageEntity" id="messageMap">
         <result property="id" column="id"/>
         <result property="nickname" column="nickname"/>
         <result property="avatar" column="avatar"/>

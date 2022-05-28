@@ -4,7 +4,7 @@
 <mapper namespace="com.senko.system.mapper.PhotoMapper">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.senko.common.core.entity.PhotoEntity" id="photoMap">
+    <resultMap type="com.senko.common.common.entity.PhotoEntity" id="photoMap">
         <result property="id" column="id"/>
         <result property="albumId" column="album_id"/>
         <result property="photoName" column="photo_name"/>

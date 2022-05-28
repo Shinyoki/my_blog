@@ -2,11 +2,11 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
-import com.senko.common.core.dto.ArticleBackDTO;
-import com.senko.common.core.entity.ArticleEntity;
-import com.senko.common.core.vo.ArticleDeleteVO;
-import com.senko.common.core.vo.ArticleTopVO;
-import com.senko.common.core.vo.ArticleVO;
+import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.entity.ArticleEntity;
+import com.senko.common.common.vo.ArticleDeleteVO;
+import com.senko.common.common.vo.ArticleTopVO;
+import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
 
 import java.util.List;
