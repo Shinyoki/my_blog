@@ -30,16 +30,13 @@ public class SysMenuController {
     @Autowired
     private IMenuService menuService;
 
-    @Autowired
-    private IRoleService roleService;
-
     /**
      * 查询当前登录用户的可访问菜单
      *
      * @return 菜单名、路径、组件、图标、子菜单
      */
     @ApiOperation("查询用户的可选菜单")
-    @GetMapping("/menus/user/list")
+    @GetMapping("/admin/user/menus")
     public AjaxResult<List<MenuForUserDTO>> listUserMenus() {
         List<MenuForUserDTO> result = menuService.listMenusForUser();
         for (MenuForUserDTO menuForUserDTO : result) {

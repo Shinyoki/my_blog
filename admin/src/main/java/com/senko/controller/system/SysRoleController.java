@@ -5,6 +5,7 @@ import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.RoleDTO;
+import com.senko.common.core.dto.UserRoleDTO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.RoleVO;
 import com.senko.system.service.IRoleService;
@@ -37,6 +38,17 @@ public class SysRoleController {
     public AjaxResult<PageResult<RoleDTO>> listRoles(ConditionVO conditionVO) {
         PageResult<RoleDTO> roleDTOList = roleService.listRoles(conditionVO);
         return AjaxResult.success(roleDTOList);
+    }
+
+    /**
+     * 查询 用户角色 集合
+     * @return      用户角色 集合
+     */
+    @ApiOperation("查询用户角色集合")
+    @GetMapping("/admin/users/role")
+    public AjaxResult<List<UserRoleDTO>> listUserRoles() {
+        List<UserRoleDTO> userRoleDTOList = roleService.listUserRoles();
+        return AjaxResult.success(userRoleDTOList);
     }
 
     /**

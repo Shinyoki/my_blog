@@ -17,5 +17,84 @@
         <result property="lastLoginTime" column="last_login_time"/>
     </resultMap>
 
+    <select id="selectCountByConditionVO" resultType="java.lang.Integer"
+            parameterType="com.senko.common.core.vo.ConditionVO">
+        SELECT COUNT(1)
+        FROM tb_user_auth ua
+            LEFT JOIN tb_user_info ui ON ui.id = ua.user_info_id
+        <where>
+            <if test="condition.keywords != null">
+                ui.nickname LIKE CONCAT('%', #{condition.keywords}, '%')
+            </if>
+            <if test="condition.loginType != null">
+                AND ua.login_type = #{condition.loginType}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="userBackDTO" type="com.senko.common.core.dto.UserBackDTO">
+        <id column="id" property="id"/>
+        <result column="user_info_id" property="userInfoId"/>
+        <result column="avatar" property="avatar"/>
+        <result column="nickname" property="nickname"/>
+        <result column="is_disable" property="isDisable"/>
+        <result column="login_type" property="loginType"/>
+        <result column="ip_address" property="ipAddress"/>
+        <result column="ip_source" property="ipSource"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_login_time" property="lastLoginTime"/>
+        <collection property="roleList" ofType="com.senko.common.core.dto.UserRoleDTO">
+            <id column="role_id" property="id"/>
+            <result column="role_name" property="roleName"/>
+        </collection>
+    </resultMap>
+
+    <select id="listUserBack" resultMap="userBackDTO">
+        SELECT
+        ua.id,
+        ua.user_info_id,
+        avatar,
+        nickname,
+        login_type,
+        r.id as role_id,
+        role_name,
+        ip_address,
+        ip_source,
+        ua.create_time,
+        last_login_time,
+        ui.is_disable
+        FROM
+        (
+        SELECT
+        id,
+        avatar,
+        nickname,
+        is_disable
+        FROM
+        tb_user_info
+        <where>
+            <if test="condition.loginType != null">
+                id in
+                (
+                SELECT
+                user_info_id
+                FROM
+                tb_user_auth
+                WHERE
+                login_type =  #{condition.loginType}
+                )
+            </if>
+            <if test="condition.keywords != null">
+                and nickname like concat('%',#{condition.keywords},'%')
+            </if>
+        </where>
+        LIMIT #{current},#{size}
+        )   ui
+        LEFT JOIN tb_user_auth ua ON ua.user_info_id = ui.id
+        LEFT JOIN tb_user_role ur ON ui.id = ur.user_id
+        LEFT JOIN tb_role r ON ur.role_id = r.id
+    </select>
+
+
 
 </mapper>

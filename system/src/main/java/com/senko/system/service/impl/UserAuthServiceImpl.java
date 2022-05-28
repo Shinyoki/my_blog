@@ -5,7 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.constants.RedisConstants;
+import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserAreaDTO;
+import com.senko.common.core.dto.UserBackDTO;
+import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.string.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +54,22 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
                             //where
                            .eq(UserAuthEntity::getUsername, username)
          );
+    }
+
+    /**
+     * 查询后台用户 分页集合
+     * @param conditionVO       条件（用户名、登陆类型）
+     * @return                  后台用户 分页集合
+     */
+    @Override
+    public PageResult<UserBackDTO> listUserBack(ConditionVO conditionVO) {
+        Integer count = userAuthMapper.selectCountByConditionVO(conditionVO);
+        if (count == 0) {
+            return new PageResult<>();
+        }
+
+        List<UserBackDTO> userBackDTOList = userAuthMapper.listUserBack(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
+        return new PageResult<UserBackDTO>(count, userBackDTOList);
     }
 
     /**

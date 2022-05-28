@@ -1,12 +1,15 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.core.PageResult;
+import com.senko.common.core.dto.UserBackDTO;
 import com.senko.common.core.entity.UserAuthEntity;
+import com.senko.common.core.vo.ConditionVO;
 
 import java.util.Map;
 
 /**
- * 
+ * 后台用户模块
  *
  * @author senko
  * @date 2022-04-24 16:50:47
@@ -20,5 +23,12 @@ public interface IUserAuthService extends IService<UserAuthEntity> {
      * @return
      */
     UserAuthEntity getByUsername(String username);
+
+    /**
+     * 查询后台用户 分页集合
+     * @param conditionVO       条件（用户名、登陆类型）
+     * @return                  后台用户 分页集合
+     */
+    PageResult<UserBackDTO> listUserBack(ConditionVO conditionVO);
 }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.ResourceRoleDTO;
 import com.senko.common.core.dto.RoleDTO;
+import com.senko.common.core.dto.UserRoleDTO;
 import com.senko.common.core.entity.ResourceEntity;
 import com.senko.common.core.entity.RoleEntity;
 import com.senko.common.core.vo.ConditionVO;
@@ -52,5 +53,11 @@ public interface IRoleService extends IService<RoleEntity> {
      * @param roleVO    角色VO
      */
     void saveOrUpdateRole(RoleVO roleVO);
+
+    /**
+     * 查询 用户角色 集合
+     * @return      用户角色 集合
+     */
+    List<UserRoleDTO> listUserRoles();
 }
 

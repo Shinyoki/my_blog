@@ -6,12 +6,14 @@ import com.senko.common.constants.CommonConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.ResourceRoleDTO;
 import com.senko.common.core.dto.RoleDTO;
+import com.senko.common.core.dto.UserRoleDTO;
 import com.senko.common.core.entity.RoleMenuEntity;
 import com.senko.common.core.entity.RoleResourceEntity;
 import com.senko.common.core.entity.UserRoleEntity;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.core.vo.RoleVO;
 import com.senko.common.exceptions.service.ServiceException;
+import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.string.StringUtils;
 import com.senko.framework.config.security.manager.FilterInvocationSecurityMetadataSourceImpl;
@@ -118,6 +120,7 @@ public class SysRoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impl
      * 新增或修改角色
      * @param roleVO    角色VO
      */
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveOrUpdateRole(RoleVO roleVO) {
         //判重：角色标签可以是多个，但角色名只能有一个
@@ -179,5 +182,17 @@ public class SysRoleServiceImpl extends ServiceImpl<RoleMapper, RoleEntity> impl
             //更新角色资源权限缓存
             filterInvocationSecurityMetadataSource.clearResourcesCache();
         }
+    }
+
+    /**
+     * 查询 用户角色 集合
+     * @return      用户角色 集合
+     */
+    @Override
+    public List<UserRoleDTO> listUserRoles() {
+        List<RoleEntity> roles = roleMapper.selectList(new LambdaQueryWrapper<RoleEntity>()
+                .select(RoleEntity::getId, RoleEntity::getRoleName));
+
+        return BeanCopyUtils.copyList(roles, UserRoleDTO.class);
     }
 }
