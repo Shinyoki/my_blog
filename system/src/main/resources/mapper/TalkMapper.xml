@@ -14,6 +14,18 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
+    <select id="listTalkBack" resultType="com.senko.common.common.dto.TalkBackDTO">
+        SELECT t.id, ui.nickname, ui.avatar, t.content, t.is_top, t.images, t.status, t.create_time
+        FROM tb_talk t
+            LEFT JOIN tb_user_info ui ON ui.id = t.user_id
+        <where>
+            <if test="condition.status != null">
+                t.status = #{condition.status}
+            </if>
+        </where>
+        ORDER BY t.is_top DESC, t.id DESC
+        LIMIT #{current}, #{size}
+    </select>
 
 
 </mapper>
