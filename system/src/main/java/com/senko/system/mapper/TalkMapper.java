@@ -24,4 +24,11 @@ public interface TalkMapper extends BaseMapper<TalkEntity> {
      * @return              后台说说 分页集合
      */
     List<TalkBackDTO> listTalkBack(@Param("current") Long limitCurrent,@Param("size") Long size,@Param("condition") ConditionVO conditionVO);
+
+    /**
+     * 根据talkId查询后台说说
+     * @param talkId        talkId
+     * @return              后台说说
+     */
+    TalkBackDTO getTalkBackById(Integer talkId);
 }

@@ -26,6 +26,15 @@
         ORDER BY t.is_top DESC, t.id DESC
         LIMIT #{current}, #{size}
     </select>
+    <select id="getTalkBackById" resultType="com.senko.common.common.dto.TalkBackDTO">
+        SELECT
+            t.id, ui.nickname, ui.avatar, t.content, t.is_top, t.images, t.status, t.create_time
+        FROM
+            tb_talk t
+            LEFT JOIN tb_user_info ui ON ui.id = t.user_id
+        WHERE
+            t.id = #{talkId}
+    </select>
 
 
 </mapper>
