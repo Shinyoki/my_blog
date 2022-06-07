@@ -7,10 +7,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.senko.common.common.dto.ArticleViewsRankDTO;
 import com.senko.common.common.dto.ArticlesOnOneDayDTO;
 import com.senko.common.common.dto.CategoryDTO;
+import com.senko.common.common.dto.PhotoAlbumBackDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.common.entity.ArticleEntity;
 import com.senko.common.core.entity.MenuEntity;
 import com.senko.common.core.entity.RoleEntity;
+import com.senko.common.core.vo.ConditionVO;
 import com.senko.system.mapper.*;
 import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
@@ -48,6 +50,15 @@ public class MenuTest {
     @Autowired
     private IRoleService roleService;
 
+    @Autowired
+    private PhotoAlbumMapper photoAlbumMapper;
+
+    @Test
+    void testPhotoAlbum() {
+        ConditionVO conditionVO = ConditionVO.builder().keywords("").build();
+        List<PhotoAlbumBackDTO> photoAlbumBackDTOS = photoAlbumMapper.listPhotoAlbumDTO(0L, 10L, conditionVO);
+        System.out.println(JSON.toJSONString(photoAlbumBackDTOS));
+    }
     @Test
     void  testMPSave() {
         LambdaQueryWrapper<RoleEntity> query = new LambdaQueryWrapper<RoleEntity>()

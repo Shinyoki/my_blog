@@ -4,6 +4,8 @@ import com.senko.common.common.entity.PhotoEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 照片
  *
