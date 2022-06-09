@@ -19,7 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Builder
 @ApiModel("后台相册DTO")
-public class PhotoAlbumBackDTO implements Serializable {
+public class AlbumBackDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**

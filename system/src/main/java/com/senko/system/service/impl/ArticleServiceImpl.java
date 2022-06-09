@@ -7,7 +7,7 @@ import com.senko.common.common.dto.ArticleBackDTO;
 import com.senko.common.common.entity.ArticleTagEntity;
 import com.senko.common.common.entity.CategoryEntity;
 import com.senko.common.common.entity.TagEntity;
-import com.senko.common.common.vo.ArticleDeleteVO;
+import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
@@ -183,16 +183,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
 
     /**
      * 更新文章id集合的逻辑删除码
-     * @param articleDeleteVO 查询VO : idList、isDelete
+     * @param deleteVO 查询VO : idList、isDelete
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateArticleDelete(ArticleDeleteVO articleDeleteVO) {
-        List<ArticleEntity> articles = articleDeleteVO.getIdList().stream()
+    public void updateArticleDelete(DeleteVO deleteVO) {
+        List<ArticleEntity> articles = deleteVO.getIdList().stream()
                 .map(id -> {
                     return ArticleEntity.builder()
                             .id(id)
-                            .isDelete(articleDeleteVO.getIsDelete())
+                            .isDelete(deleteVO.getIsDelete())
                             .build();
                 })
                 .collect(Collectors.toList());

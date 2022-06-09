@@ -75,7 +75,7 @@ public class TagController {
      *
      * @param tagIdList 标签id 集合
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除标签")
     @DeleteMapping("/admin/tags")
     public AjaxResult<?> deleteTag(@RequestBody List<Integer> tagIdList) {

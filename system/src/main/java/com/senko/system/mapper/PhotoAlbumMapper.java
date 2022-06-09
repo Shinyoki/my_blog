@@ -1,6 +1,6 @@
 package com.senko.system.mapper;
 
-import com.senko.common.common.dto.PhotoAlbumBackDTO;
+import com.senko.common.common.dto.AlbumBackDTO;
 import com.senko.common.common.entity.PhotoAlbumEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.senko.common.core.vo.ConditionVO;
@@ -23,5 +23,5 @@ public interface PhotoAlbumMapper extends BaseMapper<PhotoAlbumEntity> {
      * @param conditionVO   查询条件
      * @return              后台相册分页集合
      */
-    List<PhotoAlbumBackDTO> listPhotoAlbumDTO(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO conditionVO);
+    List<AlbumBackDTO> listPhotoAlbumDTO(@Param("current") Long current, @Param("size") Long size, @Param("condition") ConditionVO conditionVO);
 }

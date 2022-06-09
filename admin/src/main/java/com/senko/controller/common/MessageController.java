@@ -52,7 +52,7 @@ public class MessageController {
         return AjaxResult.success();
     }
 
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除留言")
     @DeleteMapping("/admin/messages")
     public AjaxResult<?> deleteMessages(@RequestBody List<Integer> messageIdList) {

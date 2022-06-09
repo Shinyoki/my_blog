@@ -5,7 +5,7 @@ import com.senko.common.constants.FilePathConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.ArticleBackDTO;
-import com.senko.common.common.vo.ArticleDeleteVO;
+import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
@@ -95,8 +95,8 @@ public class ArticleController {
     @LogOperation(optType = UPDATE)
     @ApiOperation("恢复/删除文章")
     @PutMapping("/admin/articles")
-    public AjaxResult updateArticleDelete(@Valid @RequestBody ArticleDeleteVO articleDeleteVO) {
-        articleService.updateArticleDelete(articleDeleteVO);
+    public AjaxResult updateArticleDelete(@Valid @RequestBody DeleteVO deleteVO) {
+        articleService.updateArticleDelete(deleteVO);
         return AjaxResult.success();
     }
 
@@ -104,7 +104,7 @@ public class ArticleController {
      * 完全删除文章id集合对应的数据
      * @param articleIdList 文章id 集合
      */
-    @LogOperation(optType = REMOVE)
+    @LogOperation(optType = DELETE)
     @ApiOperation("完全删除文章")
     @DeleteMapping("/admin/articles")
     public AjaxResult deleteArticles(@RequestBody List<Integer> articleIdList) {

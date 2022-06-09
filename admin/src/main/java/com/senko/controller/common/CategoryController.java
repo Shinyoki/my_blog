@@ -72,7 +72,7 @@ public class CategoryController {
      * 删除分类
      * @param categoryIdList category ids
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除分类")
     @DeleteMapping("/admin/categories")
     public AjaxResult<?> deleteCategories(@RequestBody List<Integer> categoryIdList) {

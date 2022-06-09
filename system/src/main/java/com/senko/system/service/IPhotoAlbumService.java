@@ -1,7 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.senko.common.common.dto.PhotoAlbumBackDTO;
+import com.senko.common.common.dto.AlbumBackDTO;
 import com.senko.common.common.entity.PhotoAlbumEntity;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.core.PageResult;
@@ -20,7 +20,7 @@ public interface IPhotoAlbumService extends IService<PhotoAlbumEntity> {
      * @param conditionVO   查询条件
      * @return              后台相册分页集合
      */
-    PageResult<PhotoAlbumBackDTO> listPhotoAlbumDTO(ConditionVO conditionVO);
+    PageResult<AlbumBackDTO> listPhotoAlbumDTO(ConditionVO conditionVO);
 
     /**
      * 更新或修改相册
@@ -33,5 +33,12 @@ public interface IPhotoAlbumService extends IService<PhotoAlbumEntity> {
      * @param id              相册id
      */
     void deletePhotoAlbumById(Integer id);
+
+    /**
+     * 根据AlbumId获取后台相册
+     * @param albumId       相册Id
+     * @return              后台相册
+     */
+    AlbumBackDTO getPhotoAlbumDTOById(Integer albumId);
 }
 

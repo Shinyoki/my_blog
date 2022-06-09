@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.ArticleBackDTO;
 import com.senko.common.common.entity.ArticleEntity;
-import com.senko.common.common.vo.ArticleDeleteVO;
+import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
@@ -47,9 +47,9 @@ public interface IArticleService extends IService<ArticleEntity> {
 
     /**
      * 更新文章id集合的逻辑删除码
-     * @param articleDeleteVO 查询VO : idList、isDelete
+     * @param deleteVO 查询VO : idList、isDelete
      */
-    void updateArticleDelete(ArticleDeleteVO articleDeleteVO);
+    void updateArticleDelete(DeleteVO deleteVO);
 
 
     /**

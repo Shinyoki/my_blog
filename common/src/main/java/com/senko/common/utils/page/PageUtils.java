@@ -54,6 +54,8 @@ public class PageUtils {
 
     /**
      * 获取分页总量
+     *
+     * 用于new Page<>(current, size)直接开启分页
      * @return 分页总量
      */
     public static Long getSize() {
@@ -63,6 +65,8 @@ public class PageUtils {
     /**
      * 以Current页码计算的limit
      * current: [1 ~ 00]，所以对应Page的下标就是 current - 1
+     *
+     * 用于Mybatis XML中直接使用 LIMIT #{limitCurrent}, #{size}
      * @return (current - 1) * size
      */
     public static Long getLimitCurrent() {

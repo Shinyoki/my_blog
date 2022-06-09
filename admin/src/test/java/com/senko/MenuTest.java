@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.senko.common.common.dto.ArticleViewsRankDTO;
 import com.senko.common.common.dto.ArticlesOnOneDayDTO;
 import com.senko.common.common.dto.CategoryDTO;
-import com.senko.common.common.dto.PhotoAlbumBackDTO;
+import com.senko.common.common.dto.AlbumBackDTO;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.common.entity.ArticleEntity;
 import com.senko.common.core.entity.MenuEntity;
@@ -56,8 +56,8 @@ public class MenuTest {
     @Test
     void testPhotoAlbum() {
         ConditionVO conditionVO = ConditionVO.builder().keywords("").build();
-        List<PhotoAlbumBackDTO> photoAlbumBackDTOS = photoAlbumMapper.listPhotoAlbumDTO(0L, 10L, conditionVO);
-        System.out.println(JSON.toJSONString(photoAlbumBackDTOS));
+        List<AlbumBackDTO> albumBackDTOS = photoAlbumMapper.listPhotoAlbumDTO(0L, 10L, conditionVO);
+        System.out.println(JSON.toJSONString(albumBackDTOS));
     }
     @Test
     void  testMPSave() {

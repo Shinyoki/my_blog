@@ -1,7 +1,7 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
-import com.senko.common.common.dto.PhotoAlbumBackDTO;
+import com.senko.common.common.dto.AlbumBackDTO;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.constants.FilePathConstants;
 import com.senko.common.constants.OperationTypeConstants;
@@ -42,9 +42,20 @@ public class PhotoAlbumController {
      */
     @ApiOperation("获取后台相册分页集合")
     @GetMapping("/admin/photos/albums")
-    public AjaxResult<PageResult<PhotoAlbumBackDTO>> listPhotoAlbumDTO(ConditionVO conditionVO) {
-        PageResult<PhotoAlbumBackDTO> pageResult = photoAlbumService.listPhotoAlbumDTO(conditionVO);
+    public AjaxResult<PageResult<AlbumBackDTO>> listPhotoAlbumDTO(ConditionVO conditionVO) {
+        PageResult<AlbumBackDTO> pageResult = photoAlbumService.listPhotoAlbumDTO(conditionVO);
         return AjaxResult.success(pageResult);
+    }
+
+    /**
+     * 根据AlbumId获取后台相册
+     * @param albumId       相册Id
+     * @return              后台相册
+     */
+    @ApiOperation("查询后台相册信息")
+    @GetMapping("/admin/photos/albums/{albumId}/info")
+    public AjaxResult<AlbumBackDTO> getPhotoAlbumDTOById(@PathVariable("albumId") Integer albumId) {
+        return AjaxResult.success("查询成功", photoAlbumService.getPhotoAlbumDTOById(albumId));
     }
 
     /**
@@ -76,7 +87,7 @@ public class PhotoAlbumController {
      * 删除相册
      * @param id              相册id
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除相册")
     @DeleteMapping("/admin/photos/albums/{id}")
     public AjaxResult<?> deletePhotoAlbum(@NotNull @PathVariable("id") Integer id) {

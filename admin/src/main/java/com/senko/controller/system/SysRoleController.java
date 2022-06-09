@@ -55,7 +55,7 @@ public class SysRoleController {
      * 删除角色 如果存在与角色绑定的用户，则失败
      * @param roleIdList       角色ID 集合
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除角色")
     @DeleteMapping("/admin/roles")
     public AjaxResult<?> deleteRoles(@RequestBody List<Integer> roleIdList) {

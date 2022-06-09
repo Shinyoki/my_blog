@@ -69,7 +69,7 @@ public class SysResourceController {
      * 删除资源
      * @param resourceId    资源ID
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除资源")
     @DeleteMapping("/admin/resources/{resourceId}")
     public AjaxResult<?> deleteResource(@PathVariable("resourceId") Integer resourceId) {

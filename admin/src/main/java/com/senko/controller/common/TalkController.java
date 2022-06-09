@@ -65,7 +65,7 @@ public class TalkController {
      * 删除说说 集合
      * @param talkIdList        说说ID 集合
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除说说 集合")
     @DeleteMapping("/admin/talks")
     public AjaxResult<?> deleteTalks(@RequestBody List<Integer> talkIdList) {

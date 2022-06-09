@@ -2,7 +2,7 @@ package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.senko.common.common.dto.PhotoAlbumBackDTO;
+import com.senko.common.common.dto.AlbumBackDTO;
 import com.senko.common.common.entity.PhotoEntity;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.constants.CommonConstants;
@@ -39,14 +39,15 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
      * @return              后台相册分页集合
      */
     @Override
-    public PageResult<PhotoAlbumBackDTO> listPhotoAlbumDTO(ConditionVO conditionVO) {
+    public PageResult<AlbumBackDTO> listPhotoAlbumDTO(ConditionVO conditionVO) {
+        //查询相册内未被逻辑删除的图片数量
         Long count = albumMapper.selectCount(new LambdaQueryWrapper<PhotoAlbumEntity>()
                 .like(Objects.nonNull(conditionVO.getKeywords()), PhotoAlbumEntity::getAlbumName, conditionVO.getKeywords())
                 .eq(PhotoAlbumEntity::getIsDelete, CommonConstants.FALSE));
         if (count.intValue() == 0) {
             return new PageResult<>();
         }
-        List<PhotoAlbumBackDTO> photoAlbumDTOList = albumMapper.listPhotoAlbumDTO(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
+        List<AlbumBackDTO> photoAlbumDTOList = albumMapper.listPhotoAlbumDTO(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
         return new PageResult<>(count.intValue(), photoAlbumDTOList);
     }
 
@@ -91,5 +92,23 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
             //不存在，直接删除相册
             photoMapper.deleteById(albumId);
         }
+    }
+
+    /**
+     * 根据AlbumId获取后台相册
+     * @param albumId       相册Id
+     * @return              后台相册
+     */
+    @Override
+    public AlbumBackDTO getPhotoAlbumDTOById(Integer albumId) {
+        PhotoAlbumEntity album = albumMapper.selectById(albumId);
+        //查询相册内未被逻辑删除的图片数量
+        Long count = photoMapper.selectCount(new LambdaQueryWrapper<PhotoEntity>()
+                .eq(PhotoEntity::getAlbumId, albumId)
+                .eq(PhotoEntity::getIsDelete, CommonConstants.FALSE));
+
+        AlbumBackDTO albumBackDTO = BeanCopyUtils.copyObject(album, AlbumBackDTO.class);
+        albumBackDTO.setPhotoCount(count.intValue());
+        return albumBackDTO;
     }
 }

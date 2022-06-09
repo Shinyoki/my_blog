@@ -71,7 +71,7 @@ public class SysMenuController {
      * 根据菜单ID 删除其还有子菜单
      * @param id        菜单ID
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除菜单")
     @DeleteMapping("/admin/menus/{id}")
     public AjaxResult<?> deleteMenu(@PathVariable("id") Integer id) {

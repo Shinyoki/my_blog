@@ -19,7 +19,7 @@ public class OperationTypeConstants {
     /**
      * 删除   操作
      */
-    public static final String REMOVE = "删除";
+    public static final String DELETE = "删除";
 
     /**
      * 新增或修改

@@ -14,7 +14,7 @@
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-    <select id="listPhotoAlbumDTO" resultType="com.senko.common.common.dto.PhotoAlbumBackDTO">
+    <select id="listPhotoAlbumDTO" resultType="com.senko.common.common.dto.AlbumBackDTO">
         SELECT pa.id, pa.album_name, pa.album_desc, pa.album_cover, pa.status, COUNT(p.id) AS photo_count
         FROM (
             SELECT id, album_name, album_desc, album_cover, status

@@ -57,7 +57,7 @@ public class CommentController {
      * 删除评论
      * @param commentIdList     评论ID 集合
      */
-    @LogOperation(optType = OperationTypeConstants.REMOVE)
+    @LogOperation(optType = OperationTypeConstants.DELETE)
     @ApiOperation("删除评论")
     @DeleteMapping("/admin/comments")
     public AjaxResult<?> deleteComments(@RequestBody List<Integer> commentIdList) {
