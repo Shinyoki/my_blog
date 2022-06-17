@@ -24,7 +24,7 @@ import java.util.List;
  * @author senko
  * @date 2022-04-24 16:39:55
  */
-@Api("标签模块")
+@Api(tags = "标签模块")
 @RestController
 public class TagController {
 

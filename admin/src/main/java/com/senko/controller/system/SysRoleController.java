@@ -22,7 +22,7 @@ import java.util.List;
  * @author senko
  * @date 2022/5/26 9:46
  */
-@Api("角色模块")
+@Api(tags = "角色模块")
 @RestController
 public class SysRoleController {
     @Autowired

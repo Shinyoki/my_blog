@@ -25,7 +25,7 @@ import java.util.List;
  * @author senko
  * @date 2022-04-24 16:50:53
  */
-@Api("照片模块")
+@Api(tags = "照片模块")
 @RestController
 public class PhotoController {
     @Autowired

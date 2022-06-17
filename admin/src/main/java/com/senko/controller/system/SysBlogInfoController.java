@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2022/5/9 7:54
  */
 @RestController
-@Api("博客后台相关接口")
+@Api(tags = "博客后台相关接口")
 public class SysBlogInfoController {
 
     @Autowired
@@ -45,9 +45,24 @@ public class SysBlogInfoController {
         blogInfoService.recordCurView();
     }
 
+    /**
+     * 获取当前用户的地区信息
+     * @param condition 条件
+     * @return          地区信息
+     */
     @ApiOperation("查询所有用户相关区域分布")
     @GetMapping("/admin/users/area")
     public AjaxResult<List<UserAreaDTO>> listOfUserAreas(ConditionVO condition) {
         return AjaxResult.success(blogInfoService.listOfUserAreas(condition));
+    }
+
+    /**
+     * 获取我的描述
+     * @return      描述
+     */
+    @ApiOperation("获取关于我的信息")
+    @GetMapping("/about")
+    public AjaxResult<String> getAboutInfo() {
+        return AjaxResult.success("获取成功", blogInfoService.getAboutInfo());
     }
 }

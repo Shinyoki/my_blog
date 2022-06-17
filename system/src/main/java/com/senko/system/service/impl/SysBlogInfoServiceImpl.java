@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 
 import static com.senko.common.constants.RedisConstants.*;
 /**
+ * 博客相关
  * @author senko
  * @date 2022/5/9 13:01
  */
@@ -193,6 +194,15 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
         return result;
     }
 
+    /**
+     * 获取我的描述
+     * @return      描述
+     */
+    @Override
+    public String getAboutInfo() {
+        Object info = redisHandler.get(ABOUT);
+        return Objects.nonNull(info) ? info.toString() : "";
+    }
 
 
     /**

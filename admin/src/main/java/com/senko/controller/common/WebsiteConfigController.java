@@ -1,18 +1,18 @@
 package com.senko.controller.common;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 /**
- * 
+ * 网站配置模块
  *
  * @author senko
  * @date 2022-04-24 16:39:55
  */
+@Api(tags = "网站配置模块")
 @RestController
-@RequestMapping("core/websiteconfig")
 public class WebsiteConfigController {
 
 }

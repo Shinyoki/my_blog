@@ -1,6 +1,6 @@
 package com.senko.controller.common;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author senko
  * @date 2022-04-24 16:50:53
  */
+@Api(tags = "页面模块")
 @RestController
-@RequestMapping("core/page")
 public class PageController {
 
 }

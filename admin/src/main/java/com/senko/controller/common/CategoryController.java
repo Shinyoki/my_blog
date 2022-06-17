@@ -23,7 +23,7 @@ import java.util.List;
  * @author senko
  * @date 2022-04-24 16:50:53
  */
-@Api("分类模块")
+@Api(tags = "分类模块")
 @RestController
 public class CategoryController {
     private ICategoryService categoryService;

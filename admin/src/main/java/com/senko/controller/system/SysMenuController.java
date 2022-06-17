@@ -23,7 +23,7 @@ import java.util.List;
  * @author senko
  * @date 2022/5/2 22:29
  */
-@Api("菜单模块")
+@Api(tags = "菜单模块")
 @RestController
 public class SysMenuController {
     @Autowired

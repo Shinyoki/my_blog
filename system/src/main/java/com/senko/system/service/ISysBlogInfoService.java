@@ -28,4 +28,10 @@ public interface ISysBlogInfoService {
      * @param condition     前端传输的条件
      */
     List<UserAreaDTO> listOfUserAreas(ConditionVO condition);
+
+    /**
+     * 获取我的描述
+     * @return      描述
+     */
+    String getAboutInfo();
 }

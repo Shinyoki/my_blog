@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author senko
  * @date 2022-04-24 16:39:55
  */
-@Api("后台用户模块")
+@Api(tags = "后台用户模块")
 @RestController
 public class SysUserAuthController {
     @Autowired

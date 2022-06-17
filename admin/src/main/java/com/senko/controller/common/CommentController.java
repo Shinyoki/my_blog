@@ -24,7 +24,7 @@ import java.util.List;
  * @date 2022-04-24 16:50:58
  */
 @RestController
-@Api("评论Controller")
+@Api(tags = "评论模块")
 public class CommentController {
     @Autowired
     private ICommentService commentService;

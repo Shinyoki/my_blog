@@ -12,16 +12,12 @@ import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -71,7 +67,7 @@ public class LogOperationAspect {
                 //请求方法
                 .requestMethod(request.getMethod())
                 //当前函数
-                .optMethod(methodSignature.getDeclaringTypeName() + methodSignature.getName())
+                .optMethod(methodSignature.getDeclaringTypeName() + "." + methodSignature.getName())
                 //请求参数
                 .requestParam(JSON.toJSONString(joinPoint.getArgs()))
                 //返回结果

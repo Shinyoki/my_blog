@@ -23,12 +23,12 @@ import java.util.List;
 
 
 /**
- * 说说Controller
+ * 说说/动态Controller
  *
  * @author senko
  * @date 2022-04-24 16:39:55
  */
-@Api("说说Controller")
+@Api(tags = "说说/动态模块")
 @RestController
 public class TalkController {
     @Autowired

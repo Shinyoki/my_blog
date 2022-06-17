@@ -29,7 +29,7 @@ import static com.senko.common.constants.OperationTypeConstants.*;
  * @author senko
  * @date 2022-04-24 16:50:58
  */
-@Api("文章模块")
+@Api(tags = "文章模块")
 @RestController
 public class ArticleController {
 

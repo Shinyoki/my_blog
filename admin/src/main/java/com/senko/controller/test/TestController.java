@@ -3,9 +3,9 @@ package com.senko.controller.test;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.test.TestUser;
-import com.senko.common.utils.uuid.UUID;
 import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 测试
@@ -21,6 +20,7 @@ import java.util.Map;
  * @author senko
  * @date 2022/4/29 22:37
  */
+@Api(tags = "测试模块")
 @RestController
 @RequestMapping("/test")
 public class TestController {

@@ -23,7 +23,7 @@ import java.util.List;
  * @date 2022-04-24 16:50:53
  */
 @RestController
-@Api("留言模块")
+@Api(tags = "留言/弹幕模块")
 public class MessageController {
     @Autowired
     private IMessageService messageService;

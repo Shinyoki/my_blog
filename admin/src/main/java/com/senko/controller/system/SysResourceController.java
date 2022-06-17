@@ -22,7 +22,7 @@ import java.util.List;
  * @author senko
  * @date 2022/5/25 20:46
  */
-@Api("资源API")
+@Api(tags = "资源API")
 @RestController
 public class SysResourceController {
     @Autowired

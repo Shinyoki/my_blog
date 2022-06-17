@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  * @author senko
  * @date 2022-04-24 16:50:53
  */
-@Api("相册模块")
+@Api(tags = "相册模块")
 @RestController
 public class PhotoAlbumController {
     @Autowired
