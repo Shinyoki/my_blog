@@ -6,8 +6,8 @@ import cn.hutool.http.useragent.UserAgent;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.senko.common.common.dto.*;
-import com.senko.common.constants.RedisConstants;
 import com.senko.common.common.entity.ArticleEntity;
+import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.UserTypeEnum;
 import com.senko.common.utils.bean.BeanCopyUtils;
@@ -203,6 +203,8 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
         Object info = redisHandler.get(ABOUT);
         return Objects.nonNull(info) ? info.toString() : "";
     }
+
+
 
 
     /**

@@ -34,4 +34,6 @@ public interface ISysBlogInfoService {
      * @return      描述
      */
     String getAboutInfo();
+
+
 }

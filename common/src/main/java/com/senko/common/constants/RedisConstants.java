@@ -93,6 +93,11 @@ public class RedisConstants {
     public static final String PAGE_COVER = "page_cover";
 
     /**
+     * 文章页面
+     */
+    public static final String PAGE = "page";
+
+    /**
      * 关于
      */
     public static final String ABOUT = "about";
