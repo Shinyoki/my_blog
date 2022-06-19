@@ -2,63 +2,72 @@ package com.senko.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.core.dto.UserBackDTO;
+import com.senko.common.core.entity.UserAuthEntity;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.UserPasswordVO;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
+import com.senko.common.utils.spring.SecurityUtils;
 import com.senko.common.utils.string.StringUtils;
+import com.senko.system.mapper.UserAuthMapper;
+import com.senko.system.service.IUserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.senko.system.mapper.UserAuthMapper;
-import com.senko.common.core.entity.UserAuthEntity;
-import com.senko.system.service.IUserAuthService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
+/**
+ * 后台用户模块
+ */
 @Service("userAuthService")
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEntity> implements IUserAuthService {
 
+    @Autowired
     private UserAuthMapper userAuthMapper;
 
+    @Autowired
     private RedisHandler redisHandler;
 
     @Autowired
-    public UserAuthServiceImpl(UserAuthMapper userAuthMapper, RedisHandler redisHandler) {
-        this.userAuthMapper = userAuthMapper;
-        this.redisHandler = redisHandler;
-    }
+    private PasswordEncoder passwordEncoder;
+
 
     /**
      * 通过用户名得到用户（只有部分信息，用于UserDetailsService
      * id userInfoId username password loginType
+     *
      * @param username
      * @return
      */
     @Override
     public UserAuthEntity getByUsername(String username) {
         //只获取
-         return userAuthMapper.selectOne(
-                    new LambdaQueryWrapper<UserAuthEntity>()
-                            //select
-                            .select(UserAuthEntity::getId, UserAuthEntity::getUserInfoId, UserAuthEntity::getUsername, UserAuthEntity::getPassword, UserAuthEntity::getLoginType)
-                            //where
-                           .eq(UserAuthEntity::getUsername, username)
-         );
+        return userAuthMapper.selectOne(
+                new LambdaQueryWrapper<UserAuthEntity>()
+                        //select
+                        .select(UserAuthEntity::getId, UserAuthEntity::getUserInfoId, UserAuthEntity::getUsername, UserAuthEntity::getPassword, UserAuthEntity::getLoginType)
+                        //where
+                        .eq(UserAuthEntity::getUsername, username)
+        );
     }
 
     /**
      * 查询后台用户 分页集合
-     * @param conditionVO       条件（用户名、登陆类型）
-     * @return                  后台用户 分页集合
+     *
+     * @param conditionVO 条件（用户名、登陆类型）
+     * @return 后台用户 分页集合
      */
     @Override
     public PageResult<UserBackDTO> listUserBack(ConditionVO conditionVO) {
@@ -69,6 +78,25 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
 
         List<UserBackDTO> userBackDTOList = userAuthMapper.listUserBack(PageUtils.getLimitCurrent(), PageUtils.getSize(), conditionVO);
         return new PageResult<UserBackDTO>(count, userBackDTOList);
+    }
+
+    /**
+     * 更新用户密码
+     *
+     * @param userPasswordVO 用户id、用户名、密码
+     */
+    @Override
+    public void updateUserPassword(UserPasswordVO userPasswordVO) {
+        UserAuthEntity userAuthEntity = userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuthEntity>()
+                .select(UserAuthEntity::getId, UserAuthEntity::getPassword)
+                .eq(UserAuthEntity::getId, SecurityUtils.getLoginUser().getId()));
+        if (Objects.nonNull(userAuthEntity) && userAuthEntity.getPassword().equals(passwordEncoder.encode(userPasswordVO.getOldPassword()))) {
+            //更新密码
+            userAuthEntity.setPassword(passwordEncoder.encode(userPasswordVO.getNewPassword()));
+            userAuthMapper.updateById(userAuthEntity);
+        } else {
+            throw new RuntimeException("原密码错误");
+        }
     }
 
     /**

@@ -7,7 +7,7 @@
     <groupId>com.senko</groupId>
     <artifactId>my_blog</artifactId>
     <packaging>pom</packaging>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
     <modules>
         <module>admin</module>
         <module>common</module>
@@ -143,21 +143,21 @@
             <dependency>
                 <groupId>com.senko</groupId>
                 <artifactId>framework</artifactId>
-                <version>0.2.0</version>
+                <version>0.5.0</version>
             </dependency>
 
 <!--           业务层 -->
             <dependency>
                 <groupId>com.senko</groupId>
                 <artifactId>system</artifactId>
-                <version>0.2.0</version>
+                <version>0.5.0</version>
             </dependency>
 
 <!--            底层公共模块-->
             <dependency>
                 <groupId>com.senko</groupId>
                 <artifactId>common</artifactId>
-                <version>0.2.0</version>
+                <version>0.5.0</version>
             </dependency>
 
             <!-- pagehelper 分页插件 -->

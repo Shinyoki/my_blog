@@ -18,5 +18,11 @@ public interface IWebsiteConfigService extends IService<WebsiteConfigEntity> {
      * @return                网站配置
      */
     WebsiteConfigVO getWebsiteConfig();
+
+    /**
+     * 更新网站配置
+     * @param configVO    网站配置
+     */
+    void updateWebsiteConfig(WebsiteConfigVO configVO);
 }
 

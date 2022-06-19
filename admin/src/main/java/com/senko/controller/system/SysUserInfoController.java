@@ -5,9 +5,8 @@ import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserOnlineDTO;
-import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.UserIsDisableVO;
-import com.senko.common.core.vo.UserRoleVO;
+import com.senko.common.core.vo.*;
+import com.senko.system.service.IUserAuthService;
 import com.senko.system.service.IUserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +28,9 @@ public class SysUserInfoController {
 
     @Autowired
     private IUserInfoService userInfoService;
+
+    @Autowired
+    private IUserAuthService userAuthService;
 
     /**
      * 更新用户的禁用状态
@@ -77,6 +79,30 @@ public class SysUserInfoController {
     @DeleteMapping("/admin/users/{userInfoId}/online")
     public AjaxResult<?> kickOnlineUser(@PathVariable("userInfoId") Integer userInfoId) {
         userInfoService.kickOnlineUser(userInfoId);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 更新用户信息
+     * @param userInfoVO    用户信息
+     */
+    @LogOperation(optType = OperationTypeConstants.UPDATE)
+    @ApiOperation("更新用户的信息")
+    @PutMapping("/users/info")
+    public AjaxResult<?> updateUserInfo(@Valid @RequestBody UserinfoVO userInfoVO) {
+        userInfoService.updateUserInfo(userInfoVO);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 更新用户密码
+     * @param userPasswordVO    用户id、用户名、密码
+     */
+    @LogOperation(optType = OperationTypeConstants.UPDATE)
+    @ApiOperation("更新用户密码")
+    @PutMapping("/admin/users/password")
+    public AjaxResult<?> updateUserPassword(@Valid @RequestBody UserPasswordVO userPasswordVO) {
+        userAuthService.updateUserPassword(userPasswordVO);
         return AjaxResult.success();
     }
 }

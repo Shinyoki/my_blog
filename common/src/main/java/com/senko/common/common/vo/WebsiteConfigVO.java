@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 网站配置VO兼DTO
@@ -68,13 +69,13 @@ public class WebsiteConfigVO implements Serializable {
      * 社交登录列表
      */
     @ApiModelProperty(value = "社交登录列表",required = true)
-    private String socialLoginList;
+    private List<String> socialLoginList;
 
     /**
      * 社交Url列表
      */
     @ApiModelProperty(value = "社交Url列表",required = true)
-    private String socialUrlList;
+    private List<String> socialUrlList;
 
     /**
      * qq号
@@ -104,25 +105,25 @@ public class WebsiteConfigVO implements Serializable {
      * 游客头像
      */
     @ApiModelProperty(value = "游客头像",required = true)
-    private String visitorAvatar;
+    private String touristAvatar;
 
     /**
      * 开启评论审核 0-关闭 1-开启
      */
     @ApiModelProperty(value = "开启评论审核 0-关闭 1-开启",required = true)
-    private Integer commentReview;
+    private Integer isCommentReview;
 
     /**
      * 开启留言审核 0-关闭 1-开启
      */
     @ApiModelProperty(value = "开启留言审核 0-关闭 1-开启",required = true)
-    private Integer messageReview;
+    private Integer isMessageReview;
 
     /**
      * 开启邮箱通知 0-关闭 1-开启
      */
     @ApiModelProperty(value = "开启邮箱通知 0-关闭 1-开启",required = true)
-    private Integer emailNotice;
+    private Integer isEmailNotice;
 
     /**
      * 开启接受赞助

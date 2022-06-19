@@ -2,25 +2,23 @@ package com.senko.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserDetailsDTO;
 import com.senko.common.core.dto.UserOnlineDTO;
+import com.senko.common.core.entity.UserInfoEntity;
 import com.senko.common.core.entity.UserRoleEntity;
-import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.UserIsDisableVO;
-import com.senko.common.core.vo.UserRoleVO;
-import com.senko.common.utils.bean.BeanCopyUtils;
+import com.senko.common.core.vo.*;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
+import com.senko.common.utils.spring.SecurityUtils;
+import com.senko.system.mapper.UserInfoMapper;
+import com.senko.system.service.IUserInfoService;
 import com.senko.system.service.IUserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.senko.system.mapper.UserInfoMapper;
-import com.senko.common.core.entity.UserInfoEntity;
-import com.senko.system.service.IUserInfoService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
@@ -142,4 +140,22 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfoEnt
         user.ifPresent(userDetailsDTO -> sessionRegistry.getAllSessions(userDetailsDTO, false)
                 .forEach(SessionInformation::expireNow));
     }
+
+    /**
+     * 更新用户信息
+     * @param userInfoVO    用户信息
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateUserInfo(UserinfoVO userInfoVO) {
+        UserInfoEntity userInfoEntity = UserInfoEntity.builder()
+                .id(SecurityUtils.getLoginUser().getUserInfoId())
+                .nickname(userInfoVO.getNickname())
+                .intro(userInfoVO.getIntro())
+                .webSite(userInfoVO.getWebSite())
+                .build();
+        this.updateById(userInfoEntity);
+    }
+
+
 }

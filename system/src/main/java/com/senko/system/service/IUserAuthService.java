@@ -5,8 +5,7 @@ import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserBackDTO;
 import com.senko.common.core.entity.UserAuthEntity;
 import com.senko.common.core.vo.ConditionVO;
-
-import java.util.Map;
+import com.senko.common.core.vo.UserPasswordVO;
 
 /**
  * 后台用户模块
@@ -30,5 +29,11 @@ public interface IUserAuthService extends IService<UserAuthEntity> {
      * @return                  后台用户 分页集合
      */
     PageResult<UserBackDTO> listUserBack(ConditionVO conditionVO);
+
+    /**
+     * 更新用户密码
+     * @param userPasswordVO    用户id、用户名、密码
+     */
+    void updateUserPassword(UserPasswordVO userPasswordVO);
 }
 

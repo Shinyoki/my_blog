@@ -1,17 +1,16 @@
 package com.senko.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.senko.common.common.entity.WebsiteConfigEntity;
 import com.senko.common.common.vo.WebsiteConfigVO;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.constants.RedisConstants;
-import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.redis.RedisHandler;
+import com.senko.system.mapper.WebsiteConfigMapper;
+import com.senko.system.service.IWebsiteConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.senko.system.mapper.WebsiteConfigMapper;
-import com.senko.common.common.entity.WebsiteConfigEntity;
-import com.senko.system.service.IWebsiteConfigService;
 
 import java.util.Objects;
 
@@ -41,11 +40,25 @@ public class WebsiteConfigServiceImpl extends ServiceImpl<WebsiteConfigMapper, W
         } else {
             //缓存失效
             WebsiteConfigEntity websiteConfigEntity = websiteConfigMapper.selectById(CommonConstants.DEFAULT_CONFIG_ID);
-            //从持久层获取
-            resultConfig = BeanCopyUtils.copyObject(websiteConfigEntity, WebsiteConfigVO.class);
+            resultConfig = JSON.parseObject(websiteConfigEntity.getConfig(), WebsiteConfigVO.class);
             //更新缓存
-            redisHandler.set(RedisConstants.WEBSITE_CONFIG, resultConfig);
+            redisHandler.set(RedisConstants.WEBSITE_CONFIG, JSON.toJSONString(resultConfig));
         }
         return resultConfig;
+    }
+
+    /**
+     * 更新网站配置
+     * @param configVO    网站配置
+     */
+    @Override
+    public void updateWebsiteConfig(WebsiteConfigVO configVO) {
+        WebsiteConfigEntity configEntity = WebsiteConfigEntity.builder()
+                .id(CommonConstants.DEFAULT_CONFIG_ID)
+                .config(JSON.toJSONString(configVO))
+                .build();
+        this.saveOrUpdate(configEntity);
+        //更新缓存
+        redisHandler.set(RedisConstants.WEBSITE_CONFIG, JSON.toJSONString(configVO));
     }
 }

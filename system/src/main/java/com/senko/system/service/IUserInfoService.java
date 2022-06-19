@@ -4,11 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserOnlineDTO;
 import com.senko.common.core.entity.UserInfoEntity;
-import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.UserIsDisableVO;
-import com.senko.common.core.vo.UserRoleVO;
-
-import java.util.Map;
+import com.senko.common.core.vo.*;
 
 /**
  * 用户信息Service
@@ -43,5 +39,12 @@ public interface IUserInfoService extends IService<UserInfoEntity> {
      * @param userInfoId    userInfoId
      */
     void kickOnlineUser(Integer userInfoId);
+
+    /**
+     * 更新用户信息
+     * @param userInfoVO    用户信息
+     */
+    void updateUserInfo(UserinfoVO userInfoVO);
+
 }
 
