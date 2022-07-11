@@ -2,6 +2,7 @@ package com.senko.system.service;
 
 import com.senko.common.common.dto.BlogCountsInfoDTO;
 import com.senko.common.common.dto.UserAreaDTO;
+import com.senko.common.core.dto.BlogHomeInfoDTO;
 import com.senko.common.core.vo.ConditionVO;
 
 import java.util.List;
@@ -35,5 +36,8 @@ public interface ISysBlogInfoService {
      */
     String getAboutInfo();
 
-
+    /**
+     * 获取博客的信息
+     */
+    BlogHomeInfoDTO getBlogHomeInfo();
 }

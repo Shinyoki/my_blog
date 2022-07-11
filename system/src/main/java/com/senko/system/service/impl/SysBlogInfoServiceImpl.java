@@ -7,7 +7,9 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.senko.common.common.dto.*;
 import com.senko.common.common.entity.ArticleEntity;
+import com.senko.common.common.vo.WebsiteConfigVO;
 import com.senko.common.constants.RedisConstants;
+import com.senko.common.core.dto.BlogHomeInfoDTO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.UserTypeEnum;
 import com.senko.common.utils.bean.BeanCopyUtils;
@@ -16,8 +18,10 @@ import com.senko.common.utils.ip.IpUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.string.StringUtils;
 import com.senko.system.mapper.*;
+import com.senko.system.service.IPageService;
 import com.senko.system.service.ISysBlogInfoService;
 import com.senko.system.service.IUniqueViewService;
+import com.senko.system.service.IWebsiteConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -57,6 +61,12 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
 
     @Autowired
     private TagMapper tagMapper;
+
+    @Autowired
+    private IWebsiteConfigService websiteConfigService;
+
+    @Autowired
+    private IPageService pageService;
 
 
 
@@ -204,7 +214,38 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
         return Objects.nonNull(info) ? info.toString() : "";
     }
 
+    /**
+     * 获取博客的信息
+     */
+    @Override
+    public BlogHomeInfoDTO getBlogHomeInfo() {
+        //文章数量
+        Integer articleCount = articleMapper.selectCount(new LambdaQueryWrapper<ArticleEntity>()
+                .eq(ArticleEntity::getIsDelete, 0))
+                .intValue();
+        //分类总量
+        Integer categoryCount = categoryMapper.selectCount(null).intValue();
+        //标签总量
+        Integer tagCount = tagMapper.selectCount(null).intValue();
 
+        //总访问量
+        Object cacheCount = redisHandler.get(BLOG_VIEWS_COUNT_TAG);
+        String viewCount = Optional.ofNullable(cacheCount).orElse(0).toString();
+        //网站配置
+        WebsiteConfigVO websiteConfig = websiteConfigService.getWebsiteConfig();
+        //页面
+        List<PageDTO> pageDTOList = pageService.listPage();
+
+        return new BlogHomeInfoDTO().builder()
+                .articleCount(articleCount)
+                .categoryCount(categoryCount)
+                .tagCount(tagCount)
+                .viewsCount(viewCount)
+                .websiteConfig(websiteConfig)
+                .pageList(pageDTOList)
+                .build();
+
+    }
 
 
     /**
