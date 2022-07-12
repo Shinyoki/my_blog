@@ -1,4 +1,4 @@
-package com.senko.system.service.impl;
+package com.senko.framework.web.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -8,13 +8,18 @@ import com.senko.common.constants.CommonConstants;
 import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserBackDTO;
+import com.senko.common.core.dto.UserLoginInfoDTO;
 import com.senko.common.core.entity.UserAuthEntity;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.GithubVO;
+import com.senko.common.core.vo.QQLoginVO;
 import com.senko.common.core.vo.UserPasswordVO;
+import com.senko.common.enums.LoginTypeEnum;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.spring.SecurityUtils;
 import com.senko.common.utils.string.StringUtils;
+import com.senko.framework.strategy.context.SocialLoginStrategyContext;
 import com.senko.system.mapper.UserAuthMapper;
 import com.senko.system.service.IUserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +47,9 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private SocialLoginStrategyContext loginStrategyContext;
 
 
     /**
@@ -97,6 +105,28 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
         } else {
             throw new RuntimeException("原密码错误");
         }
+    }
+
+    /**
+     * qq登录
+     * @param loginVO        登录信息
+     * @return               用户信息
+     */
+    @Override
+    public UserLoginInfoDTO qqLogin(QQLoginVO loginVO) {
+        return loginStrategyContext
+                .executeLogin(JSON.toJSONString(loginVO), LoginTypeEnum.QQ);
+    }
+
+    /**
+     * Github登录
+     * @param githubVO        登录信息
+     * @return               登录后的用户
+     */
+    @Override
+    public UserLoginInfoDTO githubLogin(GithubVO githubVO) {
+        return loginStrategyContext
+                .executeLogin(JSON.toJSONString(githubVO), LoginTypeEnum.GITHUB);
     }
 
     /**

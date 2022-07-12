@@ -3,8 +3,11 @@ package com.senko.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserBackDTO;
+import com.senko.common.core.dto.UserLoginInfoDTO;
 import com.senko.common.core.entity.UserAuthEntity;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.GithubVO;
+import com.senko.common.core.vo.QQLoginVO;
 import com.senko.common.core.vo.UserPasswordVO;
 
 /**
@@ -35,5 +38,20 @@ public interface IUserAuthService extends IService<UserAuthEntity> {
      * @param userPasswordVO    用户id、用户名、密码
      */
     void updateUserPassword(UserPasswordVO userPasswordVO);
+
+
+    /**
+     * QQ登录
+     * @param loginVO        登录信息
+     * @return               登录后的用户
+     */
+    UserLoginInfoDTO qqLogin(QQLoginVO loginVO);
+
+    /**
+     * Github登录
+     * @param githubVO        登录信息
+     * @return               登录后的用户
+     */
+    UserLoginInfoDTO githubLogin(GithubVO githubVO);
 }
 

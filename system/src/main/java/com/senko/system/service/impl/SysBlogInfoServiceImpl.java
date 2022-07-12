@@ -244,7 +244,6 @@ public class SysBlogInfoServiceImpl implements ISysBlogInfoService {
                 .websiteConfig(websiteConfig)
                 .pageList(pageDTOList)
                 .build();
-
     }
 
 

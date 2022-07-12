@@ -539,4 +539,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
         }
         return sb.toString();
     }
+
+    /**
+     * 获取括号内的内容
+     * @param str   字符串
+     * @return      括号内的内容
+     */
+    public static String getBracketsContent(String str) {
+        return str.substring(str.indexOf("(") + 1, str.indexOf(")"));
+    }
 }

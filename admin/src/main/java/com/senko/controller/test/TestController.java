@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    //TODO 用户可访菜单
+
     @Autowired
     private IMenuService menuService;
 

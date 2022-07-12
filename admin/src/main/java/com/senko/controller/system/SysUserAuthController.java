@@ -3,14 +3,20 @@ package com.senko.controller.system;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserBackDTO;
+import com.senko.common.core.dto.UserLoginInfoDTO;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.core.vo.GithubVO;
+import com.senko.common.core.vo.QQLoginVO;
 import com.senko.system.service.IUserAuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 
 
 /**
@@ -35,5 +41,30 @@ public class SysUserAuthController {
     public AjaxResult<PageResult<UserBackDTO>> listUserBack(ConditionVO conditionVO) {
         PageResult<UserBackDTO> userBackDTOList = userAuthService.listUserBack(conditionVO);
         return AjaxResult.success(userBackDTOList);
+    }
+
+    /**
+     * QQ登录
+     * @param loginVO        登录信息
+     * @return               登录后的用户
+     */
+    @ApiOperation("QQ登录")
+    @PostMapping("/users/oauth/qq")
+    public AjaxResult<UserLoginInfoDTO> qqLogin(@Valid @RequestBody QQLoginVO loginVO) {
+        UserLoginInfoDTO userLoginInfoDTO = userAuthService.qqLogin(loginVO);
+        return AjaxResult.success(userLoginInfoDTO);
+    }
+
+    /**
+     * Github登录
+     * @param githubVO        登录信息
+     * @return               登录后的用户
+     */
+    @ApiOperation("Github登录")
+    @PostMapping("/users/oauth/github")
+    public AjaxResult<UserLoginInfoDTO> githubLogin(@Valid @RequestBody GithubVO githubVO) {
+        System.out.println("得到的code：" + githubVO.getCode());
+        UserLoginInfoDTO userLoginInfoDTO = userAuthService.githubLogin(githubVO);
+        return AjaxResult.success(userLoginInfoDTO);
     }
 }

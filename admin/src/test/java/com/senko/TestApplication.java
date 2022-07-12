@@ -1,24 +1,29 @@
 package com.senko;
 
-import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import com.senko.common.core.dto.ResourceRoleDTO;
-import com.senko.common.core.entity.UserAuthEntity;
-import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.redis.RedisHandler;
+import com.senko.framework.properties.GithubConfigurationProperties;
+import com.senko.framework.properties.QQConfigurationProperties;
 import com.senko.system.mapper.RoleMapper;
 import com.senko.system.service.IRoleService;
 import com.senko.system.service.IUserAuthService;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
 
-import java.nio.charset.Charset;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -29,6 +34,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @SpringBootTest
 @SuppressWarnings("all")
 public class TestApplication {
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(TestApplication.class);
     @Autowired
     private IUserAuthService userAuthService;
 
@@ -43,6 +50,47 @@ public class TestApplication {
 
     @Autowired
     private RedisHandler redisHandler;
+
+    @Autowired
+    private QQConfigurationProperties qqConfigurationProperties;
+
+    @Autowired
+    private GithubConfigurationProperties githubConfigurationProperties;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+
+    @Test
+    void testRestTemplate() {
+        String url = "https://api.minecraftservices.com/minecraft/profile";
+        HttpHeaders headers = new HttpHeaders();
+        String token = "eyJhbGciOiJIUzI1NiJ9.eyJ4dWlkIjoiMjUzNTQ0ODQ2Nzc3NzA1OSIsImFnZyI6IkFkdWx0Iiwic3ViIjoiYzY0ZmYzZjUtZjhiYS00MmM5LTkyM2UtMTQ3MTVkODY0MDgxIiwibmJmIjoxNjU3NjExOTYxLCJhdXRoIjoiWEJPWCIsInJvbGVzIjpbXSwiaXNzIjoiYXV0aGVudGljYXRpb24iLCJleHAiOjE2NTc2OTgzNjEsImlhdCI6MTY1NzYxMTk2MSwicGxhdGZvcm0iOiJVTktOT1dOIiwieXVpZCI6IjBkZjFlZmY0NDdiNDZhMWQzMmUyYTQ2ZmUzNDhmNmJjIn0.2yMCLd_J9DAPnWbZhYX7IjkPDZ9opz98PqdfNtun-Iw";
+        headers.add("Authorization", "Bearer " + token);
+
+        HttpEntity<String> httpEntity = new HttpEntity<>(null, headers);
+        String forObject = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class).getBody();
+        logger.info(forObject);
+    }
+
+    @Test
+    void testGithubConfig() {
+        logger.info("开始输出github配置信息");
+        logger.info("githubConfigurationProperties.getClientId() = {}", githubConfigurationProperties.getClientId());
+        logger.info("githubConfigurationProperties.getClientSecret() = {}", githubConfigurationProperties.getClientSecret());
+        logger.info("githubConfigurationProperties.getCheckTokenUrl() = {}", githubConfigurationProperties.getCheckTokenUrl());
+        logger.info("githubConfigurationProperties.getAuthentication() = {}", githubConfigurationProperties.getAuthentication());
+        logger.info("githubConfigurationProperties.getUserInfoUrl() = {}", githubConfigurationProperties.getUserInfoUrl());
+    }
+
+
+    @Test
+    void testqq() {
+        logger.info("获取到的qq配置");
+        logger.info(qqConfigurationProperties.getAppId());
+        logger.info(qqConfigurationProperties.getCheckTokenUrl());
+        logger.info(qqConfigurationProperties.getUserInfoUrl());
+    }
 
     @Test
     void test4() {

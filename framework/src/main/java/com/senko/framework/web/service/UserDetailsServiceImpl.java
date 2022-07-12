@@ -9,7 +9,6 @@ import com.senko.common.utils.http.ServletUtils;
 import com.senko.common.utils.ip.IpUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.string.StringUtils;
-import com.senko.system.mapper.UserInfoMapper;
 import com.senko.system.service.IRoleService;
 import com.senko.system.service.IUserAuthService;
 import com.senko.system.service.IUserInfoService;
@@ -71,7 +70,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @param userAuth
      * @return
      */
-    private UserDetails buildUserDetailDTO(UserAuthEntity userAuth) {
+    public UserDetails buildUserDetailDTO(UserAuthEntity userAuth) {
         //用户 个人信息
         UserInfoEntity userInfo = userInfoService.getById(userAuth.getUserInfoId());
         //用户 角色：设计的是 user_auth仅用于验证密码、user_info作为真实用户
