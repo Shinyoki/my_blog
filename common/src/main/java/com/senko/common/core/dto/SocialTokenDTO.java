@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class SocialTokenDTO {
+
     /**
      * ID：用作UserAuth id
      */
@@ -29,6 +30,5 @@ public class SocialTokenDTO {
      * 登录类型
      */
     private Integer loginType;
-
 
 }

@@ -28,7 +28,7 @@ public class TestService {
     public void getGithubUserInfo() {
         String url = githubConfigurationProperties.getUserInfoUrl();
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "token " + "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");
+        headers.add("Authorization", "token " + "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");
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(null, headers);
 
         String result = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class).getBody();

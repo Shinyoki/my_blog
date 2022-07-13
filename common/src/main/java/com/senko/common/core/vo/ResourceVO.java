@@ -23,7 +23,6 @@ import java.io.Serializable;
 @ApiModel("资源、表单资源VO")
 public class ResourceVO implements Serializable {
     private static final long serialVersionUID = -8246578776825271731L;
-    //TODO 资源VO
 
     /**
      * 资源ID
