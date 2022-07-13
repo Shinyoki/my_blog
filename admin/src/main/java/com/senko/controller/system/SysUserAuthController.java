@@ -63,7 +63,6 @@ public class SysUserAuthController {
     @ApiOperation("Github登录")
     @PostMapping("/users/oauth/github")
     public AjaxResult<UserLoginInfoDTO> githubLogin(@Valid @RequestBody GithubVO githubVO) {
-        System.out.println("得到的code：" + githubVO.getCode());
         UserLoginInfoDTO userLoginInfoDTO = userAuthService.githubLogin(githubVO);
         return AjaxResult.success(userLoginInfoDTO);
     }

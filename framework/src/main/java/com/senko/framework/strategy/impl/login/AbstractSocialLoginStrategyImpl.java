@@ -121,10 +121,11 @@ public abstract class AbstractSocialLoginStrategyImpl implements LoginStrategy {
         String ipAddress = IpUtils.getIpAddressFromRequest(ServletUtils.getRequest());
         String ipSource = IpUtils.getIpSource(ipAddress);
         // 更新数据库
-        userAuthMapper.update(userAuth, new LambdaUpdateWrapper<UserAuthEntity>()
+        userAuthMapper.update(new UserAuthEntity(), new LambdaUpdateWrapper<UserAuthEntity>()
                 .set(UserAuthEntity::getLastLoginTime, LocalDateTime.now())
                 .set(UserAuthEntity::getIpSource, ipSource)
-                .set(UserAuthEntity::getIpAddress, ipAddress));
+                .set(UserAuthEntity::getIpAddress, ipAddress)
+                .eq(UserAuthEntity::getId, userAuth.getId()));
 
         return (UserDetailsDTO) userDetailsService.buildUserDetailDTO(userAuth);
     }

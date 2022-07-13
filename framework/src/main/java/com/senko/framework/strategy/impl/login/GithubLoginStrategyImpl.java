@@ -12,13 +12,12 @@ import com.senko.common.exceptions.service.ServiceException;
 import com.senko.framework.properties.GithubConfigurationProperties;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -50,9 +49,10 @@ public class GithubLoginStrategyImpl extends AbstractSocialLoginStrategyImpl {
             String accessToken = getAccessToken(code);
             // 获取Github用户信息
             socialTokenDTO = getGithubUserInfo(accessToken);
+            logger.info("Github用户Token信息：{}", socialTokenDTO);
 
         } catch (ResourceAccessException e) {
-            logger.error("Github获取token失败", e.getMessage());
+            logger.error("Github获取token失败: {}", e.getMessage());
             throw new ServiceException("服务器太拉了捏，连Github又超时了，建议先换一种登录方式~");
         }
 
@@ -64,8 +64,19 @@ public class GithubLoginStrategyImpl extends AbstractSocialLoginStrategyImpl {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "token " + accessToken);
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(null, headers);
+        String jsonResult;
+        try {
+            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class);
+            if (responseEntity.getHeaders().getContentType().includes(MediaType.TEXT_HTML)) {
+                logger.error("居然获取到Github反馈的HTML网页了？是不是服务器用了什么代理？");
+                throw new ServiceException("Github认证错误！");
+            }
+            jsonResult = responseEntity.getBody();
+        } catch (RestClientException e) {
+            logger.error("查询Github用户信息时出错！错误：{}", e.getMessage());
+            throw new ServiceException("查询用户信息时出错");
+        }
 
-        String jsonResult = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class).getBody();
         JSONObject jsonObject = JSON.parseObject(jsonResult);
         GithubUserInfoDTO githubUserInfoDTO = new GithubUserInfoDTO(jsonObject.getInteger("id").toString(),
                 accessToken,
