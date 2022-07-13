@@ -1,6 +1,7 @@
 package com.senko;
 
 import com.senko.common.core.vo.GithubVO;
+import com.senko.controller.test.TestService;
 import com.senko.system.service.IUserAuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,13 @@ public class TestOauth {
     void githubTest() {
         GithubVO githubVO = new GithubVO("457bb0f3548cc1375c1c");
         userAuthService.githubLogin(githubVO);
+    }
+
+    @Autowired
+    private TestService testService;
+
+    @Test
+    void testGithubUserInfo() {
+        testService.getGithubUserInfo();
     }
 }
