@@ -47,8 +47,9 @@ public class SysUserInfoController {
 
     /**
      * 查询在线用户
-     * @param conditionVO   条件
-     * @return              在线用户 分页集合
+     *
+     * @param conditionVO 条件
+     * @return 在线用户 分页集合
      */
     @ApiOperation("查询在线用户")
     @GetMapping("/admin/users/online")
@@ -60,7 +61,8 @@ public class SysUserInfoController {
 
     /**
      * 更新用户的角色列表
-     * @param userRoleVO    用户id、用户名、角色id集合
+     *
+     * @param userRoleVO 用户id、用户名、角色id集合
      */
     @LogOperation(optType = OperationTypeConstants.UPDATE)
     @ApiOperation("更新用户的角色")
@@ -73,7 +75,8 @@ public class SysUserInfoController {
 
     /**
      * 踢在线用户下线
-     * @param userInfoId    userInfoId
+     *
+     * @param userInfoId userInfoId
      */
     @ApiOperation("踢在线用户下线")
     @DeleteMapping("/admin/users/{userInfoId}/online")
@@ -84,7 +87,8 @@ public class SysUserInfoController {
 
     /**
      * 更新用户信息
-     * @param userInfoVO    用户信息
+     *
+     * @param userInfoVO 用户信息
      */
     @LogOperation(optType = OperationTypeConstants.UPDATE)
     @ApiOperation("更新用户的信息")
@@ -96,13 +100,25 @@ public class SysUserInfoController {
 
     /**
      * 更新用户密码
-     * @param userPasswordVO    用户id、用户名、密码
+     *
+     * @param userPasswordVO 用户id、用户名、密码
      */
     @LogOperation(optType = OperationTypeConstants.UPDATE)
     @ApiOperation("更新用户密码")
     @PutMapping("/admin/users/password")
     public AjaxResult<?> updateUserPassword(@Valid @RequestBody UserPasswordVO userPasswordVO) {
         userAuthService.updateUserPassword(userPasswordVO);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 绑定用户邮箱
+     * @param userEmailVO  邮箱 验证码
+     */
+    @ApiOperation("绑定用户邮箱")
+    @PostMapping("/users/email")
+    public AjaxResult<?> bindUserEmail(@Valid @RequestBody UserEmailVO userEmailVO) {
+        userInfoService.bindUserEmail(userEmailVO);
         return AjaxResult.success();
     }
 }

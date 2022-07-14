@@ -2,8 +2,10 @@ package com.senko.common.core.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -13,6 +15,8 @@ import javax.validation.constraints.NotBlank;
  * @date 2022/7/14 13:48
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @ApiModel(description = "注册用户VO")
 public class UserVO {

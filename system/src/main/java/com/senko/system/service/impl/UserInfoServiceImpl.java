@@ -3,12 +3,14 @@ package com.senko.system.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserDetailsDTO;
 import com.senko.common.core.dto.UserOnlineDTO;
 import com.senko.common.core.entity.UserInfoEntity;
 import com.senko.common.core.entity.UserRoleEntity;
 import com.senko.common.core.vo.*;
+import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.spring.SecurityUtils;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -155,6 +158,28 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfoEnt
                 .webSite(userInfoVO.getWebSite())
                 .build();
         this.updateById(userInfoEntity);
+    }
+
+    /**
+     * 绑定用户邮箱
+     * @param userEmailVO  邮箱 验证码
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void bindUserEmail(UserEmailVO userEmailVO) {
+        Object cacheCode = redisHandler.get(RedisConstants.CODE_KEY + userEmailVO.getEmail());
+        if (Objects.isNull(cacheCode)) {
+            throw new ServiceException("验证码已过期");
+        }
+        if (!cacheCode.equals(userEmailVO.getCode())) {
+            throw new ServiceException("验证码错误");
+        }
+
+        UserInfoEntity userInfo = UserInfoEntity.builder()
+                .email(userEmailVO.getEmail())
+                .id(SecurityUtils.getLoginUser().getUserInfoId())
+                .build();
+        userInfoMapper.updateById(userInfo);
     }
 
 

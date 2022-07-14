@@ -46,5 +46,10 @@ public interface IUserInfoService extends IService<UserInfoEntity> {
      */
     void updateUserInfo(UserinfoVO userInfoVO);
 
+    /**
+     * 绑定用户邮箱
+     * @param userEmailVO  邮箱 验证码
+     */
+    void bindUserEmail(UserEmailVO userEmailVO);
 }
 
