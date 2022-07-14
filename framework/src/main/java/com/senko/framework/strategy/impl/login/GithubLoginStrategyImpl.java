@@ -53,7 +53,7 @@ public class GithubLoginStrategyImpl extends AbstractSocialLoginStrategyImpl {
 
         } catch (ResourceAccessException e) {
             logger.error("Github获取token失败: {}", e.getMessage());
-            throw new ServiceException("服务器太拉了捏，连Github又超时了，建议先换一种登录方式~");
+            throw new ServiceException("服务器太拉了捏，连Github又失败了，建议先换一种登录方式~");
         }
 
         return socialTokenDTO;

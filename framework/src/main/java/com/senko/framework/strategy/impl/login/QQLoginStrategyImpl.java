@@ -11,6 +11,7 @@ import com.senko.common.enums.LoginTypeEnum;
 import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.string.StringUtils;
 import com.senko.framework.properties.QQConfigurationProperties;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,6 +27,8 @@ import java.util.Objects;
  */
 @Service("qqLoginStrategyImpl")
 public class QQLoginStrategyImpl extends AbstractSocialLoginStrategyImpl{
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(QQLoginStrategyImpl.class);
 
     @Autowired
     private QQConfigurationProperties qqConfigurationProperties;
@@ -56,6 +59,7 @@ public class QQLoginStrategyImpl extends AbstractSocialLoginStrategyImpl{
         try {
             // 请求得到结果
             String jsonResult = restTemplate.getForObject(qqConfigurationProperties.getCheckTokenUrl(), String.class, qqData);
+            logger.info("最终qq授权信息：{}", jsonResult);
             QQTokenDTO qqTokenDTO = JSON.parseObject(StringUtils.getBracketsContent(Objects.requireNonNull(jsonResult)), QQTokenDTO.class);
 
             // 校验结果
@@ -80,6 +84,7 @@ public class QQLoginStrategyImpl extends AbstractSocialLoginStrategyImpl{
 
         // 请求得到结果
         String jsonResult = restTemplate.getForObject(qqConfigurationProperties.getUserInfoUrl(), String.class, qqData);
+        logger.info("得到qq用户信息：{}", jsonResult);
         QQUserInfoDTO socialUserInfoDTO = JSON.parseObject(Objects.requireNonNull(jsonResult), QQUserInfoDTO.class);
 
         return SocialUserInfoDTO.builder()

@@ -3,6 +3,8 @@ package com.senko.common.utils.string;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -14,6 +16,37 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
 
     /** 下划线 */
     private static final char SEPARATOR = '_';
+
+    /**
+     * 生成指定长度的随机数字字符串
+     * @param length    长度
+     * @return          随机数字字符串 length = 4 ====> 1321
+     */
+    public static String getRandomCode(int length) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(random.nextInt(10));
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 不是邮箱地址
+     */
+    public static boolean notEmailAddress(String email) {
+        return !isEmailAddress(email);
+    }
+
+    /**
+     * 是邮箱地址
+     */
+    public static boolean isEmailAddress(String email) {
+        String rule = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
+        Pattern pattern = Pattern.compile(rule);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     /**
      * 获取参数不为空值

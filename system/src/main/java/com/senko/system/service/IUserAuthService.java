@@ -5,10 +5,7 @@ import com.senko.common.core.PageResult;
 import com.senko.common.core.dto.UserBackDTO;
 import com.senko.common.core.dto.UserLoginInfoDTO;
 import com.senko.common.core.entity.UserAuthEntity;
-import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.GithubVO;
-import com.senko.common.core.vo.QQLoginVO;
-import com.senko.common.core.vo.UserPasswordVO;
+import com.senko.common.core.vo.*;
 
 /**
  * 后台用户模块
@@ -53,5 +50,17 @@ public interface IUserAuthService extends IService<UserAuthEntity> {
      * @return               登录后的用户
      */
     UserLoginInfoDTO githubLogin(GithubVO githubVO);
+
+    /**
+     * 发送邮箱验证码
+     * @param username  邮箱地址
+     */
+    void sendEmailValidCode(String username);
+
+    /**
+     * 注册用户
+     * @param userVO    用户信息
+     */
+    void doRegister(UserVO userVO);
 }
 

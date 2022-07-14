@@ -2,31 +2,46 @@ package com.senko.framework.web.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.common.dto.UserAreaDTO;
 import com.senko.common.constants.CommonConstants;
+import com.senko.common.constants.RabbitMQConstants;
 import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
+import com.senko.common.core.dto.EmailDTO;
 import com.senko.common.core.dto.UserBackDTO;
 import com.senko.common.core.dto.UserLoginInfoDTO;
 import com.senko.common.core.entity.UserAuthEntity;
-import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.core.vo.GithubVO;
-import com.senko.common.core.vo.QQLoginVO;
-import com.senko.common.core.vo.UserPasswordVO;
+import com.senko.common.core.entity.UserInfoEntity;
+import com.senko.common.core.entity.UserRoleEntity;
+import com.senko.common.core.vo.*;
 import com.senko.common.enums.LoginTypeEnum;
+import com.senko.common.enums.UserTypeEnum;
+import com.senko.common.exceptions.service.ServiceException;
+import com.senko.common.utils.http.ServletUtils;
+import com.senko.common.utils.ip.IpUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.spring.SecurityUtils;
 import com.senko.common.utils.string.StringUtils;
 import com.senko.framework.strategy.context.SocialLoginStrategyContext;
 import com.senko.system.mapper.UserAuthMapper;
+import com.senko.system.mapper.UserInfoMapper;
+import com.senko.system.mapper.UserRoleMapper;
 import com.senko.system.service.IUserAuthService;
+import com.senko.system.service.IWebsiteConfigService;
+import org.slf4j.Logger;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +54,8 @@ import java.util.stream.Collectors;
 @Service("userAuthService")
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEntity> implements IUserAuthService {
 
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(UserAuthServiceImpl.class);
+
     @Autowired
     private UserAuthMapper userAuthMapper;
 
@@ -50,6 +67,19 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
 
     @Autowired
     private SocialLoginStrategyContext loginStrategyContext;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private IWebsiteConfigService websiteConfigService;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+
 
 
     /**
@@ -128,6 +158,112 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
         return loginStrategyContext
                 .executeLogin(JSON.toJSONString(githubVO), LoginTypeEnum.GITHUB);
     }
+
+    @Override
+    public void sendEmailValidCode(String username) {
+        // 校验邮箱地址是否正确
+        if (StringUtils.notEmailAddress(username)) {
+            throw new ServiceException("邮箱地址格式错误，请输入正确的邮箱地址");
+        }
+
+        // 生成验证码
+        String code = StringUtils.getRandomCode(6);
+
+        // 将code缓存到redis中   key: code + username   value: code   ttl: 15分钟
+        redisHandler.set(RedisConstants.CODE_KEY + username, code, RedisConstants.CODE_EXPIRE_TIME);
+
+        // 发送邮件
+        EmailDTO email = EmailDTO.builder()
+                // 需要发送的邮箱地址
+                .email(username)
+                // 邮件主题
+                .subject("SenkoTech")
+                // 验证码
+                .content("您的验证码是：<strong>" + code + "</strong>，请在15分钟内使用。")
+                .build();
+
+        logger.info("{}的邮件验证码：{}", username, code);
+
+        // rabbitMQ
+        rabbitTemplate.convertAndSend(
+                RabbitMQConstants.EMAIL_EXCHANGE,
+                "*",
+                new Message(JSON.toJSONBytes(email), new MessageProperties())
+                );
+
+    }
+
+    /**
+     * 注册用户
+     * @param userVO    用户信息
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void doRegister(UserVO userVO) {
+        // 检验邮箱地址是否存在
+        if (checkEmailExisted(userVO.getUsername())) {
+            throw new ServiceException("邮箱地址已存在");
+        }
+
+        // 校验验证码是否一致
+        String cacheCode = (String) redisHandler.get(RedisConstants.CODE_KEY + userVO.getUsername());
+        if (Objects.isNull(cacheCode))
+            throw new ServiceException("验证码已过期，请重新获取");
+        if (!cacheCode.equals(userVO.getCode()))
+            throw new ServiceException("验证码错误");
+
+        // 新增用户信息
+        UserInfoEntity userInfo = UserInfoEntity.builder()
+                // 邮箱
+                .email(userVO.getUsername())
+                // 昵称使用默认随机
+                .nickname(CommonConstants.DEFAULT_NICKNAME + IdWorker.getId())
+                // 头像使用默认
+                .avatar(websiteConfigService.getWebsiteConfig().getUserAvatar())
+                .build();
+        userInfoMapper.insert(userInfo);
+
+        // 绑定role
+        UserRoleEntity userRole = UserRoleEntity.builder()
+                // 默认用户role
+                .roleId(UserTypeEnum.USER.getRoleId())
+                // 用户id
+                .userId(userInfo.getId())
+                .build();
+        userRoleMapper.insert(userRole);
+
+        // 绑定Auth
+        String ipAddress = IpUtils.getIpAddressFromRequest(ServletUtils.getRequest());
+        String ipSource = IpUtils.getIpSource(ipAddress);
+        UserAuthEntity userAuth = UserAuthEntity.builder()
+                // 用户id
+                .userInfoId(userInfo.getId())
+                // ip地址
+                .ipAddress(ipAddress)
+                // ip来源
+                .ipSource(ipSource)
+                // 登录类型
+                .loginType(LoginTypeEnum.EMAIL.getType())
+                // 登录时间
+                .lastLoginTime(LocalDateTime.now())
+                // 密码
+                .password(passwordEncoder.encode(userVO.getPassword()))
+                // 用户名
+                .username(userVO.getUsername())
+                .build();
+        userAuthMapper.insert(userAuth);
+    }
+
+    /**
+     * 检验邮箱地址是否已经存在
+     * @param username      邮箱地址
+     * @return              true：存在，false：不存在
+     */
+    private boolean checkEmailExisted(String username) {
+        return null != userAuthMapper.selectOne(new LambdaQueryWrapper<UserAuthEntity>()
+                .eq(UserAuthEntity::getUsername, username));
+    }
+
 
     /**
      * 每小时 定时更新已注册用户的地理信息

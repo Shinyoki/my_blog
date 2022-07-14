@@ -60,7 +60,7 @@ public abstract class AbstractSocialLoginStrategyImpl implements LoginStrategy {
             // 还未注册
             userDetails = registerUserDetails(socialToken);
         } else {
-            // 保存登录信息
+            // 提取第三方用户信息
             userDetails = getUserDetails(userAuth);
         }
 
@@ -81,7 +81,7 @@ public abstract class AbstractSocialLoginStrategyImpl implements LoginStrategy {
      * 注册用户
      */
     private UserDetailsDTO registerUserDetails(SocialTokenDTO socialToken) {
-        // 第三方用户信息
+        // 提取第三方用户信息
         SocialUserInfoDTO socialUserInfo = getSocialUserInfo(socialToken);
         // 保存UserInfoPO
         UserInfoEntity userInfoEntity = UserInfoEntity.builder()

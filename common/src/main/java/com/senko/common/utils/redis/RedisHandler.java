@@ -1,7 +1,6 @@
 package com.senko.common.utils.redis;
 
 import com.senko.common.utils.string.StringUtils;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Sort;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * sprng redisTemplate的再次封装
@@ -42,6 +40,17 @@ public class RedisHandler {
      */
     public <T> void set(final String key, final T value) {
         redisTemplate.opsForValue().set(key,value);
+    }
+
+    /**
+     * 存储ttl秒的键值对
+     * @param key
+     * @param value
+     * @param ttl
+     * @param <T>
+     */
+    public <T> void set(final String key, final T value, long ttl) {
+        redisTemplate.opsForValue().set(key,value, ttl, TimeUnit.SECONDS);
     }
 
     /**
