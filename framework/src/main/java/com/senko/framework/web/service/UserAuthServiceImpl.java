@@ -2,6 +2,7 @@ package com.senko.framework.web.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.common.dto.UserAreaDTO;
@@ -206,11 +207,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
         }
 
         // 校验验证码是否一致
-        String cacheCode = (String) redisHandler.get(RedisConstants.CODE_KEY + userVO.getUsername());
-        if (Objects.isNull(cacheCode))
-            throw new ServiceException("验证码已过期，请重新获取");
-        if (!cacheCode.equals(userVO.getCode()))
-            throw new ServiceException("验证码错误");
+        checkConfirmCode(userVO);
 
         // 新增用户信息
         UserInfoEntity userInfo = UserInfoEntity.builder()
@@ -252,6 +249,34 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
                 .username(userVO.getUsername())
                 .build();
         userAuthMapper.insert(userAuth);
+    }
+
+    private void checkConfirmCode(UserVO userVO) {
+        // 校验验证码是否一致
+        String cacheCode = (String) redisHandler.get(RedisConstants.CODE_KEY + userVO.getUsername());
+        if (Objects.isNull(cacheCode))
+            throw new ServiceException("验证码已过期，请重新获取");
+        if (!cacheCode.equals(userVO.getCode()))
+            throw new ServiceException("验证码错误");
+    }
+
+    /**
+     * 修改密码
+     * @param userVO    用户信息
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updatePassword(UserVO userVO) {
+        if (!checkEmailExisted(userVO.getUsername())) {
+            throw new ServiceException("邮箱尚未注册");
+        }
+
+        checkConfirmCode(userVO);
+
+        // 修改密码
+        userAuthMapper.update(new UserAuthEntity(), new LambdaUpdateWrapper<UserAuthEntity>()
+                .eq(UserAuthEntity::getUsername, userVO.getUsername())
+                .set(UserAuthEntity::getPassword, passwordEncoder.encode(userVO.getPassword())));
     }
 
     /**

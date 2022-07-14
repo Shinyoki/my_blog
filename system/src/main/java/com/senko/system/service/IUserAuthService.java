@@ -62,5 +62,11 @@ public interface IUserAuthService extends IService<UserAuthEntity> {
      * @param userVO    用户信息
      */
     void doRegister(UserVO userVO);
+
+    /**
+     * 修改密码
+     * @param userVO    用户信息
+     */
+    void updatePassword(UserVO userVO);
 }
 
