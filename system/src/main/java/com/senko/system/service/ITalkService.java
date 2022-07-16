@@ -7,6 +7,8 @@ import com.senko.common.common.vo.TalkVO;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
 
+import java.util.List;
+
 /**
  * 说说Serivce
  *
@@ -34,5 +36,12 @@ public interface ITalkService extends IService<TalkEntity> {
      * @param talkVO    说说id、说说内容、说说图片、说说状态、置顶状态
      */
     void saveOrUpdateTalk(TalkVO talkVO);
+
+
+    /**
+     * 获取主页说说内容
+     */
+    List<String> listHomeTalks();
+
 }
 

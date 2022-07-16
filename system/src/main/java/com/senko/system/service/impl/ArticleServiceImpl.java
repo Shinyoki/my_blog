@@ -2,6 +2,7 @@ package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.senko.common.common.dto.ArticleHomeDTO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.ArticleBackDTO;
 import com.senko.common.common.entity.ArticleTagEntity;
@@ -212,6 +213,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
         //删除文章
         articleMapper.deleteBatchIds(articleIdList);
 
+    }
+
+    /**
+     * 查询首页的文章
+     * @param conditionVO   查询条件
+     * @return              首页文章集合
+     */
+    @Override
+    public List<ArticleHomeDTO> listHomeArticles(ConditionVO conditionVO) {
+        List<ArticleHomeDTO> articleHomeDTOList = articleMapper.listHomeArticles(PageUtils.getLimitCurrent(), PageUtils.getSize());
+        return articleHomeDTOList;
     }
 
     /**

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.senko.system.mapper.ArticleMapper">
 
-	<!-- 可根据自己的需求，是否要使用 -->
+    <!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="com.senko.common.common.entity.ArticleEntity" id="articleMap">
         <result property="id" column="id"/>
         <result property="userId" column="user_id"/>
@@ -24,7 +24,7 @@
         <id column="id" property="id"/>
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
-        <result column="type" property="type" />
+        <result column="type" property="type"/>
         <result column="is_top" property="isTop"/>
         <result column="is_delete" property="isDelete"/>
         <result column="status" property="status"/>
@@ -38,7 +38,7 @@
     </resultMap>
 
     <select id="listOfArticlesOnOneDay" resultType="com.senko.common.common.dto.ArticlesOnOneDayDTO">
-        SELECT DATE_FORMAT(create_time,"%Y-%m-%d") date, COUNT(1) count
+        SELECT DATE_FORMAT(create_time, "%Y-%m-%d") date, COUNT(1) count
         FROM tb_article a
         GROUP BY date
         ORDER BY count DESC
@@ -69,40 +69,80 @@
         </where>
     </select>
     <select id="listArticleBacks" resultMap="articleBack">
-        SELECT a.id, a.article_cover, a.article_title, a.type, a.is_top, a.is_delete, a.status, a.create_time, c.category_name, t.id tag_id, t.tag_name
+        SELECT a.id, a.article_cover, a.article_title, a.type, a.is_top, a.is_delete, a.status, a.create_time,
+        c.category_name, t.id tag_id, t.tag_name
         FROM (
-                 SELECT id, article_title, article_cover, type, is_top, is_delete, status,create_time,category_id
-                 FROM tb_article
-                 <where>
-                    is_delete = #{condition.isDelete}
-                    <if test="condition.keywords != null">
-                        AND article_title LIKE CONCAT('%', #{condition.keywords}, '%')
-                    </if>
-                    <if test="condition.status != null">
-                        AND status = #{condition.status}
-                    </if>
-                    <if test="condition.categoryId != null">
-                        AND category_id = #{condition.categoryId}
-                    </if>
-                    <if test="condition.type != null">
-                        AND type = #{condition.type}
-                    </if>
-                    <if test="condition.tagId != null">
-                        AND id IN
-                            (
-                                SELECT article_id FROM tb_article_tag WHERE tag_id = #{condition.tagId}
-                            )
-                    </if>
-                 </where>
-                 ORDER BY is_top DESC, id DESC
-                 LIMIT #{current}, #{size}
-             ) AS a
-                 LEFT JOIN tb_category c ON c.id = a.category_id
-                 LEFT JOIN tb_article_tag tat ON tat.article_id = a.id
-                 LEFT JOIN tb_tag t ON t.id = tat.tag_id
+        SELECT id, article_title, article_cover, type, is_top, is_delete, status,create_time,category_id
+        FROM tb_article
+        <where>
+            is_delete = #{condition.isDelete}
+            <if test="condition.keywords != null">
+                AND article_title LIKE CONCAT('%', #{condition.keywords}, '%')
+            </if>
+            <if test="condition.status != null">
+                AND status = #{condition.status}
+            </if>
+            <if test="condition.categoryId != null">
+                AND category_id = #{condition.categoryId}
+            </if>
+            <if test="condition.type != null">
+                AND type = #{condition.type}
+            </if>
+            <if test="condition.tagId != null">
+                AND id IN
+                (
+                SELECT article_id FROM tb_article_tag WHERE tag_id = #{condition.tagId}
+                )
+            </if>
+        </where>
+        ORDER BY is_top DESC, id DESC
+        LIMIT #{current}, #{size}
+        ) AS a
+        LEFT JOIN tb_category c ON c.id = a.category_id
+        LEFT JOIN tb_article_tag tat ON tat.article_id = a.id
+        LEFT JOIN tb_tag t ON t.id = tat.tag_id
         ORDER BY is_top DESC, a.id DESC
 
     </select>
 
+    <resultMap id="articleHomeMap" type="com.senko.common.common.dto.ArticleHomeDTO">
+        <id column="id" property="id"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_content" property="articleContent"/>
+        <result column="type" property="type"/>
+        <result column="is_top" property="isTop"/>
+        <result column="cid" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="create_time" property="createTime"/>
+        <collection property="tagDTOList" ofType="com.senko.common.common.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <select id="listHomeArticles" resultMap="articleHomeMap">
+        SELECT a.id,
+               a.article_cover,
+               a.article_content,
+               a.article_title,
+               a.is_top,
+               a.type,
+               c.id cid,
+               c.category_name,
+               t.id tid,
+               t.tag_name,
+               a.create_time
+        FROM (SELECT *
+              FROM tb_article
+              WHERE is_delete = 0
+                AND status = 1
+              ORDER BY id DESC, is_top DESC
+                  LIMIT #{current}, #{size}) a
+                 JOIN tb_category c ON a.category_id = c.id
+                 JOIN tb_article_tag atg ON a.id = atg.article_id
+                 JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY a.id DESC, a.is_top DESC
+    </select>
 
 </mapper>

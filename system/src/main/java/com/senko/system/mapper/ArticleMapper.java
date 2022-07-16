@@ -1,6 +1,7 @@
 package com.senko.system.mapper;
 
 import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.dto.ArticleHomeDTO;
 import com.senko.common.common.dto.ArticlesOnOneDayDTO;
 import com.senko.common.common.entity.ArticleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -33,4 +34,9 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
     Integer countArticleBacks(@Param("condition") ConditionVO condition);
 
     List<ArticleBackDTO> listArticleBacks(@Param("current") Long limitCurrent,@Param("size") Long size,@Param("condition") ConditionVO conditionVO);
+
+    /**
+     * 查询首页的文章
+     */
+    List<ArticleHomeDTO> listHomeArticles(@Param("current") Long current,@Param("size") Long size);
 }

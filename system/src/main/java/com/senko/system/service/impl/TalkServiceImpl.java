@@ -2,22 +2,24 @@ package com.senko.system.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.common.dto.TalkBackDTO;
+import com.senko.common.common.entity.TalkEntity;
 import com.senko.common.common.vo.TalkVO;
+import com.senko.common.constants.CommonConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.spring.SecurityUtils;
+import com.senko.common.utils.web.HTMLUtils;
+import com.senko.system.mapper.TalkMapper;
+import com.senko.system.service.ITalkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.senko.system.mapper.TalkMapper;
-import com.senko.common.common.entity.TalkEntity;
-import com.senko.system.service.ITalkService;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 说说
@@ -71,5 +73,34 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, TalkEntity> impleme
         TalkEntity talkEntity = JSON.parseObject(JSON.toJSONString(talkVO), TalkEntity.class);
         talkEntity.setUserId(SecurityUtils.getLoginUser().getUserInfoId());
         this.saveOrUpdate(talkEntity);
+    }
+
+    /**
+     * 获取主页说说内容
+     */
+    @Override
+    public List<String> listHomeTalks() {
+        // 获取最新的10条
+        List<String> collect = talkMapper.selectList(new LambdaQueryWrapper<TalkEntity>()
+                        .eq(TalkEntity::getStatus, CommonConstants.TRUE)
+                        .orderByDesc(TalkEntity::getIsTop)
+                        .last("limit 10"))
+                .stream()
+                .map(talkEntity -> {
+                    String result = null;
+                    // 内容长度超过200字符
+                    if (talkEntity.getContent().length() > 200) {
+                        // 清除script style标签，并截取200字符
+                        result = HTMLUtils.deleteHMTLTag(talkEntity.getContent())
+                                .substring(0, 200);
+                    } else {
+                        // 清除script style标签
+                        result = HTMLUtils.filter(talkEntity.getContent());
+                    }
+                    return result;
+                })
+                .collect(Collectors.toList());
+
+        return collect;
     }
 }

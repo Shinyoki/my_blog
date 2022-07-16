@@ -37,6 +37,18 @@ public class TalkController {
     @Autowired
     private UploadStrategyContext uploadStrategyContext;
 
+
+    /**
+     * 获取主页的说说内容
+     */
+    @ApiOperation("获取主页的说说内容")
+    @GetMapping("/home/talks")
+    public AjaxResult<List<String>> listHomeTalks() {
+        List<String> talks = talkService.listHomeTalks();
+        return AjaxResult.success(talks);
+    }
+
+
     /**
      * 查询后台说说  分页集合
      * @param conditionVO   条件

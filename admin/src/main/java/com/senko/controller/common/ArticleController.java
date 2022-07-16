@@ -1,13 +1,14 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.dto.ArticleHomeDTO;
+import com.senko.common.common.vo.ArticleTopVO;
+import com.senko.common.common.vo.ArticleVO;
+import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.constants.FilePathConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.ArticleBackDTO;
-import com.senko.common.common.vo.DeleteVO;
-import com.senko.common.common.vo.ArticleTopVO;
-import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.framework.strategy.context.UploadStrategyContext;
 import com.senko.system.service.IArticleService;
@@ -41,6 +42,19 @@ public class ArticleController {
     public ArticleController(IArticleService articleService, UploadStrategyContext uploadStrategyContext) {
         this.articleService = articleService;
         this.uploadStrategyContext = uploadStrategyContext;
+    }
+
+
+    /**
+     * 查询首页的文章
+     * @param conditionVO   查询条件
+     * @return              首页文章集合
+     */
+    @ApiOperation("查询首页的文章")
+    @GetMapping("/articles")
+    public AjaxResult<List<ArticleHomeDTO>> listHomeArticles(ConditionVO conditionVO) {
+        List<ArticleHomeDTO> articleHomeDTOList = articleService.listHomeArticles(conditionVO);
+        return AjaxResult.success(articleHomeDTOList);
     }
 
     /**

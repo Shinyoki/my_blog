@@ -3,16 +3,13 @@ package com.senko.common.utils.file;
 import com.senko.common.utils.stream.StreamUtils;
 import com.senko.common.utils.string.StringUtils;
 import org.apache.commons.codec.binary.Hex;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -34,8 +31,12 @@ public class FileUtils {
     public static String getMd5(InputStream inputStream) {
         String s = null;
         try {
+            // 得到md5的算法
             MessageDigest md5 = MessageDigest.getInstance("MD5");
+            // 将input转为output并转为字节数组 再通过md5.digest(output)得到md5的值
+            // 其实完全可以设置个byte[]数组，从input中读取，然后update
             md5.update(StreamUtils.readAllAsBytes(inputStream));
+            // digest转为md5， 然后再变成16进制String
              s = new String(Hex.encodeHex(md5.digest()));
         } catch (NoSuchAlgorithmException | IOException e) {
             e.printStackTrace();
