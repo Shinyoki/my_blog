@@ -110,11 +110,11 @@
         <result column="article_cover" property="articleCover"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_content" property="articleContent"/>
+        <result column="create_time" property="createTime"/>
         <result column="type" property="type"/>
         <result column="is_top" property="isTop"/>
-        <result column="cid" property="categoryId"/>
+        <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
-        <result column="create_time" property="createTime"/>
         <collection property="tagDTOList" ofType="com.senko.common.common.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
@@ -122,27 +122,44 @@
     </resultMap>
 
     <select id="listHomeArticles" resultMap="articleHomeMap">
-        SELECT a.id,
-               a.article_cover,
-               a.article_content,
-               a.article_title,
-               a.is_top,
-               a.type,
-               c.id cid,
-               c.category_name,
-               t.id tid,
-               t.tag_name,
-               a.create_time
-        FROM (SELECT *
-              FROM tb_article
-              WHERE is_delete = 0
-                AND status = 1
-              ORDER BY id DESC, is_top DESC
-                  LIMIT #{current}, #{size}) a
-                 JOIN tb_category c ON a.category_id = c.id
-                 JOIN tb_article_tag atg ON a.id = atg.article_id
-                 JOIN tb_tag t ON t.id = atg.tag_id
-        ORDER BY a.id DESC, a.is_top DESC
+        SELECT
+            a.id,
+            article_cover,
+            article_title,
+            SUBSTR( article_content, 1, 500 ) AS article_content,
+            a.create_time,
+            a.type,
+            a.is_top,
+            a.category_id,
+            category_name,
+            t.id AS tag_id,
+            t.tag_name
+        FROM
+            (
+                SELECT
+                    id,
+                    article_cover,
+                    article_title,
+                    article_content,
+                    type,
+                    is_top,
+                    create_time,
+                    category_id
+                FROM
+                    tb_article
+                WHERE is_delete = 0
+                  AND status = 1
+                ORDER BY
+                    is_top DESC,
+                    id DESC
+                    LIMIT #{current} , #{size}
+            ) a
+                JOIN tb_category c ON a.category_id = c.id
+                JOIN tb_article_tag atg ON a.id = atg.article_id
+                JOIN tb_tag t ON t.id = atg.tag_id
+        ORDER BY
+            a.is_top DESC,
+            a.id DESC
     </select>
 
 </mapper>

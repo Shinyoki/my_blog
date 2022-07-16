@@ -15,7 +15,7 @@ public enum UserTypeEnum {
     /**
      * 管理员
      */
-    ADMIN(3, "管理员"),
+    ADMIN(1, "管理员"),
     /**
      * 登录用户
      */
