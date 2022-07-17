@@ -2,7 +2,10 @@ package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.senko.common.common.dto.ArticleDTO;
 import com.senko.common.common.dto.ArticleHomeDTO;
+import com.senko.common.common.dto.ArticleRecommendDTO;
+import com.senko.common.constants.CommonConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.ArticleBackDTO;
 import com.senko.common.common.entity.ArticleTagEntity;
@@ -13,6 +16,7 @@ import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.ArticleStatusEnum;
+import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
@@ -34,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import static com.senko.common.constants.RedisConstants.*;
 
@@ -224,6 +229,45 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
     public List<ArticleHomeDTO> listHomeArticles(ConditionVO conditionVO) {
         List<ArticleHomeDTO> articleHomeDTOList = articleMapper.listHomeArticles(PageUtils.getCurrent(), PageUtils.getSize());
         return articleHomeDTOList;
+    }
+
+    /**
+     * 查询文章DTO
+     * @param articleId 文章ID
+     * @return          文章DTO
+     */
+    @Override
+    public ArticleDTO getArticleDtoById(Integer articleId) {
+        // 查询推荐列表：相同tag的文章
+        CompletableFuture<List<ArticleRecommendDTO>> recommendArticleFuture = CompletableFuture.supplyAsync(() -> {
+            return articleMapper.listRecommendArticles(articleId);
+        });
+        // 查询最新的6个文章
+        CompletableFuture<List<ArticleRecommendDTO>> newestArticleList = CompletableFuture.supplyAsync(() -> {
+            List<ArticleEntity> articleEntities = articleMapper.selectList(new LambdaQueryWrapper<ArticleEntity>()
+                    .select(ArticleEntity::getId, ArticleEntity::getArticleCover, ArticleEntity::getArticleTitle, ArticleEntity::getCreateTime)
+                    .eq(ArticleEntity::getIsDelete, CommonConstants.FALSE)
+                    .eq(ArticleEntity::getStatus, 1)
+                    .orderByDesc(ArticleEntity::getId)
+                    .last("limit 6"));
+            return BeanCopyUtils.copyList(articleEntities, ArticleRecommendDTO.class);
+        });
+        // 查询文章详情
+        ArticleDTO articleDTO = articleMapper.selectArticleDTOById(articleId);
+        if (Objects.isNull(articleDTO)) {
+            throw new ServiceException("该文章不存在");
+        }
+        // 更新文章的访问量
+        updateArticleViewsCount(articleId);
+        return null;
+    }
+
+    /**
+     * 在查询文章的时候，更新文章的访问量
+     * @param articleId 文章ID
+     */
+    private void updateArticleViewsCount(Integer articleId) {
+        //TODO 缓存访问量
     }
 
     /**

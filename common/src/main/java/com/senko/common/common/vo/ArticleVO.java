@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 
@@ -64,13 +63,13 @@ public class ArticleVO implements Serializable {
     private List<String> tagNameList;
 
     /**
-     * 文章类型
+     * 文章类型 1.原创 2.转载 3.翻译
      */
     @ApiModelProperty("文章类型")
     private Integer type;
 
     /**
-     * 文章状态 1.公开 2.私密 3.评论可见
+     * 文章状态 1.公开 2.私密 3.草稿
      */
     @ApiModelProperty("文章状态")
     private Integer status;

@@ -1,6 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.common.dto.ArticleDTO;
 import com.senko.common.common.dto.ArticleHomeDTO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.ArticleBackDTO;
@@ -65,5 +66,12 @@ public interface IArticleService extends IService<ArticleEntity> {
      * @return              首页文章集合
      */
     List<ArticleHomeDTO> listHomeArticles(ConditionVO conditionVO);
+
+    /**
+     * 查询文章DTO
+     * @param articleId 文章ID
+     * @return          文章DTO
+     */
+    ArticleDTO getArticleDtoById(Integer articleId);
 }
 

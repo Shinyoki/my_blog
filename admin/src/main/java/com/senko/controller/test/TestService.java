@@ -2,10 +2,12 @@ package com.senko.controller.test;
 
 import com.alibaba.fastjson.JSON;
 import com.senko.framework.properties.GithubConfigurationProperties;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +26,8 @@ public class TestService {
 
     @Autowired
     private GithubConfigurationProperties githubConfigurationProperties;
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     public void getGithubUserInfo() {
         String url = githubConfigurationProperties.getUserInfoUrl();
@@ -47,6 +51,18 @@ public class TestService {
         System.out.println("解析后的玩家");
         System.out.println(playerInfo);
     }
+
+    public String  method1() {
+        logger.info("调用方法后的线程：{}", Thread.currentThread().getName());
+        return "方法一的线程：" + Thread.currentThread().getName();
+    }
+
+    @Async
+    public String  method2() {
+        logger.info("调用方法后的线程：{}", Thread.currentThread().getName());
+        return "方法二的线程：" + Thread.currentThread().getName();
+    }
+
 }
 
 

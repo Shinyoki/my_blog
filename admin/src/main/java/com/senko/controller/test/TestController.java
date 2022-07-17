@@ -7,6 +7,7 @@ import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,11 @@ public class TestController {
 
     @Autowired
     private IRoleService roleService;
+
+    @Autowired
+    private TestService testService;
+
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     /**
      * 查询当前登录用户的可访问菜单
@@ -63,6 +69,18 @@ public class TestController {
     @GetMapping("/ping")
     public AjaxResult ping() {
         return AjaxResult.success("pong!");
+    }
+
+    @GetMapping("/thread/{num}")
+    public String testThread(@PathVariable("num") int num) {
+        logger.info("调用方法前的线程：{}", Thread.currentThread().getName() );
+        switch (num) {
+            case 0:
+                return testService.method1();
+            case 1:
+                return testService.method2();
+        }
+        return "233";
     }
 
 

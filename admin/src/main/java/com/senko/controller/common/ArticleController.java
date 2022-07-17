@@ -2,6 +2,7 @@ package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.dto.ArticleDTO;
 import com.senko.common.common.dto.ArticleHomeDTO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
@@ -44,6 +45,18 @@ public class ArticleController {
         this.uploadStrategyContext = uploadStrategyContext;
     }
 
+
+    /**
+     * 查询文章DTO
+     * @param articleId 文章ID
+     * @return          文章DTO
+     */
+    @ApiOperation("查看相应id的文章")
+    @GetMapping("/articles/{articleId}")
+    public AjaxResult<ArticleDTO> getArticleDTOById(@PathVariable("articleId") Integer articleId) {
+        ArticleDTO articleDTO = articleService.getArticleDtoById(articleId);
+        return AjaxResult.success(articleDTO);
+    }
 
     /**
      * 查询首页的文章
