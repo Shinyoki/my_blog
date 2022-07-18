@@ -93,4 +93,9 @@ public class CommonConstants {
      */
     public static final String TEXT_HTML = "text/html;charset=utf-8";
 
+    /**
+     * 浏览的文章集合
+     */
+    public static final String ARTICLE_SET = "articleSet";
+
 }

@@ -2,45 +2,45 @@ package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.senko.common.common.dto.ArticleDTO;
-import com.senko.common.common.dto.ArticleHomeDTO;
-import com.senko.common.common.dto.ArticleRecommendDTO;
-import com.senko.common.constants.CommonConstants;
-import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.ArticleBackDTO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.senko.common.common.dto.*;
+import com.senko.common.common.entity.ArticleEntity;
 import com.senko.common.common.entity.ArticleTagEntity;
 import com.senko.common.common.entity.CategoryEntity;
 import com.senko.common.common.entity.TagEntity;
-import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
+import com.senko.common.common.vo.DeleteVO;
+import com.senko.common.constants.CommonConstants;
+import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.ArticleStatusEnum;
 import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
+import com.senko.common.utils.http.ServletUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.common.utils.redis.RedisHandler;
 import com.senko.common.utils.spring.SecurityUtils;
 import com.senko.common.utils.string.StringUtils;
+import com.senko.system.mapper.ArticleMapper;
 import com.senko.system.mapper.ArticleTagMapper;
 import com.senko.system.mapper.CategoryMapper;
 import com.senko.system.mapper.TagMapper;
+import com.senko.system.service.IArticleService;
 import com.senko.system.service.IArticleTagService;
 import com.senko.system.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.senko.system.mapper.ArticleMapper;
-import com.senko.common.common.entity.ArticleEntity;
-import com.senko.system.service.IArticleService;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-import static com.senko.common.constants.RedisConstants.*;
+
+import static com.senko.common.constants.RedisConstants.ARTICLE_LIKE_COUNT_TAG;
+import static com.senko.common.constants.RedisConstants.ARTICLE_VIEWS_COUNT_TAG;
 
 /**
  * 文章服务
@@ -62,8 +62,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
 
     private TagMapper tagMapper;
 
+    /**
+     * HttpSession和HttpServletRequest都开以通过注入的方式获取
+     */
+    private HttpSession httpSession;
+
     @Autowired
-    public ArticleServiceImpl(ArticleMapper articleMapper, CategoryMapper categoryMapper, IArticleTagService articleTagService, ArticleTagMapper articleTagMapper, ITagService tagService, RedisHandler redisHandler, TagMapper tagMapper) {
+    public ArticleServiceImpl(ArticleMapper articleMapper, CategoryMapper categoryMapper, IArticleTagService articleTagService, ArticleTagMapper articleTagMapper, ITagService tagService, RedisHandler redisHandler, TagMapper tagMapper, HttpSession httpSession) {
         this.articleMapper = articleMapper;
         this.categoryMapper = categoryMapper;
         this.articleTagService = articleTagService;
@@ -71,6 +76,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
         this.tagService = tagService;
         this.redisHandler = redisHandler;
         this.tagMapper = tagMapper;
+        this.httpSession = httpSession;
     }
 
     /**
@@ -242,8 +248,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
         CompletableFuture<List<ArticleRecommendDTO>> recommendArticleFuture = CompletableFuture.supplyAsync(() -> {
             return articleMapper.listRecommendArticles(articleId);
         });
+
         // 查询最新的6个文章
-        CompletableFuture<List<ArticleRecommendDTO>> newestArticleList = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<List<ArticleRecommendDTO>> newestArticleListFuture = CompletableFuture.supplyAsync(() -> {
             List<ArticleEntity> articleEntities = articleMapper.selectList(new LambdaQueryWrapper<ArticleEntity>()
                     .select(ArticleEntity::getId, ArticleEntity::getArticleCover, ArticleEntity::getArticleTitle, ArticleEntity::getCreateTime)
                     .eq(ArticleEntity::getIsDelete, CommonConstants.FALSE)
@@ -252,22 +259,91 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
                     .last("limit 6"));
             return BeanCopyUtils.copyList(articleEntities, ArticleRecommendDTO.class);
         });
+
         // 查询文章详情
         ArticleDTO articleDTO = articleMapper.selectArticleDTOById(articleId);
         if (Objects.isNull(articleDTO)) {
             throw new ServiceException("该文章不存在");
         }
+
         // 更新文章的访问量
         updateArticleViewsCount(articleId);
-        return null;
+
+        // 查询上一篇
+        ArticleEntity lessThanArticle = articleMapper.selectOne(new LambdaQueryWrapper<ArticleEntity>()
+                .select(ArticleEntity::getId, ArticleEntity::getArticleTitle, ArticleEntity::getArticleCover)
+                .eq(ArticleEntity::getIsDelete, CommonConstants.FALSE)
+                .eq(ArticleEntity::getStatus, 1)
+                // 筛选出id更小的那个
+                .lt(ArticleEntity::getId, articleId)
+                .orderByDesc(ArticleEntity::getId)
+                .last("limit 1"));
+        articleDTO.setLastArticle(BeanCopyUtils.copyObject(lessThanArticle, ArticlePaginationDTO.class));
+
+        // 查询下一篇
+        ArticleEntity greaterThanArticle = articleMapper.selectOne(new LambdaQueryWrapper<ArticleEntity>()
+                .select(ArticleEntity::getId, ArticleEntity::getArticleTitle, ArticleEntity::getArticleCover)
+                .eq(ArticleEntity::getIsDelete, CommonConstants.FALSE)
+                .eq(ArticleEntity::getStatus, 1)
+                // 筛选出id更大的那个
+                .gt(ArticleEntity::getId, articleId)
+                .orderByAsc(ArticleEntity::getId)
+                .last("limit 1"));
+        articleDTO.setNextArticle(BeanCopyUtils.copyObject(greaterThanArticle, ArticlePaginationDTO.class));
+
+        // 获取点赞量
+        int likesCount = Optional.ofNullable((Double) redisHandler.hGet(ARTICLE_LIKE_COUNT_TAG, articleId.toString())).orElse(0D).intValue();
+        articleDTO.setLikeCount(likesCount);
+
+        // 获取阅读量
+        int viewsCount = Optional.ofNullable(redisHandler.zScore(ARTICLE_VIEWS_COUNT_TAG, articleId)).orElse(0D).intValue();
+        articleDTO.setViewsCount(viewsCount);
+
+        /**
+         * CompletableFuture，先supply，让线程池异步运行，因为这里发生的查询可能会很耗时
+         * 于是我们先做其他的事，
+         * 做的差不多了，再get，阻塞等待结果，最终消费结果。
+         */
+        try {
+            articleDTO.setRecommendArticleList(recommendArticleFuture.get());
+            articleDTO.setNewestArticleList(newestArticleListFuture.get());
+        } catch (InterruptedException | ExecutionException e) {
+            throw new ServiceException("查询文章详情异常");
+        }
+        return articleDTO;
     }
 
     /**
      * 在查询文章的时候，更新文章的访问量
+     *
+     * HttpSession 服务端的技术
+     * 服务器会为每一个用户 创建一个独立的HttpSession
+     *
+     * HttpSession原理
+     * 当用户第一次访问Servlet时,服务器端会给用户创建一个独立的Session
+     * 并且生成一个SessionID,这个SessionID在响应浏览器的时候会被装进cookie中,从而被保存到浏览器中
+     * 当用户再一次访问Servlet时,请求中会携带着cookie中的SessionID去访问
+     * 服务器会根据这个SessionID去查看是否有对应的Session对象
+     * 有就拿出来使用;没有就创建一个Session(相当于用户第一次访问)
+     *
+     * 域的范围:
+     *     Context域 > Session域 > Request域
+     *     Session域 只要会话不结束就会存在 但是Session有默认的存活时间(30分钟)
      * @param articleId 文章ID
      */
     private void updateArticleViewsCount(Integer articleId) {
-        //TODO 缓存访问量
+        Object articleSetInCookie = Optional.ofNullable(httpSession.getAttribute(CommonConstants.ARTICLE_SET))
+                .orElseGet(HashSet::new);
+        Set<Integer> articleIds = ServletUtils.castSet(articleSetInCookie, Integer.class);
+        if (!articleIds.contains(articleId)) {
+            // 如果访问的文章不在cookie中，则 更新文章的访问量
+            articleIds.add(articleId);
+            // 更新session cookie
+            httpSession.setAttribute(CommonConstants.ARTICLE_SET, articleIds);
+            // 更新缓存
+            redisHandler.zIncrement(ARTICLE_VIEWS_COUNT_TAG, articleId, 1D);
+        }
+
     }
 
     /**

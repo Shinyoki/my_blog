@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 客户端工具类
@@ -120,5 +123,27 @@ public class ServletUtils
 
         String ajax = request.getParameter("__ajax");
         return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
+    }
+
+    /**
+     * 转换set
+     *
+     * @param obj set<T>集合对象
+     * @param obj 集合对象存储的值类型
+     */
+    public static <T> Set<T> castSet(Object obj, Class<T> clazz) {
+        Set<T> result = new HashSet<>();
+        // 判断被转换的对象是不是Set
+        if (Objects.nonNull(obj) && !(obj instanceof HashSet)) {
+            // 是，则遍历并添加内容到新的HashSet中
+            for (T item : (Set<T>)obj) {
+                result.add(clazz.cast(item));
+            }
+            return result;
+        } else if (Objects.nonNull(obj) && obj instanceof HashSet) {
+            // 否则直接返回
+            return (Set<T>)obj;
+        }
+        return result;
     }
 }
