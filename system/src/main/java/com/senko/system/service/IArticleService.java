@@ -73,5 +73,10 @@ public interface IArticleService extends IService<ArticleEntity> {
      * @return          文章DTO
      */
     ArticleDTO getArticleDtoById(Integer articleId);
+
+    /**
+     * 点赞文章
+     */
+    void doArticleLike(Integer articleId);
 }
 

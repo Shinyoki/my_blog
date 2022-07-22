@@ -1,10 +1,7 @@
 package com.senko.framework.config.security;
 
-import com.senko.common.utils.spring.SpringUtils;
-import com.senko.framework.config.security.handler.AuthenticationSuccessHandlerImpl;
 import com.senko.framework.config.security.handler.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
@@ -184,6 +181,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //ExpressionUrlAuthorizationConfigurer，不配置个authenticated() or permitAll()
                 //他就不让启动，于是随便弄了个空matcher匹配链，走个过场
                 .anyRequest()
+                // 同时这样做算是允许匿名访问
                 .authenticated();
 
         //handler

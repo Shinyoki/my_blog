@@ -82,17 +82,6 @@ public class ArticleController {
     }
 
     /**
-     * 以文章id去查询文章（带内容）
-     * @param articleId
-     * @return
-     */
-    @ApiOperation("根据文章ID获取文章")
-    @GetMapping("/admin/articles/{articleId}")
-    public AjaxResult<ArticleVO> getArticleBackByArticleId(@PathVariable("articleId") Integer articleId) {
-        return AjaxResult.success(articleService.getArticleBackByArticleId(articleId));
-    }
-
-    /**
      * 添加/修改文章
      */
     @LogOperation(optType = SAVE_OR_UPDATE)
@@ -106,7 +95,7 @@ public class ArticleController {
     @ApiOperation("上传文章图片")
     @ApiImplicitParam(name = "file", value = "文章图片", required = true, dataType = "MultipartFile")
     @PostMapping("/admin/articles/images")
-    public AjaxResult<String> saveArticleImages(MultipartFile file) {
+    public AjaxResult<String> saveArticleImages(@RequestParam("file") MultipartFile file) {
         String filePath = uploadStrategyContext.executeUploadFile(file, FilePathConstants.ARTICLE);
         return AjaxResult.success("上传成功", filePath);
     }
@@ -136,6 +125,28 @@ public class ArticleController {
     @DeleteMapping("/admin/articles")
     public AjaxResult deleteArticles(@RequestBody List<Integer> articleIdList) {
         articleService.deleteArticles(articleIdList);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 以文章id去查询文章（带内容）
+     * @param articleId
+     * @return
+     */
+    @ApiOperation("根据文章ID获取文章")
+    @GetMapping("/admin/articles/{articleId}")
+    public AjaxResult<ArticleVO> getArticleBackByArticleId(@PathVariable("articleId") Integer articleId) {
+        return AjaxResult.success(articleService.getArticleBackByArticleId(articleId));
+    }
+
+    /**
+     * 点赞文章
+     */
+    @ApiOperation("点赞文章")
+    @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Integer")
+    @PostMapping("/articles/{articleId}/like")
+    public AjaxResult<?> doArticleLike(@PathVariable("articleId") Integer articleId) {
+        articleService.doArticleLike(articleId);
         return AjaxResult.success();
     }
 }

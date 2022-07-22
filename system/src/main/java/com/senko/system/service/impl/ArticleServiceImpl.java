@@ -12,6 +12,7 @@ import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.constants.CommonConstants;
+import com.senko.common.constants.RedisConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.common.enums.ArticleStatusEnum;
@@ -311,6 +312,25 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
             throw new ServiceException("查询文章详情异常");
         }
         return articleDTO;
+    }
+
+    /**
+     * 点赞文章
+     */
+    @Override
+    public void doArticleLike(Integer articleId) {
+        Integer userId = SecurityUtils.getLoginUser().getUserInfoId();
+        String redisKey = RedisConstants.ARTICLE_USER_LIKE + userId;
+
+        // 寻找是否存在于set中
+        if (redisHandler.sIsMember(redisKey, articleId)) {
+            // 已经点赞过，则取消点赞
+            redisHandler.sRemove(redisKey, articleId);  // 删除set中的元素
+            redisHandler.hDecrement(ARTICLE_LIKE_COUNT_TAG, articleId.toString(), 1); // 减少点赞量
+        } else {
+            redisHandler.sAdd(redisKey, articleId);
+            redisHandler.hIncrement(ARTICLE_LIKE_COUNT_TAG, articleId.toString(), 1); // 增加点赞量
+        }
     }
 
     /**

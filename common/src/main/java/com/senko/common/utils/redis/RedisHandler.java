@@ -457,6 +457,7 @@ public class RedisHandler {
         return redisTemplate.opsForSet().size(key);
     }
 
+
     /**
      * 删除集合中的元素
      * @param key

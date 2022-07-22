@@ -5,6 +5,7 @@ import com.senko.common.utils.string.StringUtils;
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,12 +31,16 @@ public class FileUtils {
      */
     public static String getMd5(InputStream inputStream) {
         String s = null;
+        BufferedInputStream bufferedInputStream;
         try {
             // 得到md5的算法
             MessageDigest md5 = MessageDigest.getInstance("MD5");
-            // 将input转为output并转为字节数组 再通过md5.digest(output)得到md5的值
-            // 其实完全可以设置个byte[]数组，从input中读取，然后update
-            md5.update(StreamUtils.readAllAsBytes(inputStream));
+            // 将input通过md5.digest(input)得到md5的值
+            byte[] bytes = new byte[8024];
+            int len;
+            while ((len = inputStream.read(bytes)) != -1) {
+                md5.update(bytes, 0, len);
+            }
             // digest转为md5， 然后再变成16进制String
              s = new String(Hex.encodeHex(md5.digest()));
         } catch (NoSuchAlgorithmException | IOException e) {

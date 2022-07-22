@@ -158,8 +158,10 @@
         FROM (SELECT DISTINCT article_id
               FROM (SELECT tag_id
                     FROM tb_article_tag
-                    WHERE article_id = #{articleId}) t
-                       LEFT JOIN tb_article_tag tat ON tat.tag_id = t.tag_id) a1
+                    WHERE article_id = #{articleId}
+                    ) t
+                       LEFT JOIN tb_article_tag tat ON tat.tag_id = t.tag_id
+              ) a1
                  JOIN tb_article a ON a.id = a1.article_id
         WHERE a.is_delete = 0
         ORDER BY a.is_top DESC, a.id DESC LIMIT 6
