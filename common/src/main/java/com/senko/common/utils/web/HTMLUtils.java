@@ -27,7 +27,7 @@ public class HTMLUtils {
 
 
     /**
-     * 删除标签
+     * 过滤敏感词
      *
      * @param source 需要进行剔除HTML的文本
      * @return 过滤后的内容
@@ -43,7 +43,7 @@ public class HTMLUtils {
     }
 
     /**
-     * 删除标签
+     * 删除script style标签
      *
      * @param source 文本
      * @return 过滤后的文本

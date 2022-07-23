@@ -2,6 +2,8 @@ package com.senko.controller.common;
 
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.CommentDTO;
+import com.senko.common.common.vo.CommentVO;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
@@ -62,6 +64,38 @@ public class CommentController {
     @DeleteMapping("/admin/comments")
     public AjaxResult<?> deleteComments(@RequestBody List<Integer> commentIdList) {
         commentService.removeByIds(commentIdList);
+        return AjaxResult.success();
+    }
+
+
+    /**
+     * 查询评论
+     */
+    @ApiOperation("查询评论")
+    @GetMapping("/comments")
+    public AjaxResult<PageResult<CommentDTO>> listComments(CommentVO commentVO) {
+        PageResult<CommentDTO> commentDTOList = commentService.listComments(commentVO);
+        return AjaxResult.success(commentDTOList);
+    }
+
+    /**
+     * 添加评论
+     */
+    @LogOperation(optType = OperationTypeConstants.SAVE)
+    @ApiOperation("添加评论")
+    @PostMapping("/comments")
+    public AjaxResult<?> saveComment(@Valid @RequestBody CommentVO commentVO) {
+        commentService.saveComment(commentVO);
+        return AjaxResult.success();
+    }
+
+    /**
+     * 给评论点赞
+     */
+    @ApiOperation("给评论点赞")
+    @PostMapping("/comments/{commentId}/like")
+    public AjaxResult<?> likeComment(@PathVariable("commentId") Integer commentId) {
+        commentService.likeComment(commentId);
         return AjaxResult.success();
     }
 

@@ -1,6 +1,8 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.common.dto.CommentDTO;
+import com.senko.common.common.vo.CommentVO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.CommentBackDTO;
 import com.senko.common.common.entity.CommentEntity;
@@ -28,6 +30,19 @@ public interface ICommentService extends IService<CommentEntity> {
      */
     void updateCommentsIsReview(CommentIsReviewVO isReviewVO);
 
+    /**
+     * 查询评论
+     */
+    PageResult<CommentDTO> listComments(CommentVO commentVO);
 
+    /**
+     * 添加评论
+     */
+    void saveComment(CommentVO commentVO);
+
+    /**
+     * 给评论点赞
+     */
+    void likeComment(Integer commentId);
 }
 
