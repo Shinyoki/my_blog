@@ -1,6 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.common.dto.ArchiveDTO;
 import com.senko.common.common.dto.ArticleDTO;
 import com.senko.common.common.dto.ArticleHomeDTO;
 import com.senko.common.core.PageResult;
@@ -78,5 +79,13 @@ public interface IArticleService extends IService<ArticleEntity> {
      * 点赞文章
      */
     void doArticleLike(Integer articleId);
+
+
+    /**
+     * 查看文章归档
+     * @return
+     */
+    PageResult<ArchiveDTO> listArchives();
+
 }
 

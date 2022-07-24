@@ -2,6 +2,7 @@ package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.common.dto.*;
 import com.senko.common.common.entity.ArticleEntity;
@@ -331,6 +332,23 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
             redisHandler.sAdd(redisKey, articleId);
             redisHandler.hIncrement(ARTICLE_LIKE_COUNT_TAG, articleId.toString(), 1); // 增加点赞量
         }
+    }
+
+
+    /**
+     * 查看文章归档
+     * @return
+     */
+    @Override
+    public PageResult<ArchiveDTO> listArchives() {
+        Page<ArticleEntity> pageRequest = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
+        Page<ArticleEntity> pageResult = articleMapper.selectPage(pageRequest, new LambdaQueryWrapper<ArticleEntity>()
+                .select(ArticleEntity::getId, ArticleEntity::getArticleTitle, ArticleEntity::getCreateTime)
+                .orderByDesc(ArticleEntity::getCreateTime)
+                .eq(ArticleEntity::getIsDelete, CommonConstants.FALSE)
+                .eq(ArticleEntity::getStatus, 1));
+        List<ArchiveDTO> archiveDTOS = BeanCopyUtils.copyList(pageRequest.getRecords(), ArchiveDTO.class);
+        return new PageResult<>( (int)pageResult.getTotal(), archiveDTOS);
     }
 
     /**

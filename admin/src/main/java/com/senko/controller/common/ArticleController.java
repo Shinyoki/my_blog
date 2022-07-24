@@ -1,6 +1,7 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.ArchiveDTO;
 import com.senko.common.common.dto.ArticleBackDTO;
 import com.senko.common.common.dto.ArticleDTO;
 import com.senko.common.common.dto.ArticleHomeDTO;
@@ -148,5 +149,16 @@ public class ArticleController {
     public AjaxResult<?> doArticleLike(@PathVariable("articleId") Integer articleId) {
         articleService.doArticleLike(articleId);
         return AjaxResult.success();
+    }
+
+    /**
+     * 查看文章归档
+     * @return
+     */
+    @ApiOperation("查看文章归档")
+    @GetMapping("/articles/archives")
+    public AjaxResult<PageResult<ArchiveDTO>> listArchives() {
+        PageResult<ArchiveDTO> archiveDTOList = articleService.listArchives();
+        return AjaxResult.success(archiveDTOList);
     }
 }
