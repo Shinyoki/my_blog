@@ -2,13 +2,15 @@ package com.senko.controller.common;
 
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.CommentBackDTO;
 import com.senko.common.common.dto.CommentDTO;
+import com.senko.common.common.dto.ReplyDTO;
+import com.senko.common.common.vo.CommentIsReviewVO;
+import com.senko.common.common.vo.CommentReplyVO;
 import com.senko.common.common.vo.CommentVO;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.CommentBackDTO;
-import com.senko.common.common.vo.CommentIsReviewVO;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.system.service.ICommentService;
 import io.swagger.annotations.Api;
@@ -97,6 +99,18 @@ public class CommentController {
     public AjaxResult<?> likeComment(@PathVariable("commentId") Integer commentId) {
         commentService.likeComment(commentId);
         return AjaxResult.success();
+    }
+
+    /**
+     * 查询评论下的五个回复
+     * @param commentId
+     * @return
+     */
+    @ApiOperation("查询评论下的回复（五个）")
+    @GetMapping("/comments/{commentId}/replies")
+    public AjaxResult<List<ReplyDTO>> listCommentRepliesById(@PathVariable("commentId") Integer commentId, @Valid CommentReplyVO replyVO) {
+        List<ReplyDTO> replyDTOList = commentService.listCommentRepliesById(commentId);
+        return AjaxResult.success(replyDTOList);
     }
 
 }

@@ -2,12 +2,15 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.common.dto.CommentDTO;
+import com.senko.common.common.dto.ReplyDTO;
 import com.senko.common.common.vo.CommentVO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.CommentBackDTO;
 import com.senko.common.common.entity.CommentEntity;
 import com.senko.common.common.vo.CommentIsReviewVO;
 import com.senko.common.core.vo.ConditionVO;
+
+import java.util.List;
 
 /**
  * 评论Service
@@ -44,5 +47,12 @@ public interface ICommentService extends IService<CommentEntity> {
      * 给评论点赞
      */
     void likeComment(Integer commentId);
+
+    /**
+     * 查询评论下的五个回复
+     * @param commentId
+     * @return
+     */
+    List<ReplyDTO> listCommentRepliesById(Integer commentId);
 }
 

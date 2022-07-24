@@ -44,7 +44,7 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
     /**
      * 根据一级评论搜索其回复
      *
-     * 根据parent id分割分组，一个parent下超过四个的回复就忽略
+     * 根据parent id分割分组，一个parent下超过3个的回复就忽略
      * ROW NUMBER () OVER (PARTITION BY parent_id ORDER BY create_time) AS row_number
      * https://www.cnblogs.com/icebutterfly/archive/2009/08/05/1539657.html
      */
@@ -58,4 +58,5 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
      */
     List<ReplyCountDTO> listReplyCountByCommentId(@Param("commentIdList") List<Integer> commentIdList);
 
+    List<ReplyDTO> listRepliesByCommentId(@Param("current") Long current,@Param("size") Long size,@Param("commentId") Integer commentId);
 }

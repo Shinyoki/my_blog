@@ -202,9 +202,9 @@
                 AND is_delete = 0
                 AND status = 1
               ) a
-                 JOIN tb_category c ON a.category_id = c.id
-                 JOIN tb_article_tag atg ON a.id = atg.article_id
-                 JOIN tb_tag t ON t.id = atg.tag_id;
+                 LEFT JOIN tb_category c ON a.category_id = c.id
+                 LEFT JOIN tb_article_tag atg ON a.id = atg.article_id
+                 LEFT JOIN tb_tag t ON t.id = atg.tag_id
     </select>
 
 </mapper>

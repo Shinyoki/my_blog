@@ -113,7 +113,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
                 .map(CommentDTO::getId)
                 .collect(Collectors.toList());
 
-        // 根据一级评论搜索回复
+        // 根据一级评论搜索回复(筛选前3个评论)
         List<ReplyDTO> replyDTOS =  commentMapper.listReplies(commentIdList);
 
         // 设置每条回复的点赞数
@@ -188,6 +188,22 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, CommentEntity
             // 增加点赞数
             redisHandler.hIncrement(RedisConstants.COMMENT_LIKE_COUNT_TAG, commentId.toString(), 1L);
         }
+    }
+
+
+    /**
+     * 查询评论下的五个回复
+     * @param commentId
+     * @return
+     */
+    @Override
+    public List<ReplyDTO> listCommentRepliesById(Integer commentId) {
+        List<ReplyDTO> replyDTOList = commentMapper.listRepliesByCommentId(PageUtils.getLimitCurrent(), PageUtils.getSize(), commentId);
+        Map<String, Object> commentLikeMap = redisHandler.hGetAll(RedisConstants.COMMENT_LIKE_COUNT_TAG);
+        replyDTOList.forEach(replyDTO -> {
+            replyDTO.setLikeCount((Integer) commentLikeMap.get(replyDTO.getId().toString()));
+        });
+        return replyDTOList;
     }
 
     /**
