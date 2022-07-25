@@ -2,6 +2,7 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.common.dto.PhotoBackDTO;
+import com.senko.common.common.dto.PhotoDTO;
 import com.senko.common.common.entity.PhotoEntity;
 import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.PhotoInfoVO;
@@ -47,5 +48,12 @@ public interface IPhotoService extends IService<PhotoEntity> {
      * @param photoVO 图片IDS、相册ID
      */
     void movePhotoToAlbum(PhotoVO photoVO);
+
+    /**
+     * 获取相册对应的图片
+     * @param albumId   相册ID
+     * @return          图片集合
+     */
+    PhotoDTO listPhotoByAlbumId(Integer albumId);
 }
 

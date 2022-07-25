@@ -2,6 +2,7 @@ package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.common.dto.PhotoBackDTO;
+import com.senko.common.common.dto.PhotoDTO;
 import com.senko.common.common.vo.DeleteVO;
 import com.senko.common.common.vo.PhotoInfoVO;
 import com.senko.common.common.vo.PhotoVO;
@@ -30,6 +31,7 @@ import java.util.List;
 public class PhotoController {
     @Autowired
     private IPhotoService photoService;
+
 
     /**
      * 获取后台照片 分页集合
@@ -101,4 +103,17 @@ public class PhotoController {
         photoService.movePhotoToAlbum(photoVO);
         return AjaxResult.success();
     }
+
+    /**
+     * 获取相册对应的图片
+     * @param albumId   相册ID
+     * @return          图片集合
+     */
+    @ApiOperation("获取相册对应的图片")
+    @GetMapping("/albums/{albumId}/photos")
+    public AjaxResult<PhotoDTO> listPhotoByAlbumId(@PathVariable("albumId") Integer albumId) {
+        PhotoDTO photoDTO = photoService.listPhotoByAlbumId(albumId);
+        return AjaxResult.success(photoDTO);
+    }
+
 }

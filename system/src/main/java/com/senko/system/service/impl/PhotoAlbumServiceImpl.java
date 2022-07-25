@@ -3,6 +3,7 @@ package com.senko.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.senko.common.common.dto.AlbumBackDTO;
+import com.senko.common.common.dto.PhotoAlbumDTO;
 import com.senko.common.common.entity.PhotoEntity;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.constants.CommonConstants;
@@ -111,4 +112,19 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
         albumBackDTO.setPhotoCount(count.intValue());
         return albumBackDTO;
     }
+
+    /**
+     * 查看相册集合
+     */
+    @Override
+    public List<PhotoAlbumDTO> listAlbums() {
+        List<PhotoAlbumEntity> photoAlbumEntities = albumMapper.selectList(new LambdaQueryWrapper<PhotoAlbumEntity>()
+                .select(PhotoAlbumEntity::getId, PhotoAlbumEntity::getAlbumName, PhotoAlbumEntity::getAlbumDesc, PhotoAlbumEntity::getAlbumCover)
+                .eq(PhotoAlbumEntity::getIsDelete, CommonConstants.FALSE)
+                .eq(PhotoAlbumEntity::getStatus, 1)
+                .orderByDesc(PhotoAlbumEntity::getId)
+        );
+        return BeanCopyUtils.copyList(photoAlbumEntities, PhotoAlbumDTO.class);
+    }
+
 }

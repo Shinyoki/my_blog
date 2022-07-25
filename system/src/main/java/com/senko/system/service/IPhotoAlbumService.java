@@ -2,10 +2,13 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.common.dto.AlbumBackDTO;
+import com.senko.common.common.dto.PhotoAlbumDTO;
 import com.senko.common.common.entity.PhotoAlbumEntity;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
+
+import java.util.List;
 
 /**
  * 相册
@@ -40,5 +43,10 @@ public interface IPhotoAlbumService extends IService<PhotoAlbumEntity> {
      * @return              后台相册
      */
     AlbumBackDTO getPhotoAlbumDTOById(Integer albumId);
+    /**
+     * 查看相册集合
+     */
+    List<PhotoAlbumDTO> listAlbums();
+
 }
 

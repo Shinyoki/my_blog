@@ -2,6 +2,7 @@ package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.common.dto.AlbumBackDTO;
+import com.senko.common.common.dto.PhotoAlbumDTO;
 import com.senko.common.common.vo.PhotoAlbumVO;
 import com.senko.common.constants.FilePathConstants;
 import com.senko.common.constants.OperationTypeConstants;
@@ -9,6 +10,7 @@ import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
 import com.senko.framework.strategy.context.UploadStrategyContext;
+import com.senko.system.mapper.PhotoAlbumMapper;
 import com.senko.system.service.IPhotoAlbumService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * 相册Controller
@@ -94,4 +97,15 @@ public class PhotoAlbumController {
         photoAlbumService.deletePhotoAlbumById(id);
         return AjaxResult.success("删除成功");
     }
+
+    /**
+     * 查看相册集合
+     */
+    @ApiOperation("查看相册集合")
+    @GetMapping("/photos/albums")
+    public AjaxResult<List<PhotoAlbumDTO>> listAlbums() {
+        List<PhotoAlbumDTO> list = photoAlbumService.listAlbums();
+        return AjaxResult.success(list);
+    }
+
 }

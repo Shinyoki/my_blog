@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.senko.common.common.dto.PhotoBackDTO;
+import com.senko.common.common.dto.PhotoDTO;
 import com.senko.common.common.entity.PhotoAlbumEntity;
 import com.senko.common.common.entity.PhotoEntity;
 import com.senko.common.common.vo.DeleteVO;
@@ -13,6 +14,7 @@ import com.senko.common.common.vo.PhotoVO;
 import com.senko.common.constants.CommonConstants;
 import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
+import com.senko.common.exceptions.service.ServiceException;
 import com.senko.common.utils.bean.BeanCopyUtils;
 import com.senko.common.utils.page.PageUtils;
 import com.senko.system.mapper.PhotoMapper;
@@ -141,5 +143,38 @@ public class PhotoServiceImpl extends ServiceImpl<PhotoMapper, PhotoEntity> impl
                 })
                 .collect(Collectors.toList());
         this.updateBatchById(photoEntityList);
+    }
+
+    /**
+     * 获取相册对应的图片
+     * @param albumId   相册ID
+     * @return          图片集合
+     */
+    @Override
+    public PhotoDTO listPhotoByAlbumId(Integer albumId) {
+        PhotoAlbumEntity one = photoAlbumService.getOne(new LambdaQueryWrapper<PhotoAlbumEntity>()
+                .eq(PhotoAlbumEntity::getId, albumId)
+                .eq(PhotoAlbumEntity::getIsDelete, CommonConstants.FALSE)
+                .eq(PhotoAlbumEntity::getStatus, 1));
+        if (Objects.isNull(one)) {
+            throw new ServiceException("该相册不存在");
+        }
+        // 查询照片
+        Page<PhotoEntity> pageRequest = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
+        Page<PhotoEntity> pageResult = photoMapper.selectPage(pageRequest, new LambdaQueryWrapper<PhotoEntity>()
+                .select(PhotoEntity::getPhotoSrc)
+                .eq(PhotoEntity::getAlbumId, albumId)
+                .eq(PhotoEntity::getIsDelete, CommonConstants.FALSE)
+                .orderByDesc(PhotoEntity::getId));
+
+        List<String> photoSrcList = pageResult.getRecords().stream()
+                .map(PhotoEntity::getPhotoSrc)
+                .collect(Collectors.toList());
+
+        return PhotoDTO.builder()
+                .photoAlbumName(one.getAlbumName())
+                .photoAlbumCover(one.getAlbumCover())
+                .photoList(photoSrcList)
+                .build();
     }
 }
