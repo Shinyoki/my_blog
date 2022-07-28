@@ -1,10 +1,8 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
-import com.senko.common.common.dto.ArchiveDTO;
-import com.senko.common.common.dto.ArticleBackDTO;
-import com.senko.common.common.dto.ArticleDTO;
-import com.senko.common.common.dto.ArticleHomeDTO;
+import com.senko.common.common.dto.*;
+import com.senko.common.common.vo.ArticlePreviewVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.common.vo.DeleteVO;
@@ -23,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 import static com.senko.common.constants.OperationTypeConstants.*;
 
@@ -161,4 +160,19 @@ public class ArticleController {
         PageResult<ArchiveDTO> archiveDTOList = articleService.listArchives();
         return AjaxResult.success(archiveDTOList);
     }
+
+    @ApiOperation("获取文章预览分页集合")
+    @GetMapping("/articles/condition")
+    public AjaxResult<ArticlePreviewDTOList> getArticlePreviews(ArticlePreviewVO articlePreviewVO) {
+        ArticlePreviewDTOList articlePreviewDTOList = null;
+        if (Objects.nonNull(articlePreviewVO.getCategoryId())) {
+            articlePreviewDTOList = articleService.listArticlePreviewByCategoryId(articlePreviewVO);
+        } else if (Objects.nonNull(articlePreviewVO.getTagId())) {
+            articlePreviewDTOList = articleService.listArticlePreviewByTagId(articlePreviewVO);
+        } else {
+            return AjaxResult.error("请选择分类或标签");
+        }
+        return AjaxResult.success(articlePreviewDTOList);
+    }
+
 }

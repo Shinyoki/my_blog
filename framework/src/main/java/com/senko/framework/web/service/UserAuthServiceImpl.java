@@ -46,6 +46,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -166,6 +167,12 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuthEnt
         if (StringUtils.notEmailAddress(username)) {
             throw new ServiceException("邮箱地址格式错误，请输入正确的邮箱地址");
         }
+        UserInfoEntity uiEmail = userInfoMapper.selectOne(new LambdaQueryWrapper<UserInfoEntity>()
+                .select(UserInfoEntity::getId, UserInfoEntity::getEmail)
+                .eq(UserInfoEntity::getEmail, username));
+        Optional.ofNullable(uiEmail).ifPresent((userInfoEntity) -> {
+            throw new ServiceException("邮箱已被使用，请更换邮箱");
+        });
 
         // 生成验证码
         String code = StringUtils.getRandomCode(6);

@@ -1,15 +1,13 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.senko.common.common.dto.ArchiveDTO;
-import com.senko.common.common.dto.ArticleDTO;
-import com.senko.common.common.dto.ArticleHomeDTO;
-import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.ArticleBackDTO;
+import com.senko.common.common.dto.*;
 import com.senko.common.common.entity.ArticleEntity;
-import com.senko.common.common.vo.DeleteVO;
+import com.senko.common.common.vo.ArticlePreviewVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
+import com.senko.common.common.vo.DeleteVO;
+import com.senko.common.core.PageResult;
 import com.senko.common.core.vo.ConditionVO;
 
 import java.util.List;
@@ -87,5 +85,8 @@ public interface IArticleService extends IService<ArticleEntity> {
      */
     PageResult<ArchiveDTO> listArchives();
 
+    ArticlePreviewDTOList listArticlePreviewByCategoryId(ArticlePreviewVO articlePreviewVO);
+
+    ArticlePreviewDTOList listArticlePreviewByTagId(ArticlePreviewVO articlePreviewVO);
 }
 

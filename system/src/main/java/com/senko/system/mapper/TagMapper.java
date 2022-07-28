@@ -1,6 +1,7 @@
 package com.senko.system.mapper;
 
 import com.senko.common.common.dto.TagBackDTO;
+import com.senko.common.common.dto.TagCountDTO;
 import com.senko.common.common.entity.TagEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.senko.common.core.vo.ConditionVO;
@@ -32,4 +33,7 @@ public interface TagMapper extends BaseMapper<TagEntity> {
      * @return              后台标签 集合
      */
     List<TagBackDTO> listTagBackDTO(@Param("current") Long limitCurrent,@Param("size") Long size,@Param("condition") ConditionVO conditionVO);
+
+    List<TagCountDTO> listTagCountDTO();
+
 }

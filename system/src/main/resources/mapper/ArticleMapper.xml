@@ -207,4 +207,47 @@
                  LEFT JOIN tb_tag t ON t.id = atg.tag_id
     </select>
 
+    <resultMap id="articlePreviewDTO" type="com.senko.common.common.dto.ArticlePreviewDTO">
+        <id column="id" property="id"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_cover" property="articleCover"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="avatar" property="avatar"/>
+        <result column="nickname" property="username"/>
+        <collection property="tagDTOList" ofType="com.senko.common.common.dto.TagDTO">
+            <id column="tag_id" property="id"/>
+            <result column="tag_name" property="tagName"/>
+        </collection>
+    </resultMap>
+
+    <select id="listArticePreviewByConditionVO" resultMap="articlePreviewDTO">
+        SELECT a.id, article_title, article_cover, a.category_id, category_name, tt.id tag_id, tt.tag_name tag_name, a.create_time, tui.avatar, tui.nickname
+        FROM (
+                SELECT id, article_title, article_cover, category_id, create_time, user_id
+                FROM tb_article
+                <where>
+                    <if test="condition.categoryId != null">
+                        category_id = #{condition.categoryId}
+                    </if>
+                    <if test="condition.tagId != null">
+                        id IN (
+                            SELECT article_id
+                            FROM tb_article_tag tat
+                            WHERE tat.tag_id = #{condition.tagId}
+                        )
+                    </if>
+
+                </where>
+                AND is_delete = 0 AND status = 1
+                ORDER BY id DESC
+                LIMIT #{current}, #{size}
+             ) a
+        JOIN tb_category c ON c.id = a.category_id
+        JOIN tb_article_tag tat ON tat.article_id = a.id
+        JOIN tb_tag tt ON tt.id = tat.tag_id
+        JOIN tb_user_info tui ON tui.id = a.user_id
+    </select>
+
 </mapper>

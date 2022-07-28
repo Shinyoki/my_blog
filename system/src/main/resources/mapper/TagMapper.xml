@@ -30,6 +30,18 @@
         ORDER BY t.id DESC
         LIMIT #{current}, #{size}
     </select>
+    <select id="listTagCountDTO" resultType="com.senko.common.common.dto.TagCountDTO">
+        SELECT tag_id id, tag_name, COUNT(1) tag_count
+        FROM tb_tag t
+                 JOIN tb_article_tag tat ON tat.tag_id = t.id
+                 JOIN (
+            SELECT a.id
+            FROM tb_article a
+            WHERE a.is_delete = 0 AND a.`status` = 1
+        ) ta ON ta.id = tat.article_id
+        GROUP BY tag_id
+        ORDER BY tag_id DESC
+    </select>
 
 
 </mapper>

@@ -9,6 +9,7 @@ import com.senko.common.common.entity.ArticleEntity;
 import com.senko.common.common.entity.ArticleTagEntity;
 import com.senko.common.common.entity.CategoryEntity;
 import com.senko.common.common.entity.TagEntity;
+import com.senko.common.common.vo.ArticlePreviewVO;
 import com.senko.common.common.vo.ArticleTopVO;
 import com.senko.common.common.vo.ArticleVO;
 import com.senko.common.common.vo.DeleteVO;
@@ -349,6 +350,31 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
                 .eq(ArticleEntity::getStatus, 1));
         List<ArchiveDTO> archiveDTOS = BeanCopyUtils.copyList(pageRequest.getRecords(), ArchiveDTO.class);
         return new PageResult<>( (int)pageResult.getTotal(), archiveDTOS);
+    }
+
+    @Override
+    public ArticlePreviewDTOList listArticlePreviewByCategoryId(ArticlePreviewVO articlePreviewVO) {
+        CategoryEntity categoryEntity = categoryMapper.selectOne(new LambdaQueryWrapper<CategoryEntity>()
+                .select(CategoryEntity::getId, CategoryEntity::getCategoryName)
+                .eq(CategoryEntity::getId, articlePreviewVO.getCategoryId()));
+        return getArticlePreview(categoryEntity.getCategoryName(), articlePreviewVO);
+    }
+
+    @Override
+    public ArticlePreviewDTOList listArticlePreviewByTagId(ArticlePreviewVO articlePreviewVO) {
+        String tagName = tagMapper.selectOne(new LambdaQueryWrapper<TagEntity>()
+                .select(TagEntity::getId, TagEntity::getTagName)
+                .eq(TagEntity::getId, articlePreviewVO.getTagId()))
+                .getTagName();
+        return getArticlePreview(tagName, articlePreviewVO);
+    }
+
+    public ArticlePreviewDTOList getArticlePreview(String modeName, ArticlePreviewVO articlePreviewConditionVO) {
+        List<ArticlePreviewDTO> articlePreviewVOList = articleMapper.listArticePreviewByConditionVO(articlePreviewConditionVO, PageUtils.getCurrent(), PageUtils.getSize());
+        return ArticlePreviewDTOList.builder()
+                .name(modeName)
+                .articlePreviewDTOList(articlePreviewVOList)
+                .build();
     }
 
     /**

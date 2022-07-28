@@ -3,6 +3,7 @@ package com.senko.system.mapper;
 import com.senko.common.common.dto.*;
 import com.senko.common.common.entity.ArticleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.senko.common.common.vo.ArticlePreviewVO;
 import com.senko.common.core.vo.ConditionVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -48,4 +49,6 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
      * @param articleId 文章id
      */
     ArticleDTO selectArticleDTOById(Integer articleId);
+
+    List<ArticlePreviewDTO> listArticePreviewByConditionVO(@Param("condition") ArticlePreviewVO condition, @Param("current") Long current, @Param("size") Long size);
 }

@@ -1,6 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.common.dto.TagCountDTO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.TagBackDTO;
 import com.senko.common.common.dto.TagDTO;
@@ -45,5 +46,12 @@ public interface ITagService extends IService<TagEntity> {
      * @param tagIdList 标签id 集合
      */
     void deleteTag(List<Integer> tagIdList);
+
+    /**
+     * 查询标签分类数量
+     * @return 标签分类数量
+     */
+    PageResult<TagCountDTO> listTagCount();
+
 }
 

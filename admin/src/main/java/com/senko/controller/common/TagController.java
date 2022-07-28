@@ -1,13 +1,14 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.TagBackDTO;
+import com.senko.common.common.dto.TagCountDTO;
+import com.senko.common.common.dto.TagDTO;
+import com.senko.common.common.vo.TagVO;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
-import com.senko.common.common.dto.TagBackDTO;
-import com.senko.common.common.dto.TagDTO;
 import com.senko.common.core.vo.ConditionVO;
-import com.senko.common.common.vo.TagVO;
 import com.senko.system.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,8 +38,9 @@ public class TagController {
 
     /**
      * 搜索文章标签
-     * @param conditionVO   条件
-     * @return              标签 集合
+     *
+     * @param conditionVO 条件
+     * @return 标签 集合
      */
     @ApiOperation("搜索文章标签")
     @GetMapping("/admin/tags/search")
@@ -48,8 +50,9 @@ public class TagController {
 
     /**
      * 搜索文章标签
-     * @param conditionVO   条件
-     * @return              标签（文章量、创建时间） 分页集合
+     *
+     * @param conditionVO 条件
+     * @return 标签（文章量、创建时间） 分页集合
      */
     @ApiOperation("查询后台标签")
     @GetMapping("/admin/tags")
@@ -60,6 +63,7 @@ public class TagController {
 
     /**
      * 添加或修改标签
+     *
      * @param tagVO 标签（标签名不能为空）
      */
     @LogOperation(optType = OperationTypeConstants.SAVE_OR_UPDATE)
@@ -82,4 +86,13 @@ public class TagController {
         tagService.deleteTag(tagIdList);
         return AjaxResult.success();
     }
+
+    @ApiOperation("获取标签")
+    // 处理application/json请求
+    @GetMapping( value = "/tags")
+    public AjaxResult<PageResult<TagCountDTO>> listTagCount() {
+        PageResult<TagCountDTO> tagCountDTOPageResult = tagService.listTagCount();
+        return AjaxResult.success(tagCountDTOPageResult);
+    }
+
 }
