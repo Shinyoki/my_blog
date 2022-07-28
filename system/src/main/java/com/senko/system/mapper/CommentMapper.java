@@ -1,10 +1,7 @@
 package com.senko.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.senko.common.common.dto.CommentBackDTO;
-import com.senko.common.common.dto.CommentDTO;
-import com.senko.common.common.dto.ReplyCountDTO;
-import com.senko.common.common.dto.ReplyDTO;
+import com.senko.common.common.dto.*;
 import com.senko.common.common.entity.CommentEntity;
 import com.senko.common.common.vo.CommentVO;
 import com.senko.common.core.vo.ConditionVO;
@@ -59,4 +56,11 @@ public interface CommentMapper extends BaseMapper<CommentEntity> {
     List<ReplyCountDTO> listReplyCountByCommentId(@Param("commentIdList") List<Integer> commentIdList);
 
     List<ReplyDTO> listRepliesByCommentId(@Param("current") Long current,@Param("size") Long size,@Param("commentId") Integer commentId);
+
+    /**
+     * 根据(说说、文章...)id去查询对应评论数量
+     * @param topicIds
+     * @return
+     */
+    List<CommentCountDTO> selectCountOfCommentByTalkIds(@Param("topicIds") List<Integer> topicIds);
 }

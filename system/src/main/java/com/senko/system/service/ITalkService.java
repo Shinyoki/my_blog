@@ -2,6 +2,7 @@ package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senko.common.common.dto.TalkBackDTO;
+import com.senko.common.common.dto.TalkDTO;
 import com.senko.common.common.entity.TalkEntity;
 import com.senko.common.common.vo.TalkVO;
 import com.senko.common.core.PageResult;
@@ -43,5 +44,14 @@ public interface ITalkService extends IService<TalkEntity> {
      */
     List<String> listHomeTalks();
 
+    /**
+     * 查看说说
+     */
+    PageResult<TalkDTO> listTalks();
+
+
+    TalkDTO getTalkById(Integer talkId);
+
+    void likeTalk(Integer talkId);
 }
 

@@ -2,6 +2,7 @@ package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
 import com.senko.common.common.dto.TalkBackDTO;
+import com.senko.common.common.dto.TalkDTO;
 import com.senko.common.common.vo.TalkVO;
 import com.senko.common.constants.FilePathConstants;
 import com.senko.common.constants.OperationTypeConstants;
@@ -109,4 +110,29 @@ public class TalkController {
         talkService.saveOrUpdateTalk(talkVO);
         return AjaxResult.success();
     }
+
+    /**
+     * 查询说说 分页
+     */
+    @ApiOperation("查询说说 分页")
+    @GetMapping("/talks")
+    public AjaxResult<PageResult<TalkDTO>> listTalks() {
+        PageResult<TalkDTO> talks = talkService.listTalks();
+        return AjaxResult.success(talks);
+    }
+
+    @ApiOperation("查询说说by talkId")
+    @GetMapping("/talks/{talkId}")
+    public AjaxResult<TalkDTO> getTalkById(@PathVariable("talkId") Integer talkId) {
+        TalkDTO talkDTO = talkService.getTalkById(talkId);
+        return AjaxResult.success(talkDTO);
+    }
+
+    @ApiOperation("点赞说说")
+    @PostMapping ("/talks/{talkId}/like")
+    public AjaxResult<?> likeTalk(@PathVariable("talkId") Integer talkId) {
+        talkService.likeTalk(talkId);
+        return AjaxResult.success();
+    }
+
 }

@@ -3,6 +3,7 @@ package com.senko.controller.test;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.dto.MenuForUserDTO;
 import com.senko.common.core.test.TestUser;
+import com.senko.common.utils.page.PageUtils;
 import com.senko.system.service.IMenuService;
 import com.senko.system.service.IRoleService;
 import io.swagger.annotations.Api;
@@ -83,6 +84,19 @@ public class TestController {
         return "233";
     }
 
+
+    /**
+     * 测试分页参数
+     */
+    @GetMapping("/current")
+    public void testPageCurrent(HttpServletRequest request) {
+        logger.info("请求中的current：{}", request.getParameter("current"));
+        logger.info("请求中的size：{}", request.getParameter("size"));
+        logger.info("Page对象的Current：" + PageUtils.getCurrent());
+        logger.info("Page对象的Size：" + PageUtils.getSize());
+        logger.info("手动current + size参数的current：{}", PageUtils.getLimitCurrent());
+        logger.info("-----------------------------------------------------");
+    }
 
 }
 

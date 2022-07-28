@@ -35,6 +35,36 @@
         WHERE
             t.id = #{talkId}
     </select>
+    <select id="listTalks" resultType="com.senko.common.common.dto.TalkDTO">
+        SELECT
+            t.id,
+            nickname,
+            avatar,
+            content,
+            images,
+            t.is_top,
+            t.create_time
+        FROM
+            tb_talk t
+                JOIN tb_user_info ui ON t.user_id = ui.id
+        WHERE
+            t.status = 1
+        ORDER BY
+            t.is_top DESC,
+            t.id DESC
+            LIMIT #{current},#{size}
+    </select>
+    <select id="getTalkById" resultType="com.senko.common.common.dto.TalkDTO">
+        SELECT  t.id,
+                nickname,
+                avatar,
+                content,
+                images,
+                t.create_time
+        FROM tb_talk t
+            JOIN tb_user_info tui ON tui.id = t.user_id
+        WHERE t.id = #{talkId} AND t.status = 1
+    </select>
 
 
 </mapper>

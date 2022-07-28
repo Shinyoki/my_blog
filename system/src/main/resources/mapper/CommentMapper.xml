@@ -160,6 +160,17 @@
         ORDER BY c.id DESC
         LIMIT #{current}, #{size}
     </select>
+    <select id="selectCountOfCommentByTalkIds" resultType="com.senko.common.common.dto.CommentCountDTO">
+        SELECT count(1) comment_count, t.topic_id id
+        FROM tb_comment t
+        WHERE t.topic_id IN (
+            <foreach collection="topicIds" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+            AND t.is_delete = 0 AND t.parent_id IS NULL
+        ORDER BY t.topic_id
+    </select>
 
 
 </mapper>

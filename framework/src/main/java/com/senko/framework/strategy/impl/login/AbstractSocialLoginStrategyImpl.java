@@ -70,7 +70,7 @@ public abstract class AbstractSocialLoginStrategyImpl implements LoginStrategy {
         }
 
         // 保存登录信息到SecurityContextHolder中
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(socialToken.getOpenId(), socialToken.getAccessToken());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         // 返回不带密码的UserInfo

@@ -78,7 +78,7 @@ public class SysUserAuthController {
     @ApiOperation(value = "发送邮箱验证码")
     @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String")
     @GetMapping("/users/code")
-    public AjaxResult<?> sendCode(String username) {
+    public AjaxResult<?> sendCode(@RequestParam("username") String username) {
         userAuthService.sendEmailValidCode(username);
         return AjaxResult.success("邮箱验证码发送成功");
     }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class FilterInvocationSecurityMetadataSourceImpl implements FilterInvocat
     /**
      * 加载资源
      */
+    @PostConstruct
     private void loadResourcesCache() {
         resourcesRoles = roleService.listOfNonAnonymousResourcesRoles();
     }

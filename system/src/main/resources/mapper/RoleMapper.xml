@@ -20,7 +20,6 @@
         <collection property="roles" ofType="java.lang.String">
                 <id column="role_label"/>
         </collection>
-
     </resultMap>
     <select id="listOfNonAnonymousResourcesRoles" resultMap="ResourceRolesMap">
         SELECT

@@ -45,7 +45,11 @@ public class PageUtils {
     }
 
     /**
-     * 获取当前页页码
+     * 调用Page对象的getCurrent()方法，
+     * 这里得到的current是单纯的从数字1开始，一个一个加一，也就是翻一页。
+     * 用在Mapper.xml或者是selectPage()这些方法里，它会自动计算
+     * Limit #{计算后的current}, #{size}作为sql的后缀。
+     *
      * @return  当前页页码
      */
     public static Long getCurrent() {
@@ -63,11 +67,15 @@ public class PageUtils {
     }
 
     /**
-     * 以Current页码计算的limit
-     * current: [1 ~ 00]，所以对应Page的下标就是 current - 1
+     * 直接计算后的current，用在手动提取current size，然后手动拼接Limit sql后缀的情况
      *
      * 用于Mybatis XML中直接使用 LIMIT #{limitCurrent}, #{size}
      * @return (current - 1) * size
+     * <pre>
+     *     比如：
+     *     (一): 前端传来current：1第一页，size：10，那么limitCurrent就是0，即从第一条数据开始查，查10条数据 ===> LIMIT 0, 10
+     *     (二): 前端传来current：2第二页，size：10，那么limitCurrent就是10，即从第11条数据开始查，查10条数据 ===> LIMIT 10, 10
+     * </pre>
      */
     public static Long getLimitCurrent() {
         return (getCurrent() - 1) * getSize();
