@@ -1,0 +1,139 @@
+# MyBatis-Plus配置
+mybatis-plus:
+  # 搜索指定包别名 实体类的路径（com.senko.common.core.domain.entity.SysUser，--> sysUser）
+  typeAliasesPackage: com.senko.**.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 加载全局的配置文件
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 指定 MyBatis 所用日志的具体实现
+    # insert语句获取主键值（只有支持主键自增的数据才能用）,
+    use-generated-keys: true # 允许 JDBC 支持自动生成主键
+    # sys_user ---> SysUser
+    map-underscore-to-camel-case: true # 驼峰式命名
+    default-executor-type: reuse # 配置默认的执行器
+  global-config:
+    db-config:
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      logic-delete-field: is_delete #逻辑删除字段名
+
+# Spring配置
+spring:
+  messages:
+    basename: messages
+  # 缓存配置
+  cache:
+    redis:
+      time-to-live: 36000000  # ttl
+  # 数据源
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 8以上版本，如果是使用5.x，com.mysql.jdbc.Driver。如果是8，url还需要配置时区
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/my_blog?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&tinyInt1isBit=false
+    username: root
+    password: root
+    # 数据库连接池配置
+    druid:
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+  # redis 配置
+  redis:
+    # 地址
+    host: localhost
+    # 端口，默认为6379
+    port: 6379
+    # 数据库索引
+    database: 0
+    # 密码
+    password: root
+    # 连接超时时间
+    timeout: 10s
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池的最大数据库连接数
+        max-active: 8
+        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+  # 上传图片大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  # 邮箱服务
+  mail:
+    host: smtp.qq.com
+    username:
+    password:
+    port: 587
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: root
+    password: root
+    virtualHost: /my_blog
+    listener:
+      simple:
+        # 开启重试
+        retry:
+          enabled: true
+          max-attempts: 3 # 最大重试次数
+          initial-interval: 3000 # 初始重试间隔
+
+
+
+#服务端口
+server:
+  port: 8888
+  servlet:
+    session:
+      # 21600/60 = 6小时
+      timeout: 21600
+
+
+
+#上传模式
+upload:
+  #上传模式 [local | oss]
+  mode: local
+  #本地模式
+  local:
+    #服务器地址
+    url: http://localhost:83/
+    #文件路径
+    path: C:\usr\local\upload\ #以\结尾
+
+
+
+
+#第三方登录
+login:
+  qq:
+    # appId
+    app-id:
+    check-token-url: https://graph.qq.com/oauth2.0/me?access_token={access_token}
+    user-info-url: https://graph.qq.com/user/get_user_info?openid={openid}&access_token={access_token}&oauth_consumer_key={oauth_consumer_key}
+  github:
+    # 应用ID
+    client-id:
+    # 应用密钥
+    client-secret:
+    # 请求授权码 code 的 URL
+    authorize-url: https://github.com/login/oauth/authorize?client_id={client_id}
+    # 请求获取 access_token 的 URL
+    check-token-url: https://github.com/login/oauth/access_token
+    # 请求获取用户信息的 请求头
+    authentication: 'token '
+    # 请求获取用户信息的 URL
+    user-info-url: https://api.github.com/user
