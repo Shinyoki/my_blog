@@ -28,4 +28,6 @@ public interface CategoryMapper extends BaseMapper<CategoryEntity> {
      *  分页查询分类后台列表
      */
     List<CategoryBackDTO> listCategoryBackDTO(@Param("current") Long limitCurrent,@Param("size") Long size,@Param("condition") ConditionVO condition);
+
+    List<CategoryDTO> selectCategoriesWithArticleCounts(@Param("current") Long limitCurrent, @Param("size") Long size);
 }

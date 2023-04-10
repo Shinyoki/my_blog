@@ -1,6 +1,7 @@
 package com.senko.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.senko.common.common.dto.CategoryDTO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.CategoryBackDTO;
 import com.senko.common.common.dto.CategoryOptionDTO;
@@ -41,5 +42,7 @@ public interface ICategoryService extends IService<CategoryEntity> {
      * @param categoryVO id & categoryName
      */
     void saveOrUpdateCategory(CategoryVO categoryVO);
+
+    PageResult<CategoryDTO> listCategoryDTO(ConditionVO conditionVO);
 }
 

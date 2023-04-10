@@ -161,7 +161,7 @@
         LIMIT #{current}, #{size}
     </select>
     <select id="selectCountOfCommentByTalkIds" resultType="com.senko.common.common.dto.CommentCountDTO">
-        SELECT count(1) comment_count, t.topic_id id
+        SELECT count(*) comment_count, t.topic_id id
         FROM tb_comment t
         WHERE t.topic_id IN (
             <foreach collection="topicIds" item="id" separator=",">

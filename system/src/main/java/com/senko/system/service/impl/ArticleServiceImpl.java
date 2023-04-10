@@ -236,7 +236,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
      */
     @Override
     public List<ArticleHomeDTO> listHomeArticles(ConditionVO conditionVO) {
-        List<ArticleHomeDTO> articleHomeDTOList = articleMapper.listHomeArticles(PageUtils.getCurrent(), PageUtils.getSize());
+        List<ArticleHomeDTO> articleHomeDTOList = articleMapper.listHomeArticles(PageUtils.getCurrent(), PageUtils.getSize(), conditionVO.getKeywords());
         return articleHomeDTOList;
     }
 

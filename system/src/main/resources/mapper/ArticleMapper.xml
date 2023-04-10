@@ -144,6 +144,9 @@
               FROM tb_article
               WHERE is_delete = 0
                 AND status = 1
+                <if test="articleName != null and articleName != ''">
+                    AND article_title LIKE CONCAT('%', #{articleName}, '%')
+                </if>
               ORDER BY is_top DESC,
                        id DESC
                   LIMIT #{current}, #{size}) a

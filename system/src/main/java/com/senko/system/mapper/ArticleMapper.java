@@ -37,7 +37,7 @@ public interface ArticleMapper extends BaseMapper<ArticleEntity> {
     /**
      * 查询首页的文章
      */
-    List<ArticleHomeDTO> listHomeArticles(@Param("current") Long current,@Param("size") Long size);
+    List<ArticleHomeDTO> listHomeArticles(@Param("current") Long current, @Param("size") Long size, @Param("articleName") String keywords);
 
     /**
      * 查询推荐的文章

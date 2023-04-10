@@ -1,7 +1,10 @@
 package com.senko.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.senko.common.common.dto.CategoryDTO;
 import com.senko.common.core.PageResult;
 import com.senko.common.common.dto.CategoryBackDTO;
 import com.senko.common.common.dto.CategoryOptionDTO;
@@ -111,5 +114,12 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, CategoryEnt
                 .categoryName(categoryVO.getCategoryName())
                 .build();
         this.saveOrUpdate(newCate);
+    }
+
+    @Override
+    public PageResult<CategoryDTO> listCategoryDTO(ConditionVO conditionVO) {
+        Long count = categoryMapper.selectCount(null);
+        List<CategoryDTO> res = categoryMapper.selectCategoriesWithArticleCounts(PageUtils.getLimitCurrent(), PageUtils.getSize());
+        return new PageResult<>(count.intValue(), res);
     }
 }

@@ -30,5 +30,11 @@
         LIMIT #{current}, #{size}
     </select>
 
-
+    <select id="selectCategoriesWithArticleCounts" resultType="com.senko.common.common.dto.CategoryDTO">
+        select c.id, c.category_name, count(ta.id) articles_count
+        from tb_category c
+                 left join tb_article ta on c.id = ta.category_id
+        group by c.id
+        limit #{current}, #{size}
+    </select>
 </mapper>

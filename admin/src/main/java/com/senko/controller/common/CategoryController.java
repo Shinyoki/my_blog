@@ -1,6 +1,7 @@
 package com.senko.controller.common;
 
 import com.senko.common.annotation.LogOperation;
+import com.senko.common.common.dto.CategoryDTO;
 import com.senko.common.constants.OperationTypeConstants;
 import com.senko.common.core.AjaxResult;
 import com.senko.common.core.PageResult;
@@ -31,6 +32,15 @@ public class CategoryController {
     @Autowired
     public CategoryController(ICategoryService categoryService) {
         this.categoryService = categoryService;
+    }
+
+    /**
+     * 文章分类
+     */
+    @ApiOperation("文章分类")
+    @GetMapping("/categories")
+    public AjaxResult<PageResult<CategoryDTO>> listCDTO(ConditionVO conditionVO) {
+        return AjaxResult.success(categoryService.listCategoryDTO(conditionVO));
     }
 
     /**
