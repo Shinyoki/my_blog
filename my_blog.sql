@@ -1,17 +1,17 @@
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
- Source Server         : localhost_3306
+ Source Server         : local'
  Source Server Type    : MySQL
- Source Server Version : 80028
+ Source Server Version : 80032 (8.0.32)
  Source Host           : localhost:3306
- Source Schema         : blog
+ Source Schema         : my_blog
 
  Target Server Type    : MySQL
- Target Server Version : 80028
+ Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 30/05/2022 22:01:02
+ Date: 18/04/2023 19:51:13
 */
 
 SET NAMES utf8mb4;
@@ -36,26 +36,27 @@ CREATE TABLE `tb_article`  (
   `create_time` datetime NOT NULL COMMENT '发表时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2088804354 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2088804355 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_article
 -- ----------------------------
 INSERT INTO `tb_article` VALUES (-2034233343, 1, NULL, '', '2022-05-17', 'csa', 1, '', 0, 0, 3, '2022-05-17 15:55:35', NULL);
-INSERT INTO `tb_article` VALUES (-1484742654, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 awd', 'das', 1, '', 0, 0, 1, '2022-05-19 10:27:41', NULL);
-INSERT INTO `tb_article` VALUES (-1451188223, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 dsa432', 'adwdawd23r', 1, '', 0, 0, 1, '2022-05-19 10:28:15', NULL);
-INSERT INTO `tb_article` VALUES (-1073700862, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 dsa432', 'adwdawd23r', 1, '', 0, 0, 1, '2022-05-19 10:28:17', NULL);
-INSERT INTO `tb_article` VALUES (-507494399, 1, 188, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19', 'vsvsd', 1, '', 0, 1, 1, '2022-05-19 15:46:43', '2022-05-24 07:30:42');
-INSERT INTO `tb_article` VALUES (-150953982, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 1', '1', 1, '', 1, 1, 1, '2022-05-19 10:27:09', '2022-05-19 16:18:28');
-INSERT INTO `tb_article` VALUES (-50290687, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 awd1', 'das', 1, '', 0, 0, 1, '2022-05-19 10:27:46', NULL);
-INSERT INTO `tb_article` VALUES (54, 1, 187, 'https://static.talkxj.com/articles/3dffb2fcbd541886616ab54c92570de3.jpg', '测试文章', '恭喜你成功运行博客，开启你的文章之旅吧。', 2, '', 0, 0, 1, '2022-01-24 23:33:56', '2022-05-19 07:11:23');
-INSERT INTO `tb_article` VALUES (56, 1, 187, 'https://static.talkxj.com/articles/3dffb2fcbd541886616ab54c92570de3.jpg', '测试文章3', '233，开启你的文章之旅吧。', 3, '', 1, 0, 1, '2022-05-09 15:48:58', '2022-05-18 18:55:41');
-INSERT INTO `tb_article` VALUES (62, 1, 188, 'http://localhost:83/articles/a82d085f7cc7fd92d384f8af06763a82.png', '2022-05-17', 'sdsadas', 2, '', 0, 0, 1, '2022-05-17 13:46:55', '2022-05-19 07:34:27');
-INSERT INTO `tb_article` VALUES (163581954, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-17 今日测试', '别报错了，呜呜呜', 1, '', 0, 0, 1, '2022-05-17 14:42:11', '2022-05-19 07:34:21');
-INSERT INTO `tb_article` VALUES (595611649, 1, 188, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19', 'jinrifen', 1, '', 1, 1, 1, '2022-05-19 07:33:35', '2022-05-19 10:25:35');
-INSERT INTO `tb_article` VALUES (717266945, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19 awd1231', 'das', 2, '', 0, 0, 1, '2022-05-19 10:27:51', NULL);
-INSERT INTO `tb_article` VALUES (1904226305, 1, 188, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '2022-05-19', 'cascascas', 1, '', 1, 0, 2, '2022-05-19 15:50:54', NULL);
-INSERT INTO `tb_article` VALUES (2088804353, 1, 163581953, 'http://localhost:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg', '测试文章233', 'das', 2, '', 0, 0, 1, '2022-05-19 10:27:48', NULL);
+INSERT INTO `tb_article` VALUES (-1484742654, 1, 163581953, 'http://localhost:8444/街道.png', '2022-05-19 awd', 'das', 1, '', 0, 0, 1, '2022-05-19 10:27:41', NULL);
+INSERT INTO `tb_article` VALUES (-1451188223, 1, 163581953, 'http://localhost:8444/风车.png', '2022-05-19 dsa432', 'adwdawd23r', 1, '', 0, 0, 1, '2022-05-19 10:28:15', NULL);
+INSERT INTO `tb_article` VALUES (-1073700862, 1, 163581953, 'http://localhost:8444/街道.png', '2022-05-19 dsa432', 'adwdawd23r', 1, '', 0, 0, 1, '2022-05-19 10:28:17', NULL);
+INSERT INTO `tb_article` VALUES (-507494399, 1, 188, 'http://localhost:8444/欧村.png', '2022-05-19', 'vsvsd', 1, '', 0, 1, 1, '2022-05-19 15:46:43', '2022-05-24 07:30:42');
+INSERT INTO `tb_article` VALUES (-150953982, 1, 163581953, 'http://localhost:8444/山.png', '2022-05-19 1', '1', 1, '', 1, 1, 1, '2022-05-19 10:27:09', '2022-05-19 16:18:28');
+INSERT INTO `tb_article` VALUES (-50290687, 1, 163581953, 'http://localhost:8444/水稻.png', '2022-05-19 awd1', 'das', 1, '', 0, 0, 1, '2022-05-19 10:27:46', NULL);
+INSERT INTO `tb_article` VALUES (54, 1, 187, 'http://localhost:8444/雪山.png', '测试文章', '恭喜你成功运行博客，开启你的文章之旅吧。', 2, '', 0, 0, 1, '2022-01-24 23:33:56', '2022-05-19 07:11:23');
+INSERT INTO `tb_article` VALUES (56, 1, 187, 'http://localhost:8444/街道.png', '测试文章3', '233，开启你的文章之旅吧。', 3, '', 1, 0, 1, '2022-05-09 15:48:58', '2022-05-18 18:55:41');
+INSERT INTO `tb_article` VALUES (62, 1, 188, 'http://localhost:8444/风车.png', '2022-05-17', 'sdsadas', 2, '', 0, 0, 1, '2022-05-17 13:46:55', '2022-05-19 07:34:27');
+INSERT INTO `tb_article` VALUES (163581954, 1, 163581953, 'http://localhost:8444/街道.png', '2022-05-17 今日测试', '别报错了，呜呜呜', 1, '', 0, 0, 1, '2022-05-17 14:42:11', '2022-05-19 07:34:21');
+INSERT INTO `tb_article` VALUES (595611649, 1, 188, 'http://localhost:8444/欧村.png', '2022-05-19', 'jinrifen', 1, '', 1, 1, 1, '2022-05-19 07:33:35', '2022-05-19 10:25:35');
+INSERT INTO `tb_article` VALUES (717266945, 1, 163581953, 'http://localhost:8444/山.png', '2022-05-19 awd1231', 'das', 2, '', 0, 0, 1, '2022-05-19 10:27:51', NULL);
+INSERT INTO `tb_article` VALUES (1904226305, 1, 188, 'http://localhost:8444/水稻.png', '2022-05-19', 'cascascas', 1, '', 1, 0, 2, '2022-05-19 15:50:54', NULL);
+INSERT INTO `tb_article` VALUES (2088804353, 1, 163581953, 'http://localhost:8444/雪山.png', '测试文章233', '# [Vuetify](https://vuetifyjs.com/zh-Hans/getting-started/installation/)\n\n## 安装：\n\n- vuetify依赖\n\n```js\n// dependency\n\"vuetify\": \"^2.6.4\",\n```\n\n- vuetify-loader依赖\n\n```js\n// dev dependency\n\"vuetify-loader\": \"^1.7.3\"\n```\n\n- vue cli vuetify依赖\n\n```json\n// dev dependency\n\"vue-cli-plugin-vuetify\": \"^2.5.1\",\n```\n\n- sass依赖\n\n```bash\nnpm install sass@~1.32 sass-loader deepmerge -D\n```\n\n- 新建`plugins`文件夹并创建`vuetify.js`\n\n```js\n// src/plugins/vuetify.js\n\nimport Vue from \'vue\'\nimport Vuetify from \'vuetify/lib\'\n\nVue.use(Vuetify)\n\nconst opts = {}\n\nexport default new Vuetify(opts)\n```\n\n- 挂载给Vue\n\n```js\n// src/main.js\n\nimport Vue from \'vue\'\nimport vuetify from \'@/plugins/vuetify\' // path to vuetify export\n\nnew Vue({\n  vuetify,\n}).$mount(\'#app\')\n```\n\n- 安装字体\n\n```html\n<!-- index.html -->\n\n<link href=\"https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900\" rel=\"stylesheet\">\n<link href=\"https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css\" rel=\"stylesheet\">\n```\n\n- 可能丢失的material 图标\n\n```bash\nnpm install @mdi/font -D\n```\n\n```js\nimport \'@mdi/font/css/materialdesignicons.css\'\n```\n\n## 推荐\n\n- 一个非常好看的滚动栏\n\n```css\n::-webkit-scrollbar {\n    width: 8px;\n    height: 8px;\n}\n\n::-webkit-scrollbar-track {\n    background-cfolor: rgba(73, 177, 245, 0.2);\n    border-radius: 2em;\n}\n\n::-webkit-scrollbar-thumb {\n    background-color: #49b1f5;\n    background-image: -webkit-linear-gradient(\n            45deg,\n            rgba(255, 255, 255, 0.4) 25%,\n            transparent 25%,\n            transparent 50%,\n            rgba(255, 255, 255, 0.4) 50%,\n            rgba(255, 255, 255, 0.4) 75%,\n            transparent 75%,\n            transparent\n    );\n    border-radius: 2em;\n}\n\n::-webkit-scrollbar-corner {\n    background-color: transparent;\n}\n\n::-moz-selection {\n    color: #fff;\n    background-color: #49b1f5;\n}\n```\n\n- 非常好看的鼠标样式\n\n```css\nbody {\n    cursor: url(https://static.talkxj.com/css/default.cur), default;\n}\n\na, button, img {\n    cursor: url(https://static.talkxj.com/css/pointer.cur), default;\n}\n```\n\n## App.vue\n\n```vue\n<template>\n	<!-- 由v-app包裹 -->\n  <v-app>\n   \n    <!-- 内容写在main里-->\n    <v-main>\n      <router-view :key=\"this.$route.fullPath\" />\n    </v-main>\n      \n  </v-app>\n</template>\n```\n\n# 基础\n\n## 字体和背景[颜色](https://vuetifyjs.com/zh-Hans/styles/colors/)\n\n在各种组件或dom元素种，`class`属性里写 `red`这样的颜色，会导致背景发生变化，并且可以通过`lighten-数字`来改变层级。\n\n```html\n<div class=\"purple darken-2\"></div> //改变背景颜色\n```\n\n同样可以写`颜色--text`来改变文本颜色。\n\n```html\n<div class=\"white--text\"></div>		//改变文本颜色\n```\n\n## [主题](https://vuetifyjs.com/zh-Hans/features/theme/#section-6d458272548c6df18272)\n\n主题可以在一开始就设置。\n\n```js\nexport default new Vuetify({\n  theme: { \n      dark: true \n  },\n})\n```\n\n并且可以具体细分某个主题的各类色彩。\n\n```js\ntheme: {\n    themes: {\n      light: {\n     	  primary: \'#1976D2\',\n          secondary: \'#424242\',\n          accent: \'#82B1FF\',\n          error: \'#FF5252\',\n          info: \'#2196F3\',\n          success: \'#4CAF50\',\n          warning: \'#FFC107\',\n      },\n    },\n  },\n```\n\nMaterialDesign的默认色存储在指定文件中，可以拿来用\n\n```js\nimport colors from \'vuetify/lib/util/colors\'\n```\n\n可以通过`$vuetify`锚点来动态修改主题\n\n```js\n// Light theme\nthis.$vuetify.theme.themes.light.primary = \'#4caf50\'\n\n// Dark theme\nthis.$vuetify.theme.themes.dark.primary = \'#4caf50\'\n\nthis.$vuetify.theme = {dark: true}\n```\n\n## [响应式显示](https://vuetifyjs.com/zh-Hans/features/breakpoints/)\n\n可以在`class`属性中，以一定的格式来指定哪些设备可以显示该组件。\n\n![](https://gcore.jsdelivr.net/gh/Shinyoki/images_repository/blog_images/20220708215839.png)\n\n### 辅助类\n\n`d`也就是`device`\n\n- `.d-{value}` 用于 `xs`\n- `.d-{breakpoint}-{value}` 用于 `sm`, `md`, `lg` 和 `xl`\n\n该 value 属性的值是以下之一：\n\n- `none`\n- `inline`\n- `inline-block`\n- `block`\n- `table`\n- `table-cell`\n- `table-row`\n- `flex`\n- `inline-flex`\n\n此外, 您还可以使用横向显示辅助类基于当前 **viewport** 宽度上限来显示元素。 这些类可以使用以下格式 `hidden-{breakpoint}-{condition}` 使用。\n\n基于以下 条件 应用类:\n\n- `only` - 只在 `xs` 至 `xl` 断点隐藏元素\n- `and-down` - 在指定的断点和以下隐藏元素, 从 `sm` 到 `lg` 断点\n- `and-up` - 在指定的断点和以上隐藏元素, 从 `sm` 到 `lg` 断点\n\n此外, 可以使用 `only` 条件确定目标 **媒体类型** 。 目前支持 `hidden-screen-only` 和 `hidden-print-only` 。\n\n```html\n<!-- 中等屏幕及以下才显示 -->\n<v-btn\n       class=\"hidden-md-and-up\"> \n	点我\n</v-btn>\n```\n\n> 补充：\n>\n> ```html\n> <v-col class=\"d-md-block d-none\"/>\n> ```\n>\n> 可以在小于md设备时将这个col隐藏\n\n## [空间间距类](https://codingbeautydev.com/blog/vuetify-margin-and-padding/)\n\n\n\n## [过渡动画](https://vuetifyjs.com/zh-Hans/styles/transitions/#section-4f7f7528)\n\n加上一个`transition=\"slide-x-transition\"`属性就好了。\n\n\n\n# 国际化\n\n## 自定义映射文本\n\n- en.js\n\n```js\nexport default {\n    application: \'application\',\n    help: \'help\',\n    aaa: \'aaa\'\n}\n```\n\n- zhHans\n\n```\nexport default {\n    application: \'应用\',\n    help: \'帮助\'\n}\n```\n\n- 公共引用\n\n```js\nimport en from \"@/locale/en\"\nimport zhHans from \"@/locale/zhHans\";\n\nexport {en, zhHans}\n```\n\n- vuetify.js\n\n```js\nimport { en, zhHans } from \'@/locale/locales\'\n\nexport default createVuetify({\n    locale: {\n        locale: \'zhHans\',\n        fallback: \'sv\',\n        messages: { zhHans, en }\n    }\n})\n```\n\n- 使用\n\n```js\n// 取值\n{{ this.$vuetify.locale.t(\"$vuetify.help\") }}\n\n// 切换\nthis.$vuetify.locale.current = \'en\'\n```\n\n\n\n# 技巧\n\n- `fill-height`： 子元素填充父级\n\n---\n\n### [点击动画](https://vuetifyjs.com/zh-Hans/directives/ripple/#section-81ea5b9a4e4982725f69)\n\n- v-card元素加上@click监听事件后，就可以自带点击动画\n- 还有就是给标签加上`  v-ripple=\"{}\"`\n\n> 中间迸发的：v-ripple=\"{center: true}\"\n>\n> 带有颜色的：v-ripple=\"{class: \"blue--text\"}\"\n\n---\n\n### 点击外部\n\n给标签加上 `v-click-outside=\"method\"`就可以开启`监听点击外部元素`事件。\n\n---\n\n### 视野之内\n\n给标签加上`v-intersect=\"method\"`就可以`监听是否在视野之内`\n\n---\n\n### 发生变化\n\n有点类似于`@input`，这里是给标签加上`v-mutate=\"method\"`来监听当元素发生变化时。不过可惜只能是监听发生了变化。\n\n---\n\n### 移动端滑动\n\n需要在标签上`v-touch=\"{left=>{}, right.....}\"`来分别监听对应的滑动方向。\n\n```vue\n v-touch=\"{\n  left: () => callback(\'Left\'),\n  right: () => callback(\'Right\'),\n  up: () => callback(\'Up\'),\n  down: () => callback(\'Down\')\n}\"\n```\n\n# 布局\n\n## [顶端栏 top nav bar](https://vuetifyjs.com/zh-Hans/components/app-bars/#v-app-bar-nav-icon)\n\n```html\n<v-app-bar\n    height=\"120\"\n    absolute\n    shrink-on-scroll\n    class=\"light-blue lighten-2\"\n    fade-img-on-scroll\n    src=\"https://picsum.photos/1920/1080?random\"\n>\n```\n\n上面的是基础的，分别是`absolute（一般是用app）`、`height高度`、`hide-on-scroll当滑动滚轮时消失`、` fade-img-on-scroll当滑动时隐藏背景图片`、`src添加背景图片`、`shrink-on-scroll当下滑时缩放回正常大小（配合背景图片挺好）`\n\n> **高度**\n>\n> shrink-on-scroll是在有高度的时候缩放，\n>\n> `extension-height=\"13px\"`属性可以直接增大高度，`:extend=\"true\"`也可以。\n>\n> 但是与 **extension-height** 属性，以及其他会影响工具栏高度的其他属性，例如 **prominent**, **dense** 等配合使用，**height** **除外**。\n>\n> ---\n>\n> 也可以使用**extension**插槽来填充内容。\n>\n> ```html\n> 	<template v-slot:extension>\n>      <v-tabs align-with-title>\n>        <v-tab>Tab 1</v-tab>\n>        <v-tab>Tab 2</v-tab>\n>        <v-tab>Tab 3</v-tab>\n>      </v-tabs>\n>    </template>\n> ```\n', 2, '', 0, 0, 1, '2022-05-19 10:27:48', NULL);
+INSERT INTO `tb_article` VALUES (2088804354, 1, 188, 'http://localhost:8444/articles/1d1791d0fe66adc626eba50507b0b2ea.png', '2023-04-15', '可能就可能才能解决阿布ui 哇', 1, '', 1, 1, 1, '2023-04-15 14:47:17', '2023-04-15 14:47:45');
 
 -- ----------------------------
 -- Table structure for tb_article_tag
@@ -66,8 +67,8 @@ CREATE TABLE `tb_article_tag`  (
   `article_id` int NOT NULL COMMENT '文章id',
   `tag_id` int NOT NULL COMMENT '标签id',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `fk_article_tag_1`(`article_id`) USING BTREE,
-  INDEX `fk_article_tag_2`(`tag_id`) USING BTREE
+  INDEX `fk_article_tag_1`(`article_id` ASC) USING BTREE,
+  INDEX `fk_article_tag_2`(`tag_id` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1937780739 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -75,6 +76,9 @@ CREATE TABLE `tb_article_tag`  (
 -- ----------------------------
 INSERT INTO `tb_article_tag` VALUES (-2139054078, 2088804353, 31);
 INSERT INTO `tb_article_tag` VALUES (-2139054077, 2088804353, 230690817);
+INSERT INTO `tb_article_tag` VALUES (-1601470463, 2088804354, 29);
+INSERT INTO `tb_article_tag` VALUES (-1601470462, 2088804354, 30);
+INSERT INTO `tb_article_tag` VALUES (-1601470461, 2088804354, 31);
 INSERT INTO `tb_article_tag` VALUES (-1421828094, -1484742654, 31);
 INSERT INTO `tb_article_tag` VALUES (-1421828093, -1484742654, 230690817);
 INSERT INTO `tb_article_tag` VALUES (-1384079358, -1451188223, 31);
@@ -162,13 +166,16 @@ CREATE TABLE `tb_comment`  (
   `create_time` datetime NOT NULL COMMENT '评论时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `fk_comment_user`(`user_id`) USING BTREE,
-  INDEX `fk_comment_parent`(`parent_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 737 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  INDEX `fk_comment_user`(`user_id` ASC) USING BTREE,
+  INDEX `fk_comment_parent`(`parent_id` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1653301251 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_comment
 -- ----------------------------
+INSERT INTO `tb_comment` VALUES (-1953791999, -1920262142, -1198526463, 'i的奶奶不到半年挖的😂🤥', NULL, NULL, 1, 0, 1, '2023-04-15 14:38:54', NULL);
+INSERT INTO `tb_comment` VALUES (-318107646, -1920262142, 2088804353, '写的什么东西，看着难受的要*哎😅', NULL, NULL, 1, 0, 1, '2023-04-15 09:10:27', NULL);
+INSERT INTO `tb_comment` VALUES (-297041919, -1920262142, NULL, '回复 @Shinyoki：满分十分捏*你是粉丝😅😅😅', -1920262142, -1953791999, 1, 0, 1, '2023-04-15 14:39:04', NULL);
 INSERT INTO `tb_comment` VALUES (729, 1, NULL, '测试评论', NULL, NULL, 2, 0, 1, '2022-03-11 22:52:53', '2022-05-24 19:27:05');
 INSERT INTO `tb_comment` VALUES (730, 1, NULL, '测试回复', 1, 729, 2, 0, 1, '2022-03-11 22:52:58', '2022-05-24 19:19:14');
 INSERT INTO `tb_comment` VALUES (731, 1, 54, '测试回复2', 1, 726, 1, 0, 1, '2022-05-24 14:52:34', '2022-05-24 19:02:19');
@@ -177,6 +184,7 @@ INSERT INTO `tb_comment` VALUES (733, 1, 2088804353, 'Com1312j nawjknbdjklawniod
 INSERT INTO `tb_comment` VALUES (734, 1, 2088804353, 'dCom1312j nawjknbdjklawniodhnawiondilwandlnawndoawndjkowandjkonwaodnawondowandoinawndwioandoawndkonwaodnwandnaw', 1, 732, 1, 0, 1, '2022-05-24 15:04:40', '2022-05-24 19:34:12');
 INSERT INTO `tb_comment` VALUES (735, 1, 2088804353, 'Rep1', 1, 732, 1, 0, 1, '2022-05-24 15:04:40', '2022-05-24 19:34:12');
 INSERT INTO `tb_comment` VALUES (736, 1, 2088804353, 'Rep1', 1, 732, 1, 0, 1, '2022-05-24 15:04:40', '2022-05-24 19:34:12');
+INSERT INTO `tb_comment` VALUES (1653301250, 1, -1144000511, '😭😭😭', NULL, NULL, 1, 0, 1, '2023-04-11 19:30:01', NULL);
 
 -- ----------------------------
 -- Table structure for tb_friend_link
@@ -191,7 +199,7 @@ CREATE TABLE `tb_friend_link`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `fk_friend_link_user`(`link_name`) USING BTREE
+  INDEX `fk_friend_link_user`(`link_name` ASC) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
@@ -271,7 +279,7 @@ CREATE TABLE `tb_menu_copy1`  (
   `parent_id` int NULL DEFAULT NULL COMMENT '父id',
   `is_hidden` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否隐藏  0否1是',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 218 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 219 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_menu_copy1
@@ -381,8 +389,10 @@ INSERT INTO `tb_operation_log` VALUES (-1476288511, '评论Controller', '修改'
 INSERT INTO `tb_operation_log` VALUES (-1459519487, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"dsa\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:27:52', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1455325183, '分类模块', '删除', '/admin/categories', 'com.senko.controller.common.CategoryControllerdeleteCategories', '删除分类', '[[-197033983]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:28:42', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1442729983, '菜单模块', '新增或修改', '/admin/menus', 'com.senko.controller.system.SysMenuControllersaveOrUpdateMenu', '更新或新增菜单', '[{\"component\":\"/article/Article\",\"icon\":\"el-icon-wenzhangliebiao\",\"id\":7,\"isHidden\":0,\"name\":\"修改文章\",\"orderNum\":2,\"path\":\"/articles/*\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-26 07:58:51', NULL);
+INSERT INTO `tb_operation_log` VALUES (-1421123582, '', '新增', '/comments', 'com.senko.controller.common.CommentController.saveComment', '添加评论', '[{\"commentContent\":\"😭😭😭\",\"topicId\":-1144000511,\"type\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-11 19:30:01', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1409187839, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:49:28', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1346355198, '资源API', '新增或修改', '/admin/resources', 'com.senko.controller.system.SysResourceControllersaveOrUpdateResource', '新增或修改资源', '[{\"id\":964706306,\"isAnonymous\":0,\"requestMethod\":\"PUT\",\"resourceName\":\"t2\",\"url\":\"/t233\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-26 09:04:43', NULL);
+INSERT INTO `tb_operation_log` VALUES (-1307869182, '', '新增', '/comments', 'com.senko.controller.common.CommentController.saveComment', '添加评论', '[{\"commentContent\":\"i的奶奶不到半年挖的😂🤥\",\"topicId\":-1198526463,\"type\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', -1920262142, 'Shinyoki', '127.0.0.1', '未知', '2023-04-15 14:38:55', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1262440446, '标签模块', '删除', '/admin/tags', 'com.senko.controller.common.TagControllerdeleteTag', '删除标签', '[[-494882814]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 11:14:46', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1186951167, '角色模块', '新增或修改', '/admin/role', 'com.senko.controller.system.SysRoleControllersaveOrUpdateRole', '新增或修改角色', '[{\"menuIdList\":[1,2,6],\"roleLabel\":\"user2\",\"roleName\":\"测试角色2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-27 10:55:10', NULL);
 INSERT INTO `tb_operation_log` VALUES (-1174384639, '用户信息模块', '修改', '/admin/users/disable', 'com.senko.controller.common.UserInfoControllerupdateUserIsDisable', '更新用户的禁用状态', '[{\"id\":1006,\"isDisable\":0}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-28 21:25:12', NULL);
@@ -396,16 +406,20 @@ INSERT INTO `tb_operation_log` VALUES (-805208063, '分类模块', '新增或修
 INSERT INTO `tb_operation_log` VALUES (-742293503, '分类模块', '删除', '/admin/categories', 'com.senko.controller.common.CategoryControllerdeleteCategories', '删除分类', '[[-67010558]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:49:06', NULL);
 INSERT INTO `tb_operation_log` VALUES (-704598015, '标签模块', '新增或修改', '/admin/tags', 'com.senko.controller.common.TagControllersaveOrUpdateTag', '添加或修改标签', '[{\"id\":31,\"tagName\":\"minecraft1\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 11:13:12', NULL);
 INSERT INTO `tb_operation_log` VALUES (-696143871, '菜单模块', '新增或修改', '/admin/menus', 'com.senko.controller.system.SysMenuControllersaveOrUpdateMenu', '更新或新增菜单', '[{\"component\":\"/article/Article\",\"icon\":\"el-icon-wenzhangliebiao\",\"id\":7,\"isHidden\":1,\"name\":\"修改文章\",\"orderNum\":2,\"path\":\"/articles/*\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-26 07:58:53', NULL);
+INSERT INTO `tb_operation_log` VALUES (-682627071, '', '新增或修改', '/admin/talks', 'com.senko.controller.common.TalkController.saveOrUpdateTalk', '保存或修改说说', '[{\"content\":\"关注永雏塔菲喵🥰🥰🥰\",\"images\":\"[\\\"http://localhost:8444/talks/e733f86f4523895e46fade42bdca7baf.png\\\"]\",\"isTop\":1,\"status\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-10 15:51:09', NULL);
 INSERT INTO `tb_operation_log` VALUES (-641634302, '留言模块', '删除', '/admin/messages', 'com.senko.controller.common.MessageControllerdeleteMessages', '删除留言', '[[3941]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-25 08:28:01', NULL);
 INSERT INTO `tb_operation_log` VALUES (-545153022, '标签模块', '删除', '/admin/tags', 'com.senko.controller.common.TagControllerdeleteTag', '删除标签', '[[-2042519551,717332482]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 18:40:18', NULL);
 INSERT INTO `tb_operation_log` VALUES (-540966911, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"dsa2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:26:53', NULL);
 INSERT INTO `tb_operation_log` VALUES (-486440958, '分类模块', '删除', '/admin/categories', 'com.senko.controller.common.CategoryControllerdeleteCategories', '删除分类', '[[-2088665087]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:36:11', NULL);
+INSERT INTO `tb_operation_log` VALUES (-456425471, '', '新增或修改', '/admin/articles', 'com.senko.controller.common.ArticleController.saveOrUpdateArticle', '添加/修改文章', '[{\"articleContent\":\"可能就可能才能解决阿布ui 哇\",\"articleCover\":\"http://localhost:8444/articles/1d1791d0fe66adc626eba50507b0b2ea.png\",\"articleTitle\":\"2023-04-15\",\"categoryName\":\"Spigot教程\",\"isTop\":1,\"originalUrl\":\"\",\"status\":1,\"tagNameList\":[],\"type\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-15 14:47:18', NULL);
 INSERT INTO `tb_operation_log` VALUES (-394158079, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[728],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 18:38:18', NULL);
+INSERT INTO `tb_operation_log` VALUES (-359665663, '', '新增或修改', '/admin/talks', 'com.senko.controller.common.TalkController.saveOrUpdateTalk', '保存或修改说说', '[{\"content\":\"今天明天后天都不是什么好日子🤗\",\"images\":\"[\\\"http://localhost:8444/talks/e733f86f4523895e46fade42bdca7baf.png\\\"]\",\"isTop\":0,\"status\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-10 15:50:40', NULL);
 INSERT INTO `tb_operation_log` VALUES (-352227326, '留言模块', '删除', '/admin/messages', 'com.senko.controller.common.MessageControllerdeleteMessages', '删除留言', '[[3940]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-25 08:28:05', NULL);
 INSERT INTO `tb_operation_log` VALUES (-339701758, '角色模块', '删除', '/admin/roles', 'com.senko.controller.system.SysRoleControllerdeleteRoles', '删除角色', '[[1921028098]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-27 11:00:15', NULL);
 INSERT INTO `tb_operation_log` VALUES (-301891582, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"dsa2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:29:33', NULL);
 INSERT INTO `tb_operation_log` VALUES (-293502974, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"1\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:49:26', NULL);
 INSERT INTO `tb_operation_log` VALUES (-285085695, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"test2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-23 12:43:04', NULL);
+INSERT INTO `tb_operation_log` VALUES (-259129343, '', '新增', '/admin/photos', 'com.senko.controller.common.PhotoController.uploadPhotos', '保存照片', '[{\"albumId\":55443458,\"photoUrlList\":[\"http://localhost:8444/photos/f5e4dd1cab623f8ba1e1b2a2b18d28d6.png\",\"http://localhost:8444/photos/03c3b09692988a3f20932492649125ce.png\",\"http://localhost:8444/photos/e733f86f4523895e46fade42bdca7baf.png\",\"http://localhost:8444/photos/fea88129629a0c54cbbb7ca841c51afa.png\",\"http://localhost:8444/photos/1295afa7781ad3a2a42c63d606004fe0.png\",\"http://localhost:8444/photos/fc629ba1d968b0ac912f6c411aaa5ce8.png\"]}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-13 13:48:23', NULL);
 INSERT INTO `tb_operation_log` VALUES (-247443454, '用户信息模块', '修改', '/admin/users/role', 'com.senko.controller.common.UserInfoControllerupdateUserRole', '更新用户的角色', '[{\"nickname\":\"测试用户1\",\"roleIdList\":[2],\"userInfoId\":1006}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-28 19:40:08', NULL);
 INSERT INTO `tb_operation_log` VALUES (-180318207, '角色模块', '新增或修改', '/admin/role', 'com.senko.controller.system.SysRoleControllersaveOrUpdateRole', '新增或修改角色', '[{\"id\":1291882497,\"menuIdList\":[1,2,6,219],\"roleLabel\":\"user2\",\"roleName\":\"测试角色2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-27 10:56:16', NULL);
 INSERT INTO `tb_operation_log` VALUES (-171921407, '标签模块', '新增或修改', '/admin/tags', 'com.senko.controller.common.TagControllersaveOrUpdateTag', '添加或修改标签', '[{\"tagName\":\"minecraft2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 11:14:42', NULL);
@@ -425,12 +439,15 @@ INSERT INTO `tb_operation_log` VALUES (1093, '文章模块', '修改', '/admin/a
 INSERT INTO `tb_operation_log` VALUES (1094, '文章模块', '新增或修改', '/admin/articles', 'com.minzheng.blog.controller.ArticleController.saveOrUpdateArticle', '添加或修改文章', '[{\"articleContent\":\"szczc\",\"articleCover\":\"http://47.96.151.26:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg\",\"articleTitle\":\"2022-05-17\",\"categoryName\":\"t1\",\"isTop\":0,\"originalUrl\":\"\",\"status\":1,\"tagNameList\":[],\"type\":1}]', 'POST', '{\"code\":20000,\"flag\":true,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '', '2022-05-17 14:17:54', NULL);
 INSERT INTO `tb_operation_log` VALUES (1095, '文章模块', '新增或修改', '/admin/articles', 'com.minzheng.blog.controller.ArticleController.saveOrUpdateArticle', '添加或修改文章', '[{\"articleContent\":\"szczc\",\"articleCover\":\"http://47.96.151.26:83/articles/237bdacdd6ee1bf1dfefa6d80cb6bf04.jpg\",\"articleTitle\":\"2022-05-17\",\"categoryName\":\"t1\",\"isTop\":0,\"originalUrl\":\"\",\"status\":1,\"tagNameList\":[],\"type\":1}]', 'POST', '{\"code\":20000,\"flag\":true,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '', '2022-05-17 14:20:17', NULL);
 INSERT INTO `tb_operation_log` VALUES (29405186, '标签模块', '新增或修改', '/admin/tags', 'com.senko.controller.common.TagControllersaveOrUpdateTag', '添加或修改标签', '[{\"tagName\":\"1\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 11:14:48', NULL);
+INSERT INTO `tb_operation_log` VALUES (34308097, '', '新增或修改', '/admin/talks', 'com.senko.controller.common.TalkController.saveOrUpdateTalk', '保存或修改说说', '[{\"content\":\"个你能😘🤩🤭\",\"images\":\"[\\\"http://localhost:8444/talks/a3f704e212e4f9ce9641dd99e17bdf65.png\\\"]\",\"isTop\":1,\"status\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-15 14:48:49', NULL);
 INSERT INTO `tb_operation_log` VALUES (50331650, '评论Controller', '删除', '/admin/comments', 'com.senko.controller.common.CommentControllerdeleteComments', '删除评论', '[[726,725]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:26:45', NULL);
 INSERT INTO `tb_operation_log` VALUES (71303170, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[734],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:32:36', NULL);
 INSERT INTO `tb_operation_log` VALUES (71401473, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"dsa2\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:28:38', NULL);
 INSERT INTO `tb_operation_log` VALUES (79691777, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[735],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:31:06', NULL);
 INSERT INTO `tb_operation_log` VALUES (88080385, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[736],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:31:23', NULL);
 INSERT INTO `tb_operation_log` VALUES (109051905, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[734,736,735],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:34:12', NULL);
+INSERT INTO `tb_operation_log` VALUES (160137217, '', '新增', '/comments', 'com.senko.controller.common.CommentController.saveComment', '添加评论', '[{\"commentContent\":\"回复 @Shinyoki：满分十分捏*你是粉丝😅😅😅\",\"parentId\":-1953791999,\"replyUserId\":-1920262142,\"type\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', -1920262142, 'Shinyoki', '127.0.0.1', '未知', '2023-04-15 14:39:04', NULL);
+INSERT INTO `tb_operation_log` VALUES (176820226, '', '新增', '/comments', 'com.senko.controller.common.CommentController.saveComment', '添加评论', '[{\"commentContent\":\"写的什么东西，看着难受的要*哎😅\",\"topicId\":2088804353,\"type\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', -1920262142, 'Shinyoki', '127.0.0.1', '未知', '2023-04-15 09:10:27', NULL);
 INSERT INTO `tb_operation_log` VALUES (193036290, '菜单模块', '删除', '/admin/menus/1149337601', 'com.senko.controller.system.SysMenuControllerdeleteMenu', '删除菜单', '[1149337601]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-25 20:33:40', NULL);
 INSERT INTO `tb_operation_log` VALUES (205533186, '文章模块', '修改', '/admin/articles', 'com.senko.controller.common.ArticleControllerupdateArticleDelete', '恢复/删除文章', '[{\"idList\":[-150953982],\"isDelete\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-19 16:18:28', NULL);
 INSERT INTO `tb_operation_log` VALUES (264339457, '分类模块', '新增或修改', '/admin/categories', 'com.senko.controller.common.CategoryControllersaveOrUpdateCategory', '添加或修改分类', '[{\"categoryName\":\"dsa\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:43:00', NULL);
@@ -463,6 +480,8 @@ INSERT INTO `tb_operation_log` VALUES (1535213569, '分类模块', '新增或修
 INSERT INTO `tb_operation_log` VALUES (1535213570, '菜单模块', '新增或修改', '/admin/menus', 'com.senko.controller.system.SysMenuControllersaveOrUpdateMenu', '更新或新增菜单', '[{\"component\":\"Layout\",\"icon\":\"el-icon-shouyeshouye\",\"isHidden\":0,\"name\":\"t\",\"orderNum\":1,\"path\":\"/T\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-25 20:20:10', NULL);
 INSERT INTO `tb_operation_log` VALUES (1631584257, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[729],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:27:06', NULL);
 INSERT INTO `tb_operation_log` VALUES (1715470337, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[729],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:26:58', NULL);
+INSERT INTO `tb_operation_log` VALUES (1716387841, '', '新增或修改', '/admin/photos/albums', 'com.senko.controller.common.PhotoAlbumController.saveOrUpdatePhotoAlbum', '保存或更新相册', '[{\"albumCover\":\"http://localhost:8444/photos/e733f86f4523895e46fade42bdca7baf.png\",\"albumDesc\":\"记录悲惨生活喵\",\"albumName\":\"唯美图片\",\"status\":1}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"保存或更新成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-13 13:48:04', NULL);
+INSERT INTO `tb_operation_log` VALUES (1720418305, '', '修改', '/admin/articles', 'com.senko.controller.common.ArticleController.updateArticleDelete', '恢复/删除文章', '[{\"idList\":[2088804354],\"isDelete\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2023-04-15 14:47:45', NULL);
 INSERT INTO `tb_operation_log` VALUES (1740636162, '评论Controller', '修改', '/admin/comments/review', 'com.senko.controller.common.CommentControllerupdateCommentsIsReview', '更新审核状态', '[{\"idList\":[736],\"isReview\":1}]', 'PUT', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 19:33:46', NULL);
 INSERT INTO `tb_operation_log` VALUES (1757511681, '分类模块', '删除', '/admin/categories', 'com.senko.controller.common.CategoryControllerdeleteCategories', '删除分类', '[[1921089538]]', 'DELETE', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-24 07:26:39', NULL);
 INSERT INTO `tb_operation_log` VALUES (1811955713, '资源API', '新增或修改', '/admin/resources', 'com.senko.controller.system.SysResourceControllersaveOrUpdateResource', '新增或修改资源', '[{\"id\":964706306,\"isAnonymous\":0,\"requestMethod\":\"GET\",\"resourceName\":\"t2\",\"url\":\"/t233\"}]', 'POST', '{\"flag\":true,\"code\":200,\"message\":\"操作成功\"}', 1, '管理员', '127.0.0.1', '未知', '2022-05-26 09:04:46', NULL);
@@ -492,17 +511,17 @@ CREATE TABLE `tb_page`  (
 -- ----------------------------
 -- Records of tb_page
 -- ----------------------------
-INSERT INTO `tb_page` VALUES (1, '首页', 'home', 'https://static.talkxj.com/config/0bee7ba5ac70155766648e14ae2a821f.jpg', '2021-08-07 10:32:36', '2021-12-27 12:19:01');
-INSERT INTO `tb_page` VALUES (2, '归档', 'archive', 'https://static.talkxj.com/config/643f28683e1c59a80ccfc9cb19735a9c.jpg', '2021-08-07 10:32:36', '2021-10-04 15:43:14');
-INSERT INTO `tb_page` VALUES (3, '分类', 'category', 'https://static.talkxj.com/config/83be0017d7f1a29441e33083e7706936.jpg', '2021-08-07 10:32:36', '2021-10-04 15:43:31');
-INSERT INTO `tb_page` VALUES (4, '标签', 'tag', 'https://static.talkxj.com/config/a6f141372509365891081d755da963a1.png', '2021-08-07 10:32:36', '2021-10-04 15:43:38');
-INSERT INTO `tb_page` VALUES (5, '相册', 'album', 'https://static.talkxj.com/config/1ecb6fc94e38c38713000efe37492e73.png', '2021-08-07 10:32:36', '2021-12-27 12:23:12');
-INSERT INTO `tb_page` VALUES (6, '友链', 'link', 'https://static.talkxj.com/config/9034edddec5b8e8542c2e61b0da1c1da.jpg', '2021-08-07 10:32:36', '2021-10-04 15:44:02');
-INSERT INTO `tb_page` VALUES (7, '关于', 'about', 'https://static.talkxj.com/config/2a56d15dd742ff8ac238a512d9a472a1.jpg', '2021-08-07 10:32:36', '2021-10-04 15:44:08');
-INSERT INTO `tb_page` VALUES (8, '留言', 'message', 'https://static.talkxj.com/config/acfeab8379508233fa7e4febf90c2f2e.png', '2021-08-07 10:32:36', '2021-10-04 16:11:45');
-INSERT INTO `tb_page` VALUES (9, '个人中心', 'user', 'https://static.talkxj.com/config/ebae4c93de1b286a8d50aa62612caa59.jpeg', '2021-08-07 10:32:36', '2021-10-04 15:45:17');
-INSERT INTO `tb_page` VALUES (10, '文章列表', 'articleList', 'https://static.talkxj.com/config/924d65cc8312e6cdad2160eb8fce6831.jpg', '2021-08-10 15:36:19', '2021-10-04 15:45:45');
-INSERT INTO `tb_page` VALUES (904, '说说', 'talk', 'https://static.talkxj.com/config/a741b0656a9a3db2e2ba5c2f4140eb6c.jpg', '2022-01-23 00:51:24', '2022-01-23 03:01:21');
+INSERT INTO `tb_page` VALUES (1, '首页', 'home', 'http://localhost:8444/街道.png', '2021-08-07 10:32:36', '2021-12-27 12:19:01');
+INSERT INTO `tb_page` VALUES (2, '归档', 'archive', 'http://localhost:8444/风车.png', '2021-08-07 10:32:36', '2021-10-04 15:43:14');
+INSERT INTO `tb_page` VALUES (3, '分类', 'category', 'http://localhost:8444/街道.png', '2021-08-07 10:32:36', '2021-10-04 15:43:31');
+INSERT INTO `tb_page` VALUES (4, '标签', 'tag', 'http://localhost:8444/欧村.png', '2021-08-07 10:32:36', '2021-10-04 15:43:38');
+INSERT INTO `tb_page` VALUES (5, '相册', 'album', 'http://localhost:8444/山.png', '2021-08-07 10:32:36', '2021-12-27 12:23:12');
+INSERT INTO `tb_page` VALUES (6, '友链', 'link', 'http://localhost:8444/水稻.png', '2021-08-07 10:32:36', '2021-10-04 15:44:02');
+INSERT INTO `tb_page` VALUES (7, '关于', 'about', 'http://localhost:8444/雪山.png', '2021-08-07 10:32:36', '2021-10-04 15:44:08');
+INSERT INTO `tb_page` VALUES (8, '留言', 'message', 'http://localhost:8444/街道.png', '2021-08-07 10:32:36', '2021-10-04 16:11:45');
+INSERT INTO `tb_page` VALUES (9, '个人中心', 'user', 'http://localhost:8444/风车.png', '2021-08-07 10:32:36', '2021-10-04 15:45:17');
+INSERT INTO `tb_page` VALUES (10, '文章列表', 'articleList', 'http://localhost:8444/街道.png', '2021-08-10 15:36:19', '2021-10-04 15:45:45');
+INSERT INTO `tb_page` VALUES (904, '说说', 'talk', 'http://localhost:8444/水稻.png', '2022-01-23 00:51:24', '2022-01-23 03:01:21');
 
 -- ----------------------------
 -- Table structure for tb_photo
@@ -523,6 +542,12 @@ CREATE TABLE `tb_photo`  (
 -- ----------------------------
 -- Records of tb_photo
 -- ----------------------------
+INSERT INTO `tb_photo` VALUES (-846331903, 55443458, '1646389847026171906', NULL, 'http://localhost:8444/photos/f5e4dd1cab623f8ba1e1b2a2b18d28d6.png', 0, '2023-04-13 13:48:23', NULL);
+INSERT INTO `tb_photo` VALUES (-846331902, 55443458, '1646389847026171907', NULL, 'http://localhost:8444/photos/03c3b09692988a3f20932492649125ce.png', 0, '2023-04-13 13:48:23', NULL);
+INSERT INTO `tb_photo` VALUES (-846331901, 55443458, '1646389847026171908', NULL, 'http://localhost:8444/photos/e733f86f4523895e46fade42bdca7baf.png', 0, '2023-04-13 13:48:23', NULL);
+INSERT INTO `tb_photo` VALUES (-846331900, 55443458, '1646389847026171909', NULL, 'http://localhost:8444/photos/fea88129629a0c54cbbb7ca841c51afa.png', 0, '2023-04-13 13:48:23', NULL);
+INSERT INTO `tb_photo` VALUES (-846331899, 55443458, '1646389847026171910', NULL, 'http://localhost:8444/photos/1295afa7781ad3a2a42c63d606004fe0.png', 0, '2023-04-13 13:48:23', NULL);
+INSERT INTO `tb_photo` VALUES (-846331898, 55443458, '1646389847026171911', NULL, 'http://localhost:8444/photos/fc629ba1d968b0ac912f6c411aaa5ce8.png', 0, '2023-04-13 13:48:23', NULL);
 
 -- ----------------------------
 -- Table structure for tb_photo_album
@@ -538,11 +563,12 @@ CREATE TABLE `tb_photo_album`  (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '相册' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 55443459 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '相册' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_photo_album
 -- ----------------------------
+INSERT INTO `tb_photo_album` VALUES (55443458, '唯美图片', '记录悲惨生活喵', 'http://localhost:8444/photos/e733f86f4523895e46fade42bdca7baf.png', 0, 1, '2023-04-13 13:48:03', NULL);
 
 -- ----------------------------
 -- Table structure for tb_resource
@@ -1034,9 +1060,9 @@ CREATE TABLE `tb_talk`  (
 -- ----------------------------
 -- Records of tb_talk
 -- ----------------------------
-INSERT INTO `tb_talk` VALUES (49, 1, '测试说说<img src=\"https://static.talkxj.com/emoji/goutou.jpg\" width=\"24\" height=\"24\" alt=\"[狗头]\" style=\"margin: 0 1px;vertical-align: text-bottom\">', '[\'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg\',\n           \'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg\',\n           \'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg\']', 0, 1, '2022-01-24 23:34:59', NULL);
-INSERT INTO `tb_talk` VALUES (50, 1, '测试说说2<img src=\"https://static.talkxj.com/emoji/aojiao.jpg\" width=\"24\" height=\"24\" alt=\"[傲娇]\" style=\"margin: 0 1px;vertical-align: text-bottom\"><img src=\"https://static.talkxj.com/emoji/jingxi.jpg\" width=\"24\" height=\"24\" alt=\"[惊喜]\" style=\"margin: 0 1px;vertical-align: text-bottom\"><img src=\"https://static.talkxj.com/emoji/koubi.jpg\" width=\"24\" height=\"24\" alt=\"[抠鼻]\" style=\"margin: 0 1px;vertical-align: text-bottom\"><img src=\"https://static.talkxj.com/emoji/linghunchuqiao.jpg\" width=\"24\" height=\"24\" alt=\"[灵魂出窍]\" style=\"margin: 0 1px;vertical-align: text-bottom\"><img src=\"https://static.talkxj.com/emoji/zaijian.jpg\" width=\"24\" height=\"24\" alt=\"[再见]\" style=\"margin: 0 1px;vertical-align: text-bottom\"><img src=\"https://static.talkxj.com/emoji/zhichi.jpg\" width=\"24\" height=\"24\" alt=\"[支持]\" style=\"margin: 0 1px;vertical-align: text-bottom\">', '[\"https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg\",\"https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg\"]', 0, 1, '2022-05-29 08:52:10', '2022-05-29 15:23:51');
-INSERT INTO `tb_talk` VALUES (1992314882, 1, '这是一条动态😄，希望没啥问题👍', '[\"http://localhost:83/talks/8854ae40d3adc8ee0187896bc7e72254.png\",\"http://localhost:83/talks/67617cd9d4072bf70cc45ceabe4e1ba9.png\"]', 1, 1, '2022-05-30 21:55:31', NULL);
+INSERT INTO `tb_talk` VALUES (-1198526463, 1, '关注永雏塔菲喵🥰🥰🥰', '[\"http://localhost:8444/talks/e733f86f4523895e46fade42bdca7baf.png\"]', 1, 1, '2023-04-10 15:51:09', NULL);
+INSERT INTO `tb_talk` VALUES (-1144000511, 1, '今天明天后天都不是什么好日子🤗', '[\"http://localhost:8444/talks/e733f86f4523895e46fade42bdca7baf.png\"]', 0, 1, '2023-04-10 15:50:40', NULL);
+INSERT INTO `tb_talk` VALUES (-414482431, 1, '个你能😘🤩🤭', '[\"http://localhost:8444/talks/a3f704e212e4f9ce9641dd99e17bdf65.png\"]', 1, 1, '2023-04-15 14:48:49', NULL);
 
 -- ----------------------------
 -- Table structure for tb_unique_view
@@ -1073,15 +1099,16 @@ CREATE TABLE `tb_user_auth`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `last_login_time` datetime NULL DEFAULT NULL COMMENT '上次登录时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 997 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+  UNIQUE INDEX `username`(`username` ASC) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1019944963 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user_auth
 -- ----------------------------
-INSERT INTO `tb_user_auth` VALUES (1, 1, 'admin@qq.com', '$2a$10$AkxkZaqcxEXdiNE1nrgW1.ms3aS9C5ImXMf8swkWUJuFGMqDl.TPW', 1, '127.0.0.1', '未知', '2021-08-12 15:43:18', '2022-05-30 21:56:21', '2022-05-30 21:56:21');
-INSERT INTO `tb_user_auth` VALUES (995, 1005, 'xiaainy@163.com', '$2a$10$K7KQJ8mED4NKLvaNlAOx5ey4NbcU1CUDrEJnL9zCWNIvnbjrhwOnK', 1, '61.222.202.239', '台湾省', '2022-01-27 10:58:11', '2022-01-27 10:58:12', '2022-01-27 10:58:12');
-INSERT INTO `tb_user_auth` VALUES (996, 1006, 'xxx@qq.com', '$2a$10$AkxkZaqcxEXdiNE1nrgW1.ms3aS9C5ImXMf8swkWUJuFGMqDl.TPW', 1, '255.3.3.3', NULL, '2022-05-28 19:39:38', '2022-05-28 19:39:43', '2022-05-28 19:39:42');
+INSERT INTO `tb_user_auth` VALUES (1, 1, 'admin@qq.com', '$2a$10$.JizovEWNzlKpJ0Il5psK.bHE22qm/AA9veErg1.9Hmv8rjCwAjQm', 1, '127.0.0.1', '未知', '2021-08-12 15:43:18', '2023-04-15 14:46:27', '2023-04-15 14:46:27');
+INSERT INTO `tb_user_auth` VALUES (995, 1005, 'xiaainy@163.com', '$2a$10$.JizovEWNzlKpJ0Il5psK.bHE22qm/AA9veErg1.9Hmv8rjCwAjQm', 1, '61.222.202.239', '台湾省', '2022-01-27 10:58:11', '2022-01-27 10:58:12', '2022-01-27 10:58:12');
+INSERT INTO `tb_user_auth` VALUES (996, 1006, 'xxx@qq.com', '$2a$10$.JizovEWNzlKpJ0Il5psK.bHE22qm/AA9veErg1.9Hmv8rjCwAjQm', 1, '255.3.3.3', NULL, '2022-05-28 19:39:38', '2022-05-28 19:39:43', '2022-05-28 19:39:42');
+INSERT INTO `tb_user_auth` VALUES (1019944962, -1920262142, '56620507', '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', 3, '127.0.0.1', '未知', '2023-04-10 21:21:58', '2023-04-15 14:38:26', '2023-04-15 14:38:26');
 
 -- ----------------------------
 -- Table structure for tb_user_info
@@ -1103,9 +1130,10 @@ CREATE TABLE `tb_user_info`  (
 -- ----------------------------
 -- Records of tb_user_info
 -- ----------------------------
-INSERT INTO `tb_user_info` VALUES (1, 'admin@qq.com', '管理员', 'https://static.talkxj.com/avatar/user.png', 'admin@qq.com', NULL, 0, '2021-08-12 15:43:17', '2021-08-12 15:51:42');
-INSERT INTO `tb_user_info` VALUES (1005, 'xiaainy@163.com', '用户1486533968342859778', 'https://static.talkxj.com/config/2cd793c8744199053323546875655f32.jpg', NULL, NULL, 0, '2022-01-27 10:58:11', NULL);
-INSERT INTO `tb_user_info` VALUES (1006, 'xxx@qq.com', '测试用户1', 'https://static.talkxj.com/config/2cd793c8744199053323546875655f32.jpg', '233', NULL, 0, '2022-05-28 09:59:56', '2022-05-28 21:25:12');
+INSERT INTO `tb_user_info` VALUES (-1920262142, NULL, 'Shinyoki', 'https://avatars.githubusercontent.com/u/56620507?v=4', NULL, NULL, 0, '2023-04-10 21:21:57', NULL);
+INSERT INTO `tb_user_info` VALUES (1, 'admin@qq.com', '管理员', 'http://localhost:8444/头像.png', 'admin@qq.com', NULL, 0, '2021-08-12 15:43:17', '2021-08-12 15:51:42');
+INSERT INTO `tb_user_info` VALUES (1005, 'xiaainy@163.com', '用户1486533968342859778', 'http://localhost:8444/头像.png', NULL, NULL, 0, '2022-01-27 10:58:11', NULL);
+INSERT INTO `tb_user_info` VALUES (1006, 'xxx@qq.com', '测试用户1', 'http://localhost:8444/头像.png', '233', NULL, 0, '2022-05-28 09:59:56', '2022-05-28 21:25:12');
 
 -- ----------------------------
 -- Table structure for tb_user_role
@@ -1116,7 +1144,7 @@ CREATE TABLE `tb_user_role`  (
   `user_id` int NULL DEFAULT NULL COMMENT '用户id',
   `role_id` int NULL DEFAULT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1003 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1082859522 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of tb_user_role
@@ -1124,6 +1152,7 @@ CREATE TABLE `tb_user_role`  (
 INSERT INTO `tb_user_role` VALUES (-440381438, 1006, 2);
 INSERT INTO `tb_user_role` VALUES (1001, 1, 1);
 INSERT INTO `tb_user_role` VALUES (1002, 1005, 2);
+INSERT INTO `tb_user_role` VALUES (1082859521, -1920262142, 2);
 
 -- ----------------------------
 -- Table structure for tb_website_config
@@ -1140,6 +1169,6 @@ CREATE TABLE `tb_website_config`  (
 -- ----------------------------
 -- Records of tb_website_config
 -- ----------------------------
-INSERT INTO `tb_website_config` VALUES (1, '{\"alipayQRCode\":\"https://static.talkxj.com/photos/13d83d77cc1f7e4e0437d7feaf56879f.png\",\"gitee\":\"\",\"github\":\"\",\"isChatRoom\":1,\"isCommentReview\":0,\"isEmailNotice\":1,\"isMessageReview\":0,\"isMusicPlayer\":1,\"isReward\":1,\"qq\":\"\",\"socialLoginList\":[\"qq\",\"weibo\"],\"socialUrlList\":[\"qq\",\"github\",\"gitee\"],\"touristAvatar\":\"https://static.talkxj.com/photos/0bca52afdb2b9998132355d716390c9f.png\",\"userAvatar\":\"https://static.talkxj.com/config/2cd793c8744199053323546875655f32.jpg\",\"websiteAuthor\":\"网站作者\",\"websiteAvatar\":\"https://static.talkxj.com/config/43a07ac1ca201143f7b938d0791124fc.png\",\"websiteCreateTime\":\"2019-12-10\",\"websiteIntro\":\"网站简介\",\"websiteName\":\"个人博客\",\"websiteNotice\":\"请前往后台管理->系统管理->网站管理处修改信息\",\"websiteRecordNo\":\"备案号\",\"websocketUrl\":\"ws://127.0.0.1:8080/websocket\",\"weiXinQRCode\":\"https://static.talkxj.com/photos/4f767ef84e55ab9ad42b2d20e51deca1.png\"}', '2021-08-09 19:37:30', '2022-01-18 00:25:47');
+INSERT INTO `tb_website_config` VALUES (1, '{\"alipayQRCode\":\"http://localhost:8444/街道.png\",\"gitee\":\"\",\"github\":\"\",\"isChatRoom\":1,\"isCommentReview\":0,\"isEmailNotice\":1,\"isMessageReview\":0,\"isMusicPlayer\":1,\"isReward\":1,\"qq\":\"\",\"socialLoginList\":[\"github\"],\"socialUrlList\":[\"qq\",\"github\",\"gitee\"],\"touristAvatar\":\"http://localhost:8444/头像.png\",\"userAvatar\":\"http://localhost:8444/头像.png\",\"websiteAuthor\":\"Senko\",\"websiteAvatar\":\"http://localhost:8444/blog.png\",\"websiteCreateTime\":\"2019-12-10\",\"websiteIntro\":\"No Girl No Life\",\"websiteName\":\"个人博客\",\"websiteNotice\":\"我不会闲的没事就发公告的\",\"websiteRecordNo\":\"这里填备案号\",\"websocketUrl\":\"ws://127.0.0.1:8080/websocket\",\"weixinQRCode\":\"http://localhost:8444/呀哈哈.png\"}', '2021-08-09 19:37:30', '2023-04-15 09:22:35');
 
 SET FOREIGN_KEY_CHECKS = 1;

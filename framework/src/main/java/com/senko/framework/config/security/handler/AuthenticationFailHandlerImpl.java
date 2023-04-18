@@ -23,7 +23,6 @@ import java.text.MessageFormat;
 public class AuthenticationFailHandlerImpl implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        String message = MessageFormat.format("请求访问：{0}，登陆失败", request.getRequestURI());
-        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(message)));
+        ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error("登陆失败!请检查用户名或密码是否输入正确！")));
     }
 }

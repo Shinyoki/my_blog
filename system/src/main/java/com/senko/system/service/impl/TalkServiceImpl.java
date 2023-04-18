@@ -136,7 +136,7 @@ public class TalkServiceImpl extends ServiceImpl<TalkMapper, TalkEntity> impleme
             return new PageResult<>();
         }
 
-        List<TalkDTO> talkDTOList = talkMapper.listTalks(PageUtils.getCurrent(), PageUtils.getSize());
+        List<TalkDTO> talkDTOList = talkMapper.listTalks(PageUtils.getLimitCurrent(), PageUtils.getSize());
 
 
         // 查询每个说说的评论

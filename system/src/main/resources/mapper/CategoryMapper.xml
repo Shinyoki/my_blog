@@ -34,6 +34,7 @@
         select c.id, c.category_name, count(ta.id) articles_count
         from tb_category c
                  left join tb_article ta on c.id = ta.category_id
+        where ta.is_delete = 0
         group by c.id
         limit #{current}, #{size}
     </select>

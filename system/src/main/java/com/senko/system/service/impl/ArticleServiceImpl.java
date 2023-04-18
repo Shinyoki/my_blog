@@ -295,7 +295,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
         articleDTO.setNextArticle(BeanCopyUtils.copyObject(greaterThanArticle, ArticlePaginationDTO.class));
 
         // 获取点赞量
-        int likesCount = Optional.ofNullable((Double) redisHandler.hGet(ARTICLE_LIKE_COUNT_TAG, articleId.toString())).orElse(0D).intValue();
+        int likesCount = Optional.ofNullable((Integer) redisHandler.hGet(ARTICLE_LIKE_COUNT_TAG, articleId.toString())).orElse(0);
         articleDTO.setLikeCount(likesCount);
 
         // 获取阅读量
@@ -370,7 +370,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, ArticleEntity
     }
 
     public ArticlePreviewDTOList getArticlePreview(String modeName, ArticlePreviewVO articlePreviewConditionVO) {
-        List<ArticlePreviewDTO> articlePreviewVOList = articleMapper.listArticePreviewByConditionVO(articlePreviewConditionVO, PageUtils.getCurrent(), PageUtils.getSize());
+        List<ArticlePreviewDTO> articlePreviewVOList = articleMapper.listArticePreviewByConditionVO(articlePreviewConditionVO, PageUtils.getLimitCurrent(), PageUtils.getSize());
         return ArticlePreviewDTOList.builder()
                 .name(modeName)
                 .articlePreviewDTOList(articlePreviewVOList)
